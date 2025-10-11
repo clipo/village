@@ -106,6 +106,11 @@ fit <- fit_stan_model(
   verbose = TRUE
 )
 
+# Save fitted model for later use
+cat("\n=== Saving Fitted Model ===\n")
+saveRDS(fit, "output/sample_analysis/fit_partial_overlap.rds")
+cat("Model saved to: output/sample_analysis/fit_partial_overlap.rds\n")
+
 # Calculate metrics
 cat("\n=== Computing Contemporaneity Metrics ===\n")
 n_deposits <- length(unique(analysis_data$deposit))
@@ -152,6 +157,13 @@ try({
          width = 8, height = 6, dpi = 300)
   cat("  Created: 04_overlap_matrix.png\n")
 }, silent = TRUE)
+
+try({
+  p5 <- plot_posterior_predictive(fit, analysis_data, n_samples = 50)
+  ggsave("output/sample_analysis/05_posterior_predictive.png", p5,
+         width = 10, height = 8, dpi = 300)
+  cat("  Created: 05_posterior_predictive.png\n")
+})
 
 try({
   conv_plots <- plot_convergence_diagnostics(fit)

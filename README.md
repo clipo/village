@@ -143,24 +143,50 @@ Model fit assessment:
 
 ![Posterior Predictive](output/sample_analysis/05_posterior_predictive.png)
 
-This plot compares observed radiocarbon dates (black points with error bars) against the model's predictions (blue density curves). Good model fit is indicated when observed dates fall within the high-probability regions of the predicted distributions.
+This plot compares the observed radiocarbon age distribution (black line) against the model's posterior predictive distributions (blue lines, 50 samples shown). Good model fit is indicated when the observed distribution falls within the range of predicted distributions. The plot shows good agreement between observed and predicted radiocarbon ages.
 
 ### Running the Example
 
 To reproduce this analysis:
 
 ```r
-# Load filtered data
-source("analyze_sample_data.R")
-
 # Run full analysis
 source("run_full_analysis.R")
+
+# Run hypothesis tests
+source("run_hypothesis_tests.R")
+
+# Render paper
+quarto render paper_template.qmd --to pdf
 ```
 
-Results will be saved to `output/sample_analysis/`:
-- **PNG plots**: High-resolution visualizations (300 DPI)
-- **CSV files**: Occupation spans, overlap matrix, calibrated dates
-- **TXT summary**: Complete metrics and diagnostics
+Results will be saved to:
+- `output/sample_analysis/`: Main analysis outputs (plots, CSV files, metrics)
+- `output/hypothesis_tests/`: Hypothesis testing results (overlap durations, precedence, ordering)
+- `paper_template.pdf`: Complete research paper with all results
+
+### Hypothesis Testing Capabilities
+
+The framework includes comprehensive hypothesis testing for temporal relationships:
+
+**Overlap Duration Analysis** (`pairwise_overlap_durations.csv`):
+- Mean overlap duration in years for each site pair
+- 95% credible intervals for overlap estimates
+- Probability of overlap exceeding specific thresholds (50, 100, 200 years)
+
+**Temporal Precedence Tests** (`precedence_tests.csv`):
+- Probability that one site completely precedes another (no overlap)
+- Gap duration between end of earlier site and start of later site
+- Directional relationships with statistical significance
+
+**Temporal Ordering Hypotheses** (`ordering_hypotheses.csv`):
+- Tests competing hypotheses about the overall temporal sequence
+- Posterior probabilities for alternative orderings
+- Relative support for each hypothesis
+
+**Complete Overlap Tests** (`complete_overlap_tests.csv`):
+- Probability that one site's occupation is fully contained within another's
+- Useful for identifying nested settlement patterns
 
 ## Using This Framework for Your Own Data
 

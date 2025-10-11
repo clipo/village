@@ -1,0 +1,36 @@
+=== SAMPLE DATA ANALYSIS RESULTS ===
+Date:  2025-10-11 12:12:25 
+
+Sites analyzed:
+  1. Thomas_Luckey        (14 dates)
+  2. Chenango_Point       (12 dates)
+  3. Broome_Tech          ( 9 dates)
+  4. CCE_Site             ( 4 dates)
+  5. Hill_Creek           ( 4 dates)
+
+=== Contemporaneity Metrics Summary ===
+
+Pairwise Overlap Probabilities:
+      [,1]  [,2]  [,3]  [,4]  [,5]
+[1,] 1.000 0.703 1.000 0.664 1.000
+[2,] 0.703 1.000 0.704 0.005 0.704
+[3,] 1.000 0.704 1.000 0.664 1.000
+[4,] 0.664 0.005 0.664 1.000 0.664
+[5,] 1.000 0.704 1.000 0.664 1.000
+
+Occupation Spans:
+  deposit duration_mean start_median end_median
+1       1     685.12770    1027.4787   354.0252
+2       2      37.70747     476.0283   465.9986
+3       3     593.60289     875.3358   296.7014
+4       4      14.52602     672.0452   668.6883
+5       5     392.67108     764.1196   386.6027
+
+Multi-Deposit Contemporaneity:
+  Probability all deposits overlap:  0.005 
+  Common window duration (mean):  69.8  years
+
+Total Time Span:
+  Mean:  759.4  years
+  95% CI: [ 612.3 ,  935.2 ]
+

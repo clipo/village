@@ -34,13 +34,13 @@ abstract: |
 
 ## Research Context
 
-The question of contemporaneity—whether archaeological sites or deposits were occupied simultaneously—is central to understanding past human societies [@buck2001bct; @bronkramsey2009]. Determining which sites were occupied at the same time allows archaeologists to reconstruct interaction networks, trace the spread of cultural innovations, identify migration events, and understand regional settlement patterns [@blankholm2008; @contreras2016]. However, establishing contemporaneity from radiocarbon dates is challenging due to the probabilistic nature of radiocarbon calibration, measurement uncertainty, and the need to account for occupation span rather than single-point events [@bayliss2009].
+The question of contemporaneity—whether archaeological sites or deposits were occupied simultaneously—is central to understanding past human societies [@bronkramsey2009]. Determining which sites were occupied at the same time allows archaeologists to reconstruct interaction networks, trace the spread of cultural innovations, identify migration events, and understand regional settlement patterns [@contreras2016]. However, establishing contemporaneity from radiocarbon dates is challenging due to the probabilistic nature of radiocarbon calibration, measurement uncertainty, and the need to account for occupation span rather than single-point events [].
 
-Traditional approaches to assessing contemporaneity have often relied on visual comparison of calibrated date ranges or informal overlap assessments [@michczynska2007]. While informative, these methods lack formal statistical rigor and do not provide probabilistic estimates of temporal relationships. Bayesian chronological modeling offers a powerful alternative by combining radiocarbon measurements with stratigraphic information and prior knowledge to generate posterior probability distributions for events of interest [@buck1996; @bronkramsey2009].
+Traditional approaches to assessing contemporaneity have often relied on visual comparison of calibrated date ranges or informal overlap assessments []. While informative, these methods lack formal statistical rigor and do not provide probabilistic estimates of temporal relationships. Bayesian chronological modeling offers a powerful alternative by combining radiocarbon measurements with stratigraphic information and prior knowledge to generate posterior probability distributions for events of interest [@buck1996].
 
 ## Study Area and Archaeological Context
 
-This study focuses on five archaeological sites attributed to the Late Woodland period (ca. 1000-300 BP) in the Upper Susquehanna River Valley and surrounding regions of New York State. This period is characterized by the adoption and intensification of maize agriculture, population aggregation into larger villages, and the development of distinctive ceramic traditions [@hart2008; @ritchie1980]. Understanding the temporal relationships between Late Woodland sites is crucial for interpreting the spread of agricultural practices, the formation of proto-Iroquoian settlement patterns, and potential population movements during this transformative period.
+This study focuses on five archaeological sites attributed to the Late Woodland period (ca. 1000-300 BP) in the Upper Susquehanna River Valley and surrounding regions of New York State. This period is characterized by the adoption and intensification of maize agriculture, population aggregation into larger villages, and the development of distinctive ceramic traditions []. Understanding the temporal relationships between Late Woodland sites is crucial for interpreting the spread of agricultural practices, the formation of proto-Iroquoian settlement patterns, and potential population movements during this transformative period.
 
 The sites examined in this study are:
 
@@ -50,7 +50,7 @@ The sites examined in this study are:
 - **Hill Creek**: A site with concentrated radiocarbon dates suggesting brief occupation
 - **Thomas Luckey**: A well-documented village site with extensive radiocarbon dating
 
-All radiocarbon dates in this study were obtained from cultigens (maize, beans, and squash), which have the advantage of being short-lived samples that closely reflect the actual time of occupation [@gavin2001; @dee2010].
+All radiocarbon dates in this study were obtained from cultigens (maize, beans, and squash), which have the advantage of being short-lived samples that closely reflect the actual time of occupation [].
 
 ## Research Questions
 
@@ -81,11 +81,11 @@ Our dataset comprises 43 AMS radiocarbon dates obtained from archaeological cont
 - **Bean** (*Phaseolus vulgaris*): 15% of samples (n=7)
 - **Squash** (*Cucurbita* sp.): 2% of samples (n=1)
 
-Cultigen samples were selected deliberately because they represent short-lived organisms that provide direct dates on human activity rather than old-wood effects common with charcoal samples [@schiffer1986; @gavin2001]. All samples were recovered from secure archaeological contexts (storage pits, house floors, middens) and processed by reputable radiocarbon laboratories (Beta Analytic, University of Arizona AMS Laboratory).
+Cultigen samples were selected deliberately because they represent short-lived organisms that provide direct dates on human activity rather than old-wood effects common with charcoal samples []. All samples were recovered from secure archaeological contexts (storage pits, house floors, middens) and processed by reputable radiocarbon laboratories (Beta Analytic, University of Arizona AMS Laboratory).
 
 ### Data Quality and Outlier Assessment
 
-Prior to analysis, we evaluated the radiocarbon dataset for potential outliers using established criteria [@bronkramsey2009outliers]. We examined:
+Prior to analysis, we evaluated the radiocarbon dataset for potential outliers using established criteria []. We examined:
 
 - **Laboratory reproducibility**: Checking for anomalous dates that differ significantly from replicate samples in the same context
 - **Archaeological consistency**: Verifying that dates align with artifact assemblages and stratigraphic relationships
@@ -163,7 +163,12 @@ Figure 1 shows the calibrated probability distributions for all dates in the stu
 #| out-width: "100%"
 #| fig-height: 5
 
-knitr::include_graphics("output/sample_analysis/01_calibrated_dates.png")
+library(ggplot2)
+img <- png::readPNG("output/sample_analysis/01_calibrated_dates.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
 ```
 
 ### Mixture Approximation for Bayesian Analysis
@@ -230,7 +235,7 @@ We considered three model variants representing different temporal hypotheses (F
 #| warning: false
 #| fig-width: 6.5
 #| out-width: "100%"
-#| fig-height: 9
+#| fig-height: 7.5
 
 library(ggplot2)
 library(gridExtra)
@@ -311,10 +316,10 @@ Model validity was assessed through:
 All analyses were conducted in R version 4.4.0 [@rcoreteam] with the following packages:
 
 - `rcarbon` v1.5.1: Radiocarbon calibration [@crema2021]
-- `cmdstanr` v0.8.1: Interface to Stan [@gabry2024]
-- `posterior` v1.6.0: Posterior distribution analysis [@burkner2024]
+- `cmdstanr` v0.8.1: Interface to Stan []
+- `posterior` v1.6.0: Posterior distribution analysis []
 - `bayesplot` v1.11.1: MCMC diagnostics and visualization [@gabry2019]
-- `loo` v2.8.0: Model comparison [@vehtari2024]
+- `loo` v2.8.0: Model comparison []
 
 Stan model code, R analysis scripts, and data are available in the project repository (https://github.com/clipo/village) to facilitate reproducibility and reuse.
 
@@ -421,7 +426,11 @@ Figure 3 visualizes the posterior distributions for occupation boundaries, showi
 #| fig-height: 4
 #| out-width: "100%"
 
-knitr::include_graphics("output/sample_analysis/02_occupation_boundaries.png")
+img <- png::readPNG("output/sample_analysis/02_occupation_boundaries.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
 ```
 
 Figure 4 shows the occupation spans with median dates, providing a clear visualization of temporal relationships.
@@ -435,7 +444,11 @@ Figure 4 shows the occupation spans with median dates, providing a clear visuali
 #| fig-height: 4
 #| out-width: "100%"
 
-knitr::include_graphics("output/sample_analysis/03_temporal_overlap.png")
+img <- png::readPNG("output/sample_analysis/03_temporal_overlap.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
 ```
 
 ## Contemporaneity Assessment
@@ -452,9 +465,11 @@ Table 4 presents the probability of temporal overlap for each pair of sites. The
 
 overlap_mat <- read_csv("output/sample_analysis/overlap_matrix.csv", show_col_types = FALSE)
 
-# Format as percentages
+# Move site column to front and use as row names
 overlap_mat_formatted <- overlap_mat %>%
-  mutate(across(where(is.numeric), ~sprintf("%.1f%%", . * 100)))
+  select(site, everything()) %>%
+  mutate(across(where(is.numeric), ~sprintf("%.1f%%", . * 100))) %>%
+  rename(Site = site)
 
 kable(overlap_mat_formatted, align = "lccccc")
 ```
@@ -475,12 +490,18 @@ Figure 5 visualizes the overlap probability matrix as a heatmap.
 
 ```{r}
 #| label: fig-overlap-matrix
-#| fig-cap: "Heatmap of pairwise contemporaneity probabilities. Yellow indicates high probability of temporal overlap (near 1.0), while dark blue indicates low probability (near 0.0). The strong clustering of Broome Tech, Chenango Point, and Thomas Luckey is evident, as is the temporal separation of CCE Site from Hill Creek."
+#| fig-cap: "Heatmap of pairwise contemporaneity probabilities. Green indicates high probability of temporal overlap (near 1.0), while dark red indicates low probability (near 0.0). The strong clustering of Broome Tech, Chenango Point, and Thomas Luckey is evident, as is the temporal separation of CCE Site from Hill Creek."
 #| echo: false
 #| warning: false
 #| fig-height: 5
+#| fig-width: 6
 #| out-width: "100%"
-knitr::include_graphics("output/sample_analysis/04_overlap_matrix.png")
+
+img <- png::readPNG("output/sample_analysis/04_overlap_matrix.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
 ```
 
 ### Global Contemporaneity
@@ -502,7 +523,11 @@ Figure 6 shows posterior predictive checks comparing observed radiocarbon dates 
 #| fig-height: 5
 #| out-width: "100%"
 
-knitr::include_graphics("output/sample_analysis/05_posterior_predictive.png")
+img <- png::readPNG("output/sample_analysis/05_posterior_predictive.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
 ```
 
 The model shows good predictive performance, with observed dates generally falling within the 68% predictive intervals. A few dates fall in the tails of the predictive distributions, which is expected given calibration curve uncertainty and is consistent with good model calibration (we expect ~32% of observations outside the 68% interval).
@@ -517,6 +542,95 @@ We conducted sensitivity analyses to assess robustness of conclusions:
 
 These analyses indicate that our conclusions are robust to modeling choices and not driven by individual dates.
 
+## Hypothesis Testing
+
+Beyond pairwise overlap probabilities, we conducted targeted hypothesis tests to quantify specific temporal relationships.
+
+### Overlap Duration Estimates
+
+Table 5 presents the estimated overlap durations (in years) for site pairs with high contemporaneity probability. These estimates provide quantitative assessments of the temporal extent of potential interaction periods.
+
+```{r}
+#| label: tbl-overlap-durations
+#| tbl-cap: "Estimated overlap durations (years) for site pairs with high contemporaneity probability (p > 0.95). Values represent posterior means with 95% credible intervals."
+#| echo: false
+#| warning: false
+
+overlap_durations <- read_csv("output/hypothesis_tests/pairwise_overlap_durations.csv", show_col_types = FALSE)
+
+overlap_durations_display <- overlap_durations %>%
+  filter(prob_any_overlap > 0.95) %>%
+  mutate(
+    `Site Pair` = paste(site_1, "-", site_2),
+    `Mean Overlap (years)` = round(overlap_mean, 0),
+    `95% CI` = paste0("[", round(overlap_95ci_lower, 0), ", ", round(overlap_95ci_upper, 0), "]"),
+    `P(overlap)` = round(prob_any_overlap, 3)
+  ) %>%
+  select(`Site Pair`, `Mean Overlap (years)`, `95% CI`, `P(overlap)`)
+
+kable(overlap_durations_display, align = "lccc")
+```
+
+The three contemporaneous sites (Broome Tech, Chenango Point, Thomas Luckey) show substantial overlap durations ranging from 377 to 524 years, with high statistical certainty (95% credible intervals all exceeding 275 years). This extended temporal overlap strongly supports sustained contemporaneous occupation and potential cultural interaction.
+
+### Temporal Precedence
+
+We tested directional precedence relationships to identify cases where one site definitively precedes another with no temporal overlap. Table 6 shows relationships with precedence probability exceeding 0.5.
+
+```{r}
+#| label: tbl-precedence
+#| tbl-cap: "Temporal precedence relationships with probability > 0.5. Gap duration represents the time between end of earlier site and start of later site."
+#| echo: false
+#| warning: false
+
+precedence <- read_csv("output/hypothesis_tests/precedence_tests.csv", show_col_types = FALSE)
+
+precedence_display <- precedence %>%
+  filter(prob_precedence > 0.5) %>%
+  arrange(desc(prob_precedence)) %>%
+  mutate(
+    `Sequence` = paste(earlier_site, "→", later_site),
+    `P(precedence)` = round(prob_precedence, 3),
+    `Gap (years)` = round(gap_mean, 0),
+    `95% CI` = paste0("[", round(gap_95ci_lower, 0), ", ", round(gap_95ci_upper, 0), "]")
+  ) %>%
+  select(`Sequence`, `P(precedence)`, `Gap (years)`, `95% CI`)
+
+if (nrow(precedence_display) > 0) {
+  kable(precedence_display, align = "lccc")
+} else {
+  cat("No strong precedence relationships detected (all probabilities < 0.5)\n")
+}
+```
+
+Hill Creek shows strong evidence of preceding CCE Site (p = 0.995), with a gap of approximately 175 years (95% CI: [61, 219] years). This temporal separation indicates these sites represent distinct occupation phases rather than a continuous settlement pattern.
+
+### Temporal Ordering Hypotheses
+
+We evaluated five competing hypotheses about the overall temporal ordering of sites. Table 7 presents the posterior probabilities for each ordering scenario.
+
+```{r}
+#| label: tbl-ordering-hypotheses
+#| tbl-cap: "Posterior probabilities for alternative temporal ordering hypotheses. Relative support indicates the probability of each hypothesis relative to the set tested."
+#| echo: false
+#| warning: false
+
+ordering <- read_csv("output/hypothesis_tests/ordering_hypotheses.csv", show_col_types = FALSE)
+
+ordering_display <- ordering %>%
+  mutate(
+    Hypothesis = hypothesis,
+    Sequence = ordering,
+    Probability = round(probability, 4),
+    `Relative Support` = paste0(round(relative_support * 100, 1), "%")
+  ) %>%
+  select(Hypothesis, Sequence, Probability, `Relative Support`)
+
+kable(ordering_display, align = "llcc")
+```
+
+The most supported temporal sequence is Hill Creek → Thomas Luckey → Broome Tech → Chenango Point → CCE Site (59% relative support), though absolute probabilities for strict orderings are low due to the substantial overlap among the middle three sites. This reflects the model's appropriate uncertainty about precise ordering when sites have contemporaneous occupations.
+
 # Discussion
 
 ## Temporal Structure of Late Woodland Occupations
@@ -527,11 +641,11 @@ Our Bayesian analysis reveals a clear temporal structure among the five study si
 
 Three sites—Broome Tech, Chenango Point, and Thomas Luckey—were nearly certainly occupied simultaneously (p > 0.99), with overlapping occupation spans centered around 500-700 cal BP (cal AD 1250-1450). This contemporaneity suggests these sites may represent:
 
-**A Regional Settlement System**: The three sites may have functioned as a network of contemporaneous villages within an integrated settlement system [@hally1993]. In Late Woodland contexts, such systems often featured village clusters connected by kinship ties, trade networks, and shared ceremonial practices [@snow1995]. The similar occupation spans and agricultural emphasis (all sites yielded abundant maize) support this interpretation.
+**A Regional Settlement System**: The three sites may have functioned as a network of contemporaneous villages within an integrated settlement system []. In Late Woodland contexts, such systems often featured village clusters connected by kinship ties, trade networks, and shared ceremonial practices []. The similar occupation spans and agricultural emphasis (all sites yielded abundant maize) support this interpretation.
 
-**Cultural Affinity**: Contemporaneous occupation alone does not prove direct interaction, but the timing coincides with the widespread adoption of Northern Flint maize varieties in the Northeast [@hart2008] and the formation of proto-Iroquoian settlement patterns [@birch2012]. The sites may represent communities participating in shared cultural traditions and technological innovations.
+**Cultural Affinity**: Contemporaneous occupation alone does not prove direct interaction, but the timing coincides with the widespread adoption of Northern Flint maize varieties in the Northeast [] and the formation of proto-Iroquoian settlement patterns []. The sites may represent communities participating in shared cultural traditions and technological innovations.
 
-**Demographic Aggregation**: The period around 500-700 BP (cal AD 1250-1450) corresponds to a time of increasing village size and population aggregation in the region [@birch2015; @snow1995]. The contemporaneous occupation of multiple large villages may reflect regional population growth and the formation of more complex social organization.
+**Demographic Aggregation**: The period around 500-700 BP (cal AD 1250-1450) corresponds to a time of increasing village size and population aggregation in the region []. The contemporaneous occupation of multiple large villages may reflect regional population growth and the formation of more complex social organization.
 
 ### Temporal Outliers
 
@@ -561,7 +675,7 @@ Our approach offers several advantages over traditional radiocarbon analysis met
 
 **Uncertainty Quantification**: The Bayesian framework naturally propagates uncertainty from radiocarbon measurement through calibration to final interpretations. The credible intervals for occupation boundaries reflect all sources of uncertainty in the dating process.
 
-**Occupation Modeling**: By explicitly modeling occupation boundaries rather than treating dates as instantaneous events, we better represent the archaeological reality that sites were occupied over extended periods [@bronkramsey2009; @buck2001bct].
+**Occupation Modeling**: By explicitly modeling occupation boundaries rather than treating dates as instantaneous events, we better represent the archaeological reality that sites were occupied over extended periods [@bronkramsey2009].
 
 **Flexibility**: The partial overlap model makes minimal assumptions about temporal relationships, letting the data determine patterns of contemporaneity rather than imposing prior structure.
 
@@ -571,7 +685,7 @@ Traditional approaches to assessing contemporaneity include:
 
 1. **Visual comparison of calibrated dates**: Subject to interpretation bias and lacks formal statistical assessment
 2. **Date range overlap**: Treats HPD intervals as fixed ranges, ignoring probability structure within intervals
-3. **Summed probability distributions (SPD)**: Useful for detecting population trends [@crema2017] but not designed for site-to-site contemporaneity assessment
+3. **Summed probability distributions (SPD)**: Useful for detecting population trends [] but not designed for site-to-site contemporaneity assessment
 4. **OxCal phase models**: Powerful but require assumptions about temporal ordering [@bronkramsey2009]
 
 Our approach complements these methods by providing explicit probability estimates for pairwise contemporaneity without requiring prior assumptions about temporal relationships.
@@ -582,13 +696,13 @@ Our approach complements these methods by providing explicit probability estimat
 
 The near-certain contemporaneity of Broome Tech, Chenango Point, and Thomas Luckey has important implications for interpreting Late Woodland settlement patterns:
 
-**Dispersed Village Pattern**: Rather than a single large settlement, the region supported multiple contemporaneous villages. This dispersed pattern is characteristic of Late Woodland settlement organization [@ritchie1980; @snow1995].
+**Dispersed Village Pattern**: Rather than a single large settlement, the region supported multiple contemporaneous villages. This dispersed pattern is characteristic of Late Woodland settlement organization [; ].
 
 **Interaction Networks**: Contemporaneous villages likely maintained interaction through trade, intermarriage, and shared ceremonies. Material culture analysis could test for evidence of interaction (shared ceramic styles, lithic sources, etc.).
 
-**Agricultural Landscape**: The abundant maize remains at all three sites indicate intensive agriculture during their contemporaneous occupation. This suggests a well-established agricultural landscape with cleared fields and storage infrastructure [@crawford2006].
+**Agricultural Landscape**: The abundant maize remains at all three sites indicate intensive agriculture during their contemporaneous occupation. This suggests a well-established agricultural landscape with cleared fields and storage infrastructure [].
 
-**Proto-Iroquoian Development**: The temporal clustering around 500-700 BP coincides with the formation of larger, more permanent villages in the Iroquoian culture area [@snow1995]. These sites may represent an intermediate stage in the development from Late Woodland to Contact period settlement patterns.
+**Proto-Iroquoian Development**: The temporal clustering around 500-700 BP coincides with the formation of larger, more permanent villages in the Iroquoian culture area []. These sites may represent an intermediate stage in the development from Late Woodland to Contact period settlement patterns.
 
 ### Cultural Continuity and Change
 
@@ -620,7 +734,7 @@ All dates derive from cultigens, which provides chronological advantages (short-
 - **Activity bias**: Dates reflect agricultural activities rather than year-round occupation
 - **Preservation bias**: Sites with poor botanical preservation are underrepresented
 
-Despite these biases, cultigen dates provide the most reliable chronological information for Late Woodland agricultural villages [@hart2008].
+Despite these biases, cultigen dates provide the most reliable chronological information for Late Woodland agricultural villages [].
 
 ### Model Extensions
 
