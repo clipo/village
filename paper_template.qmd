@@ -22,7 +22,6 @@ format:
     fig-width: 7
     fig-height: 5
 bibliography: references.bib
-csl: american-antiquity.csl
 abstract: |
   Understanding temporal relationships between archaeological sites is fundamental to interpreting past human behavior, cultural transmission, and population dynamics. This study presents a Bayesian hierarchical modeling approach to assess contemporaneity among five Late Woodland period archaeological sites in the northeastern United States using radiocarbon dates from cultigens (maize, beans, and squash). We analyzed 43 radiocarbon dates from Broome Tech, CCE Site, Chenango Point, Hill Creek, and Thomas Luckey sites using a flexible partial overlap model that estimates independent occupation boundaries for each site while accounting for radiocarbon calibration uncertainty. Results indicate that Broome Tech, Chenango Point, and Thomas Luckey were contemporaneous with near-complete temporal overlap (p > 0.99), suggesting potential interaction networks or shared cultural practices. In contrast, CCE Site and Hill Creek show minimal overlap with the main cluster (p < 0.01), indicating temporally distinct occupations. This analytical framework provides robust probabilistic assessments of contemporaneity that can inform interpretations of cultural interaction, migration patterns, and settlement systems in prehistoric contexts.
 ---
@@ -100,17 +99,21 @@ library(dplyr)
 library(knitr)
 
 # Load the data
-data <- read.csv("data/sample_c14_data.csv")
+data <- read.csv("data/radiocarbon_dates.csv")
+
+# Filter to just the 5 sites in the analysis
+analysis_sites <- c("Broome_Tech", "CCE_Site", "Chenango_Point", "Hill_Creek", "Thomas_Luckey")
 
 # Create summary table
 summary_table <- data %>%
+  filter(site %in% analysis_sites) %>%
   group_by(site) %>%
   summarise(
     `N Dates` = n(),
-    `Mean Age (BP)` = round(mean(age), 0),
-    `SD (BP)` = round(sd(age), 0),
-    `Age Range (BP)` = paste0(min(age), "-", max(age)),
-    `Mean Error (±)` = round(mean(error), 0),
+    `Mean Age (BP)` = round(mean(c14_age), 0),
+    `SD (BP)` = round(sd(c14_age), 0),
+    `Age Range (BP)` = paste0(min(c14_age), "-", max(c14_age)),
+    `Mean Error (±)` = round(mean(c14_error), 0),
     Materials = paste(unique(material), collapse = ", ")
   ) %>%
   arrange(desc(`Mean Age (BP)`))
@@ -618,11 +621,7 @@ All data and analysis code are available in the project repository: https://gith
 
 The partial overlap model implemented in Stan:
 
-```{stan}
-#| eval: false
-#| echo: true
-#| code-fold: false
-
+```stan
 // Partial overlap model for contemporaneity assessment
 data {
   int<lower=1> N;                    // Number of radiocarbon dates
