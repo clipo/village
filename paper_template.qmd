@@ -19,8 +19,12 @@ format:
     documentclass: article
     toc: true
     number-sections: true
-    fig-width: 7
-    fig-height: 5
+    fig-width: 6
+    fig-height: 4
+    geometry:
+      - margin=1in
+      - paperwidth=8.5in
+      - paperheight=11in
 bibliography: references.bib
 abstract: |
   Understanding temporal relationships between archaeological sites is fundamental to interpreting past human behavior, cultural transmission, and population dynamics. This study presents a Bayesian hierarchical modeling approach to assess contemporaneity among five Late Woodland period archaeological sites in the northeastern United States using radiocarbon dates from cultigens (maize, beans, and squash). We analyzed 43 radiocarbon dates from Broome Tech, CCE Site, Chenango Point, Hill Creek, and Thomas Luckey sites using a flexible partial overlap model that estimates independent occupation boundaries for each site while accounting for radiocarbon calibration uncertainty. Results indicate that Broome Tech, Chenango Point, and Thomas Luckey were contemporaneous with near-complete temporal overlap (p > 0.99), suggesting potential interaction networks or shared cultural practices. In contrast, CCE Site and Hill Creek show minimal overlap with the main cluster (p < 0.01), indicating temporally distinct occupations. This analytical framework provides robust probabilistic assessments of contemporaneity that can inform interpretations of cultural interaction, migration patterns, and settlement systems in prehistoric contexts.
@@ -146,8 +150,9 @@ Figure 1 shows the calibrated probability distributions for all dates in the stu
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-width: 10
-#| fig-height: 8
+#| fig-width: 6
+#| out-width: "100%"
+#| fig-height: 5
 
 knitr::include_graphics("output/sample_analysis/01_calibrated_dates.png")
 ```
@@ -201,13 +206,52 @@ The model uses weakly informative priors:
 
 ### Model Variants
 
-We considered three model variants representing different temporal hypotheses:
+We considered three model variants representing different temporal hypotheses (Figure 2):
 
 1. **Contemporaneous Model**: All sites share a single occupation window with common start and end boundaries. This model has the strongest assumptions and fewest parameters.
 
 2. **Sequential Model**: Sites are temporally ordered with no overlap, such that each site ends before the next begins. This model represents the hypothesis of successive occupations.
 
 3. **Partial Overlap Model**: Each site has independent occupation boundaries with no ordering constraints. This is the most flexible model and allows any pattern of overlap or separation.
+
+```{r}
+#| label: fig-model-expectations
+#| fig-cap: "Visual representation of the three model variants showing different temporal relationship hypotheses. (A) Contemporaneous model: all deposits share a single occupation window with common start (blue) and end (red) boundaries. (B) Sequential model: deposits are temporally ordered with no overlap, each ending before the next begins. (C) Partial overlap model: each deposit has independent boundaries allowing flexible overlap patterns. Black dots represent individual radiocarbon dates. These diagrams illustrate the structural differences between models, with the partial overlap model being the most flexible."
+#| echo: false
+#| warning: false
+#| fig-width: 6.5
+#| out-width: "100%"
+#| fig-height: 9
+
+library(ggplot2)
+library(gridExtra)
+
+# Load the three model diagrams
+img1 <- png::readPNG("output/model_diagrams/model_contemporaneous.png")
+img2 <- png::readPNG("output/model_diagrams/model_sequential.png")
+img3 <- png::readPNG("output/model_diagrams/model_partial_overlap.png")
+
+# Create grid plots
+p1 <- ggplot() +
+  annotation_custom(grid::rasterGrob(img1, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void() +
+  ggtitle("A. Contemporaneous Model")
+
+p2 <- ggplot() +
+  annotation_custom(grid::rasterGrob(img2, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void() +
+  ggtitle("B. Sequential Model")
+
+p3 <- ggplot() +
+  annotation_custom(grid::rasterGrob(img3, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void() +
+  ggtitle("C. Partial Overlap Model")
+
+grid.arrange(p1, p2, p3, ncol=1)
+```
 
 Model comparison was performed using Pareto-smoothed importance sampling leave-one-out cross-validation (PSIS-LOO) [@vehtari2017], which provides an estimate of out-of-sample predictive accuracy. The partial overlap model was selected for detailed inference based on its superior fit (see Results).
 
@@ -364,8 +408,9 @@ Figure 3 visualizes the posterior distributions for occupation boundaries, showi
 #| fig-cap: "Posterior probability distributions for site occupation start (blue) and end (red) boundaries. Distributions represent the probability density for the true calendar date of first occupation (start) and abandonment (end) at each site. Wider distributions indicate greater uncertainty. Note the clear temporal separation of CCE Site and Hill Creek from the main cluster (Broome Tech, Chenango Point, Thomas Luckey), which show substantial overlap in their occupation spans."
 #| echo: false
 #| warning: false
-#| fig-width: 10
-#| fig-height: 6
+#| fig-width: 6
+#| fig-height: 4
+#| out-width: "100%"
 
 knitr::include_graphics("output/sample_analysis/02_occupation_boundaries.png")
 ```
@@ -377,8 +422,9 @@ Figure 4 shows the occupation spans with median dates, providing a clear visuali
 #| fig-cap: "Site occupation spans showing median start (blue dots) and end (red dots) dates with horizontal bars spanning the 95% HDI. Sites are arranged vertically for clarity. The substantial overlap between Broome Tech, Chenango Point, and Thomas Luckey is evident, as is the temporal separation of CCE Site (latest) and Hill Creek (intermediate)."
 #| echo: false
 #| warning: false
-#| fig-width: 10
-#| fig-height: 6
+#| fig-width: 6
+#| fig-height: 4
+#| out-width: "100%"
 
 knitr::include_graphics("output/sample_analysis/03_temporal_overlap.png")
 ```
@@ -423,9 +469,8 @@ Figure 5 visualizes the overlap probability matrix as a heatmap.
 #| fig-cap: "Heatmap of pairwise contemporaneity probabilities. Yellow indicates high probability of temporal overlap (near 1.0), while dark blue indicates low probability (near 0.0). The strong clustering of Broome Tech, Chenango Point, and Thomas Luckey is evident, as is the temporal separation of CCE Site from Hill Creek."
 #| echo: false
 #| warning: false
-#| fig-width: 8
-#| fig-height: 7
-
+#| fig-height: 5
+#| out-width: "100%"
 knitr::include_graphics("output/sample_analysis/04_overlap_matrix.png")
 ```
 
@@ -444,8 +489,9 @@ Figure 6 shows posterior predictive checks comparing observed radiocarbon dates 
 #| fig-cap: "Posterior predictive checks comparing observed radiocarbon dates (black points with error bars) to model predictions (blue probability densities). Good model fit is indicated when observed dates fall within the high-probability regions of the predicted distributions. The model shows excellent fit for most dates, with a few cases where observed dates fall in the tails of predictions, likely due to calibration curve structure."
 #| echo: false
 #| warning: false
-#| fig-width: 10
-#| fig-height: 8
+#| fig-width: 6
+#| fig-height: 5
+#| out-width: "100%"
 
 knitr::include_graphics("output/sample_analysis/05_posterior_predictive.png")
 ```
