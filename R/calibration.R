@@ -280,6 +280,9 @@ fit_gaussian_mixture_simple <- function(x, weights, n_components,
     log_lik_old <- log_lik
   }
 
+  # Ensure weights sum to exactly 1.0 (avoid numerical precision issues)
+  mix_weights <- mix_weights / sum(mix_weights)
+
   # Return mixture parameters
   list(
     weights = mix_weights,
@@ -326,7 +329,6 @@ prepare_stan_calibration_data <- function(cal_result,
 
     # Format for Stan
     stan_data <- list(
-      N = n_dates,
       K = n_components,
       mix_weights = do.call(rbind, lapply(mixture_params, function(x) x$weights)),
       mix_means = do.call(rbind, lapply(mixture_params, function(x) x$means)),
@@ -338,7 +340,6 @@ prepare_stan_calibration_data <- function(cal_result,
     cal_curve <- get_calibration_curve(cal_result$metadata$calibration_curve)
 
     stan_data <- list(
-      N = n_dates,
       N_cal_curve = nrow(cal_curve),
       cal_curve_bp = cal_curve$cal_bp,
       cal_curve_c14 = cal_curve$c14_age,

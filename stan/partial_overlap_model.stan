@@ -63,9 +63,9 @@ transformed data {
 }
 
 parameters {
-  // Deposit-specific occupation boundaries (no ordering constraint)
-  vector[n_deposits] theta_start;
-  vector[n_deposits] theta_end;
+  // Deposit-specific occupation boundaries
+  vector[n_deposits] theta_start;        // Start dates (older)
+  vector<lower=0>[n_deposits] durations; // Durations (positive)
 
   // True calendar dates for each sample
   vector[N] calendar_dates_raw;
@@ -74,11 +74,11 @@ parameters {
 transformed parameters {
   // Constrain calendar dates to deposit-specific windows
   vector[N] calendar_dates;
-  vector<lower=0>[n_deposits] durations;
+  vector[n_deposits] theta_end;
 
-  // Calculate durations
+  // Calculate end dates from start and duration
   for (k in 1:n_deposits) {
-    durations[k] = theta_start[k] - theta_end[k];
+    theta_end[k] = theta_start[k] - durations[k];
   }
 
   // Transform calendar dates to be within deposit windows
@@ -157,8 +157,8 @@ generated quantities {
         // Check if deposits overlap
         // Deposits overlap if: theta_end[i] < theta_start[j] AND theta_end[j] < theta_start[i]
         // Equivalently: max(theta_end) < min(theta_start)
-        real max_end = max(theta_end[i], theta_end[j]);
-        real min_start = min(theta_start[i], theta_start[j]);
+        real max_end = theta_end[i] > theta_end[j] ? theta_end[i] : theta_end[j];
+        real min_start = theta_start[i] < theta_start[j] ? theta_start[i] : theta_start[j];
 
         if (max_end < min_start) {
           // There is overlap

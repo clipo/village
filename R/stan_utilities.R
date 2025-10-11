@@ -155,8 +155,8 @@ fit_stan_model <- function(model,
   # Check diagnostics
   diagnostics <- check_stan_diagnostics(fit, verbose = verbose)
 
-  # Attach diagnostics to fit object
-  fit$diagnostics_summary <- diagnostics
+  # Store diagnostics as an attribute (not in locked environment)
+  attr(fit, "diagnostics_summary") <- diagnostics
 
   if (verbose) {
     message("Fitting complete")

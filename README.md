@@ -77,6 +77,75 @@ This will:
 - `testthat` - Unit testing
 - `quarto` - Document rendering
 
+## Example Analysis & Visualizations
+
+This section shows example results from analyzing 5 archaeological sites with 43 radiocarbon dates.
+
+### Sample Data
+
+The analysis used radiocarbon dates from:
+- **Broome_Tech** (9 dates)
+- **CCE_Site** (4 dates)
+- **Chenango_Point** (12 dates)
+- **Hill_Creek** (4 dates)
+- **Thomas_Luckey** (14 dates)
+
+### Key Results
+
+**Contemporaneity Findings**:
+- Broome_Tech, Chenango_Point, and Thomas_Luckey show **100% overlap probability** → definitely contemporaneous
+- CCE_Site and Hill_Creek show **0.5% overlap** with the main group → likely NOT contemporaneous
+
+**Occupation Spans** (95% credible intervals):
+- Broome_Tech: ~909-437 cal BP (duration ~685 years)
+- CCE_Site: ~452-492 cal BP (duration ~38 years)
+- Chenango_Point: ~792-371 cal BP (duration ~594 years)
+- Hill_Creek: ~659-680 cal BP (duration ~15 years)
+- Thomas_Luckey: ~705-444 cal BP (duration ~393 years)
+
+### Example Visualizations
+
+#### 1. Occupation Boundaries
+
+Posterior distributions for site occupation start and end dates:
+
+![Occupation Boundaries](output/sample_analysis/02_occupation_boundaries.png)
+
+This plot shows the Bayesian posterior distributions for when each site's occupation began (blue) and ended (red). Wider distributions indicate greater uncertainty.
+
+#### 2. Temporal Overlap
+
+Site occupation spans with median dates:
+
+![Temporal Overlap](output/sample_analysis/03_temporal_overlap.png)
+
+Horizontal bars show the estimated occupation span for each site. Blue dots mark the start date (older), red dots mark the end date (younger). Note the strong overlap between Broome_Tech, Chenango_Point, and Thomas_Luckey.
+
+#### 3. Overlap Probability Matrix
+
+Pairwise contemporaneity probabilities:
+
+![Overlap Matrix](output/sample_analysis/04_overlap_matrix.png)
+
+This heatmap shows the probability that each pair of sites was contemporaneous (temporally overlapping). Values near 1.0 (yellow) indicate high probability of overlap, while values near 0 (dark blue) indicate minimal probability of overlap.
+
+### Running the Example
+
+To reproduce this analysis:
+
+```r
+# Load filtered data
+source("analyze_sample_data.R")
+
+# Run full analysis
+source("run_full_analysis.R")
+```
+
+Results will be saved to `output/sample_analysis/`:
+- **PNG plots**: High-resolution visualizations (300 DPI)
+- **CSV files**: Occupation spans, overlap matrix, calibrated dates
+- **TXT summary**: Complete metrics and diagnostics
+
 ## Usage
 
 ### Quick Example

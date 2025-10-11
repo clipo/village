@@ -114,6 +114,43 @@ plot_occupation_boundaries <- function(fit, n_deposits, deposit_names = NULL) {
   return(p)
 }
 
+#' Plot temporal overlap from metrics
+#'
+#' Helper function that takes pre-computed occupation spans
+#'
+#' @param occupation_spans Data frame with occupation span statistics
+#' @param deposit_names Character vector of deposit names
+#' @return ggplot object
+#' @export
+plot_temporal_overlap_from_metrics <- function(occupation_spans, deposit_names) {
+  # Simple duration-based plot from metrics
+  plot_data <- data.frame(
+    deposit = deposit_names,
+    start_median = occupation_spans$start_median,
+    end_median = occupation_spans$end_median,
+    duration = occupation_spans$duration_mean
+  )
+
+  p <- ggplot(plot_data, aes(y = deposit)) +
+    geom_segment(aes(x = end_median, xend = start_median, yend = deposit),
+                 linewidth = 4, color = "steelblue", alpha = 0.7) +
+    geom_point(aes(x = start_median), size = 3, shape = 21, fill = "darkblue") +
+    geom_point(aes(x = end_median), size = 3, shape = 21, fill = "darkred") +
+    scale_x_reverse() +
+    labs(
+      x = "Calendar Years BP",
+      y = "Site",
+      title = "Estimated Occupation Spans"
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.y = element_text(size = 10),
+      plot.title = element_text(face = "bold", size = 12)
+    )
+
+  return(p)
+}
+
 #' Plot temporal overlap
 #'
 #' Creates a visual representation of deposit occupation ranges with uncertainty.
