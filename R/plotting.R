@@ -318,6 +318,105 @@ plot_posterior_predictive <- function(fit, c14_data, n_samples = 50) {
   return(p)
 }
 
+#' Plot contemporaneity visualization
+#'
+#' Creates a timeline showing occupation spans with uncertainty bands,
+#' colored by contemporaneity groups and showing overlap relationships.
+#'
+#' @param fit Fitted Stan model object
+#' @param site_names Character vector of site names
+#' @param overlap_matrix Matrix of pairwise overlap probabilities
+#' @param overlap_threshold Threshold for defining contemporaneity (default 0.95)
+#' @return ggplot object
+#' @export
+plot_contemporaneity_timeline <- function(fit, site_names, overlap_matrix,
+                                          overlap_threshold = 0.95) {
+
+  n_sites <- length(site_names)
+
+  # Extract boundary samples
+  theta_start <- extract_posterior(fit, pars = "theta_start", format = "matrix")
+  theta_end <- extract_posterior(fit, pars = "theta_end", format = "matrix")
+
+  # Compute summaries for each site
+  timeline_data <- data.frame()
+
+  for (i in 1:n_sites) {
+    start_samples <- theta_start[, i]
+    end_samples <- theta_end[, i]
+
+    row <- data.frame(
+      site = site_names[i],
+      site_num = i,
+      start_median = median(start_samples),
+      start_q16 = quantile(start_samples, 0.16),
+      start_q84 = quantile(start_samples, 0.84),
+      start_q025 = quantile(start_samples, 0.025),
+      start_q975 = quantile(start_samples, 0.975),
+      end_median = median(end_samples),
+      end_q16 = quantile(end_samples, 0.16),
+      end_q84 = quantile(end_samples, 0.84),
+      end_q025 = quantile(end_samples, 0.025),
+      end_q975 = quantile(end_samples, 0.975)
+    )
+
+    timeline_data <- rbind(timeline_data, row)
+  }
+
+  # Identify contemporaneity groups using hierarchical clustering
+  # Convert overlap matrix to distance matrix
+  dist_matrix <- as.dist(1 - overlap_matrix)
+  hc <- hclust(dist_matrix, method = "complete")
+
+  # Cut tree to identify groups (sites with >threshold overlap)
+  height_cutoff <- 1 - overlap_threshold
+  groups <- cutree(hc, h = height_cutoff)
+  timeline_data$group <- as.factor(groups)
+
+  # Order sites by median start date (earliest at top)
+  timeline_data <- timeline_data[order(-timeline_data$start_median), ]
+  timeline_data$site_ordered <- factor(timeline_data$site,
+                                       levels = timeline_data$site)
+
+  # Create the plot
+  p <- ggplot(timeline_data, aes(y = site_ordered, color = group, fill = group)) +
+    # 95% CI bands
+    geom_segment(aes(x = start_q975, xend = end_q025,
+                     y = site_ordered, yend = site_ordered),
+                 linewidth = 6, alpha = 0.2) +
+    # 68% CI bands (1 sigma)
+    geom_segment(aes(x = start_q84, xend = end_q16,
+                     y = site_ordered, yend = site_ordered),
+                 linewidth = 8, alpha = 0.4) +
+    # Median span
+    geom_segment(aes(x = start_median, xend = end_median,
+                     y = site_ordered, yend = site_ordered),
+                 linewidth = 2, alpha = 0.9) +
+    # Median points for start/end
+    geom_point(aes(x = start_median), size = 3, shape = 21,
+               fill = "white", stroke = 1.5) +
+    geom_point(aes(x = end_median), size = 3, shape = 21,
+               fill = "white", stroke = 1.5) +
+    scale_x_reverse(breaks = seq(0, 1200, 100)) +
+    scale_color_brewer(palette = "Set1", name = "Contemporaneity\nGroup") +
+    scale_fill_brewer(palette = "Set1", name = "Contemporaneity\nGroup") +
+    labs(
+      x = "Calendar Years BP",
+      y = "",
+      title = "Site Occupation Timelines with Contemporaneity Groups",
+      subtitle = "Lines show median spans; bands show 68% (dark) and 95% (light) credible intervals"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+      panel.grid.major.y = element_line(color = "gray90", linewidth = 0.5),
+      panel.grid.minor = element_blank(),
+      legend.position = "right",
+      axis.text.y = element_text(size = 11, face = "bold")
+    )
+
+  return(p)
+}
+
 #' Plot convergence diagnostics
 #'
 #' Creates trace plots and rank plots for key parameters.

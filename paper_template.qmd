@@ -504,6 +504,28 @@ ggplot() +
   theme_void()
 ```
 
+### Contemporaneity Groups
+
+Figure 6 presents an integrated visualization showing occupation timelines with contemporaneity groupings based on overlap probabilities.
+
+```{r}
+#| label: fig-contemporaneity-timeline
+#| fig-cap: "Integrated contemporaneity timeline showing occupation spans (lines) with 68% (dark bands) and 95% (light bands) credible intervals. Sites are colored by contemporaneity group (>95% overlap probability threshold). The visualization reveals two main temporal clusters: an early-to-intermediate group (Hill Creek, Thomas Luckey, Broome Tech, Chenango Point) and a late isolated occupation (CCE Site). Sites are ordered chronologically from earliest (top) to latest (bottom) based on median start dates."
+#| echo: false
+#| warning: false
+#| fig-width: 10
+#| fig-height: 6
+#| out-width: "100%"
+
+img <- png::readPNG("output/sample_analysis/05b_contemporaneity_timeline.png")
+ggplot() +
+  annotation_custom(grid::rasterGrob(img, interpolate=TRUE),
+                    xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf) +
+  theme_void()
+```
+
+The contemporaneity timeline clearly visualizes the temporal relationships identified in the overlap analysis. Sites sharing the same color belong to contemporaneity groups with >95% overlap probability. The substantial temporal overlap between Broome Tech, Chenango Point, and Thomas Luckey (377-524 years) is evident in their extensive band overlap and shared group membership.
+
 ### Global Contemporaneity
 
 The probability that all five sites share a common temporal window is very low (p = 0.005), confirming that they do not represent a single synchronous occupation phase. However, the three-site cluster (Broome Tech, Chenango Point, Thomas Luckey) has p > 0.99 for complete overlap, indicating near-certainty of contemporaneity within this group.
@@ -512,7 +534,7 @@ The probability that all five sites share a common temporal window is very low (
 
 ### Posterior Predictive Checks
 
-Figure 6 shows posterior predictive checks comparing observed radiocarbon dates to model predictions. For each date, we simulated 100 replicate observations from the posterior predictive distribution and compared them to the actual measurement.
+Figure 7 shows posterior predictive checks comparing observed radiocarbon dates to model predictions. For each date, we simulated 100 replicate observations from the posterior predictive distribution and compared them to the actual measurement.
 
 ```{r}
 #| label: fig-posterior-predictive

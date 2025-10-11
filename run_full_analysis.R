@@ -166,6 +166,14 @@ try({
 })
 
 try({
+  p5b <- plot_contemporaneity_timeline(fit, deposit_names, metrics$overlap_matrix,
+                                       overlap_threshold = 0.95)
+  ggsave("output/sample_analysis/05b_contemporaneity_timeline.png", p5b,
+         width = 10, height = 6, dpi = 300)
+  cat("  Created: 05b_contemporaneity_timeline.png\n")
+})
+
+try({
   conv_plots <- plot_convergence_diagnostics(fit)
   ggsave("output/sample_analysis/06_trace_plots.png", conv_plots$trace,
          width = 10, height = 6, dpi = 300)

@@ -135,9 +135,17 @@ Pairwise contemporaneity probabilities:
 
 ![Overlap Matrix](output/sample_analysis/04_overlap_matrix.png)
 
-This heatmap shows the probability that each pair of sites was contemporaneous (temporally overlapping). Values near 1.0 (yellow) indicate high probability of overlap, while values near 0 (dark blue) indicate minimal probability of overlap.
+This heatmap shows the probability that each pair of sites was contemporaneous (temporally overlapping). Green indicates high probability of overlap (near 1.0), while dark red indicates low probability (near 0.0).
 
-#### 5. Posterior Predictive Check
+#### 5. Contemporaneity Timeline
+
+Integrated visualization of occupation spans with contemporaneity groups:
+
+![Contemporaneity Timeline](output/sample_analysis/05b_contemporaneity_timeline.png)
+
+This timeline shows occupation spans with uncertainty bands (68% and 95% credible intervals), colored by contemporaneity group. Sites with >95% overlap probability are shown in the same color. The visualization clearly shows the temporal clustering of Broome Tech, Chenango Point, and Thomas Luckey, as well as the temporal separation of Hill Creek (early) and CCE Site (late).
+
+#### 6. Posterior Predictive Check
 
 Model fit assessment:
 
