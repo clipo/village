@@ -206,6 +206,8 @@ This generates an HTML report with all analyses, figures, and tables.
 
 ## Models
 
+The framework includes three hierarchical Bayesian models, each representing different assumptions about temporal relationships between deposits. Visual representations below illustrate the key differences.
+
 ### 1. Contemporaneous Model
 
 **Assumption**: All deposits share a single occupation window.
@@ -216,6 +218,10 @@ This generates an HTML report with all analyses, figures, and tables.
 - `theta_start`: Shared start boundary (cal BP)
 - `theta_end`: Shared end boundary (cal BP)
 - `calendar_dates[n]`: True calendar date for each sample
+
+![Contemporaneous Model](output/model_diagrams/model_contemporaneous.png)
+
+*All three deposits share the same temporal boundaries (blue = start, red = end). Black dots represent individual radiocarbon dates.*
 
 ### 2. Sequential Model
 
@@ -228,6 +234,10 @@ This generates an HTML report with all analyses, figures, and tables.
 - `theta_end[k]`: End boundary for deposit k
 - Constraint: `theta_end[k] < theta_start[k+1]`
 
+![Sequential Model](output/model_diagrams/model_sequential.png)
+
+*Deposits are temporally ordered with gaps between them. Each has independent boundaries with the constraint that deposit k must end before deposit k+1 begins.*
+
 ### 3. Partial Overlap Model (Most Flexible)
 
 **Assumption**: Each deposit has independent boundaries (allows any overlap pattern).
@@ -238,6 +248,10 @@ This generates an HTML report with all analyses, figures, and tables.
 - `theta_start[k]`: Start boundary for deposit k
 - `theta_end[k]`: End boundary for deposit k
 - No ordering constraints
+
+![Partial Overlap Model](output/model_diagrams/model_partial_overlap.png)
+
+*Each deposit has fully independent boundaries. This allows for any pattern: complete overlap, partial overlap, or no overlap. This is the most flexible model and is recommended as the default.*
 
 ## Model Comparison
 

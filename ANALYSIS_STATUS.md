@@ -119,9 +119,18 @@ All sites with ≥3 dates (eligible for analysis):
 
 ## ✅ ANALYSIS COMPLETE!
 
-**Date**: 2025-10-11 10:37
+**Date**: 2025-10-11 10:45
 
 All issues resolved and analysis completed successfully!
+
+### ✅ Model Diagrams Added
+
+Visual representations of all three model types have been created and added to README.md:
+- **Contemporaneous Model**: Shows shared occupation window
+- **Sequential Model**: Shows ordered deposits with gaps
+- **Partial Overlap Model**: Shows flexible independent boundaries
+
+Diagrams saved to: `output/model_diagrams/`
 
 ### Key Results (Top 5 Sites)
 
