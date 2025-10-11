@@ -21,12 +21,16 @@
 # Output files
 output/*
 !output/.gitkeep
+!output/sample_analysis/
+!output/model_diagrams/
 
 # Plots
 *.png
 *.pdf
 *.svg
 !docs/figures/*.png
+!output/sample_analysis/*.png
+!output/model_diagrams/*.png
 
 # Data (unless explicitly tracked)
 data/*.csv
