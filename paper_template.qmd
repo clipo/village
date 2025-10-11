@@ -105,13 +105,21 @@ library(knitr)
 # Load the data
 data <- read.csv("data/radiocarbon_dates.csv")
 
+# Extract base site names (remove feature codes)
+data$base_site <- data$site
+data$base_site <- gsub("_F[0-9]+.*$", "", data$base_site)  # Remove _F123...
+data$base_site <- gsub("_[0-9]+$", "", data$base_site)      # Remove trailing _1, _2
+data$base_site <- gsub("_PAF.*$", "", data$base_site)       # Remove _PAF...
+data$base_site <- gsub("Chenango_Point_South", "Chenango_Point", data$base_site)
+data$base_site <- gsub("CCE_Site.*", "CCE_Site", data$base_site)
+
 # Filter to just the 5 sites in the analysis
 analysis_sites <- c("Broome_Tech", "CCE_Site", "Chenango_Point", "Hill_Creek", "Thomas_Luckey")
 
 # Create summary table
 summary_table <- data %>%
-  filter(site %in% analysis_sites) %>%
-  group_by(site) %>%
+  filter(base_site %in% analysis_sites) %>%
+  group_by(base_site) %>%
   summarise(
     `N Dates` = n(),
     `Mean Age (BP)` = round(mean(c14_age), 0),
@@ -120,7 +128,8 @@ summary_table <- data %>%
     `Mean Error (±)` = round(mean(c14_error), 0),
     Materials = paste(unique(material), collapse = ", ")
   ) %>%
-  arrange(desc(`Mean Age (BP)`))
+  arrange(desc(`Mean Age (BP)`)) %>%
+  rename(Site = base_site)
 
 kable(summary_table, align = "lcccccc")
 ```
