@@ -162,7 +162,329 @@ Results will be saved to `output/sample_analysis/`:
 - **CSV files**: Occupation spans, overlap matrix, calibrated dates
 - **TXT summary**: Complete metrics and diagnostics
 
-## Usage
+## Using This Framework for Your Own Data
+
+This framework is designed to be adapted for any radiocarbon-based contemporaneity study. Follow these steps to analyze your own dataset and generate a publication-ready research paper.
+
+### Step 1: Prepare Your Data
+
+Create a CSV file in the `data/` directory with the following required columns:
+
+```csv
+site,material,lab_no,c14_age,c14_error,reference
+"MySite1","charcoal","Beta-12345",2450,30,"Smith 2020"
+"MySite1","maize","AA-54321",2480,35,"Smith 2020"
+"MySite2","charcoal","Beta-12346",2520,40,"Jones 2021"
+```
+
+**Required columns**:
+- `site`: Site or deposit name (string)
+- `material`: Sample material type (string)
+- `lab_no`: Laboratory code for the radiocarbon determination (string)
+- `c14_age`: Conventional radiocarbon age in BP (numeric)
+- `c14_error`: Laboratory measurement error (1σ) (numeric)
+- `reference`: Citation for the date (string, optional)
+
+**Data requirements**:
+- Minimum 3 dates per site for reliable boundary estimation
+- Sites with <3 dates will be excluded from analysis
+- Use short-lived materials (seeds, charcoal from twigs) when possible
+- Avoid old-wood effects
+
+### Step 2: Create a Study Configuration File
+
+Create a file `my_study_config.R` with information about your study:
+
+```r
+# Study Configuration
+# This information will be incorporated into the paper template
+
+# Study metadata
+study_title <- "Assessing Contemporaneity of Bronze Age Settlements in the Thames Valley"
+study_subtitle <- "A Bayesian Approach Using Radiocarbon Chronology"
+
+author_name <- "Jane Smith"
+author_affiliation <- "Department of Archaeology, University College London"
+author_email <- "j.smith@ucl.ac.uk"
+
+# Study region and period
+study_region <- "Thames Valley, southern England"
+study_period <- "Middle Bronze Age (ca. 3500-3000 BP)"
+study_culture <- "Bronze Age settlement complexes"
+
+# Research questions (as a character vector)
+research_questions <- c(
+  "Were the five settlement sites occupied simultaneously?",
+  "Do sites cluster into distinct chronological phases?",
+  "What is the duration of occupation at each settlement?"
+)
+
+# Site descriptions (named list)
+site_descriptions <- list(
+  "Site_A" = "A large Bronze Age settlement with extensive midden deposits",
+  "Site_B" = "Smaller riverside settlement with evidence of metalworking",
+  "Site_C" = "Hilltop enclosure with defensive earthworks",
+  "Site_D" = "Open settlement with multiple roundhouse structures",
+  "Site_E" = "Ritual site with evidence of feasting activities"
+)
+
+# Archaeological context (paragraph describing the background)
+archaeological_context <- "
+The Middle Bronze Age in the Thames Valley is characterized by the emergence
+of large, relatively permanent settlements often located on river terraces.
+These sites show evidence of increased social complexity, specialized craft
+production, and extensive exchange networks. Understanding the temporal
+relationships between these settlements is crucial for reconstructing Bronze
+Age social organization, settlement hierarchies, and the development of
+proto-urban centers in southern Britain. The contemporary occupation of
+multiple large sites would suggest a complex settlement system, while
+temporal separation might indicate sequential occupation or population
+movement.
+"
+
+# Interpretation guidelines (what contemporaneity would mean)
+contemporaneity_implications <- "
+If these sites were contemporaneous, it would suggest:
+1. A regional settlement network with multiple coeval communities
+2. Sufficient agricultural productivity to support multiple large settlements
+3. Potential hierarchical relationships between settlements
+4. Evidence for Bronze Age social complexity in the region
+
+Temporal separation would instead indicate:
+1. Sequential occupation phases
+2. Possible population movement or settlement relocation
+3. Changes in settlement strategy over time
+"
+
+# Additional context for discussion
+discussion_points <- list(
+  material_culture = "All sites share similar ceramic assemblages belonging to the Deverel-Rimbury tradition",
+  subsistence = "Charred grain assemblages indicate mixed agriculture with barley and emmer wheat",
+  landscape = "All sites occupy river terrace locations with access to arable land and water",
+  regional_context = "Part of a broader pattern of Middle Bronze Age settlement nucleation in lowland Britain"
+)
+```
+
+### Step 3: Run the Analysis
+
+```r
+# Load your configuration
+source("my_study_config.R")
+
+# Load your data
+my_data <- read.csv("data/my_radiocarbon_data.csv")
+
+# Validate data
+source("R/data_validation.R")
+validate_c14_data(my_data)
+
+# Filter to sites with sufficient dates (≥3)
+library(dplyr)
+site_counts <- my_data %>%
+  group_by(site) %>%
+  summarise(n = n()) %>%
+  filter(n >= 3)
+
+analysis_data <- my_data %>%
+  filter(site %in% site_counts$site)
+
+cat("Analyzing", length(unique(analysis_data$site)), "sites with",
+    nrow(analysis_data), "radiocarbon dates\n")
+
+# Run calibration and Bayesian analysis
+source("R/calibration.R")
+source("R/stan_utilities.R")
+source("R/contemporaneity_metrics.R")
+source("R/plotting.R")
+
+# Calibrate dates
+cal_result <- calibrate_dates(
+  ages = analysis_data$c14_age,
+  errors = analysis_data$c14_error,
+  lab_codes = analysis_data$lab_no
+)
+
+# Prepare Stan data
+stan_data <- prepare_stan_data(analysis_data, cal_result)
+
+# Compile and fit model
+model <- compile_stan_model("stan/partial_overlap_model.stan")
+fit <- fit_stan_model(model, stan_data,
+                      iter_warmup = 1000,
+                      iter_sampling = 2000,
+                      chains = 4)
+
+# Compute metrics
+n_sites <- length(unique(analysis_data$site))
+metrics <- compute_all_metrics(fit, n_deposits = n_sites)
+
+# Save results
+output_dir <- "output/my_study"
+dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+
+# Generate plots
+ggsave(file.path(output_dir, "occupation_boundaries.png"),
+       plot_occupation_boundaries(fit, n_sites),
+       width = 10, height = 6, dpi = 300)
+
+ggsave(file.path(output_dir, "temporal_overlap.png"),
+       plot_temporal_overlap_from_metrics(metrics$occupation_spans,
+                                         unique(analysis_data$site)),
+       width = 10, height = 6, dpi = 300)
+
+ggsave(file.path(output_dir, "overlap_matrix.png"),
+       plot_overlap_matrix(metrics$overlap_matrix, unique(analysis_data$site)),
+       width = 8, height = 7, dpi = 300)
+
+# Save results as CSV
+write.csv(metrics$occupation_spans,
+          file.path(output_dir, "occupation_spans.csv"),
+          row.names = FALSE)
+
+write.csv(metrics$overlap_matrix,
+          file.path(output_dir, "overlap_matrix.csv"),
+          row.names = FALSE)
+```
+
+### Step 4: Generate Your Custom Paper
+
+Create a customized Quarto paper using your study configuration:
+
+```r
+# Load the paper template generator
+source("R/generate_paper.R")
+
+# Generate customized paper
+generate_custom_paper(
+  config_file = "my_study_config.R",
+  data_file = "data/my_radiocarbon_data.csv",
+  results_dir = "output/my_study",
+  output_file = "my_paper.qmd"
+)
+
+# The function will create my_paper.qmd with:
+# - Your title, author, and affiliation
+# - Your archaeological context and research questions
+# - Your site descriptions integrated into the text
+# - References to your specific results
+# - Your interpretation guidelines in the discussion
+```
+
+Then render to PDF or HTML:
+
+```bash
+# Render to PDF
+quarto render my_paper.qmd --to pdf
+
+# Or render to HTML for easier sharing
+quarto render my_paper.qmd --to html
+```
+
+### Step 5: Customize and Refine
+
+The generated paper includes:
+
+1. **Automatic integration** of your study-specific text:
+   - Research questions
+   - Site descriptions
+   - Archaeological context
+   - Interpretation guidelines
+
+2. **All figures and tables** from your analysis:
+   - Calibrated radiocarbon dates
+   - Occupation boundaries
+   - Temporal overlap
+   - Overlap probability matrix
+   - Model diagnostics
+
+3. **Computed metrics** automatically inserted:
+   - Site occupation spans
+   - Overlap probabilities
+   - Duration estimates
+
+**Manual customization**:
+
+After generation, you can edit the `.qmd` file to:
+- Add additional references to your `references.bib`
+- Refine interpretations in the Discussion section
+- Add supplementary analyses
+- Adjust figure captions
+- Include additional archaeological context
+
+### Example Workflow
+
+Complete example using the framework:
+
+```r
+# 1. Setup
+source("R/setup.R")
+complete_setup()  # Install dependencies if needed
+
+# 2. Load your study configuration
+source("my_study_config.R")
+
+# 3. Load and validate data
+my_data <- read.csv("data/my_radiocarbon_data.csv")
+validate_c14_data(my_data)
+
+# 4. Run analysis (this takes 10-20 minutes)
+source("run_analysis_custom.R")  # Template script provided
+
+# 5. Generate paper
+generate_custom_paper(
+  config_file = "my_study_config.R",
+  data_file = "data/my_radiocarbon_data.csv",
+  results_dir = "output/my_study",
+  output_file = "my_paper.qmd"
+)
+
+# 6. Render final paper
+system("quarto render my_paper.qmd --to pdf")
+
+# 7. Review my_paper.pdf - ready for journal submission!
+```
+
+### Tips for Success
+
+**Data preparation**:
+- Use consistent site naming (no special characters)
+- Ensure all dates use the same calibration curve (e.g., IntCal20 for Northern Hemisphere)
+- Include marine reservoir corrections if analyzing marine samples
+- Document any excluded dates with justification
+
+**Study configuration**:
+- Be specific about your research questions
+- Provide detailed site descriptions with relevant context
+- Frame interpretations in terms of your research questions
+- Reference regional archaeological literature
+
+**Analysis decisions**:
+- Start with the partial overlap model (most flexible)
+- Use model comparison if testing specific hypotheses (contemporaneous vs. sequential)
+- Check MCMC diagnostics (R-hat < 1.01, ESS > 400)
+- Verify posterior predictive checks show good model fit
+
+**Paper customization**:
+- Add regional maps showing site locations
+- Include photographs or illustrations of sites/artifacts
+- Expand discussion with comparisons to other regional studies
+- Add supplementary materials with additional diagnostics
+
+### Troubleshooting
+
+**Problem**: "Too few dates per site"
+- **Solution**: Combine related deposits or features, or increase sampling
+
+**Problem**: "Poor MCMC convergence"
+- **Solution**: Increase iterations, adjust adapt_delta, check for data errors
+
+**Problem**: "Overlap probabilities all near 0.5"
+- **Solution**: May indicate insufficient temporal resolution; add more dates or accept uncertainty
+
+**Problem**: "Posterior predictive checks show poor fit"
+- **Solution**: Check for outliers, verify calibration curve is appropriate, consider measurement errors
+
+## Usage (Quick Reference)
 
 ### Quick Example
 
