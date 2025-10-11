@@ -105,7 +105,15 @@ The analysis used radiocarbon dates from:
 
 ### Example Visualizations
 
-#### 1. Occupation Boundaries
+#### 1. Calibrated Radiocarbon Dates
+
+Calibrated probability distributions for all 43 radiocarbon dates:
+
+![Calibrated Dates](output/sample_analysis/01_calibrated_dates.png)
+
+Each curve shows the calibrated probability distribution for a single radiocarbon date. The x-axis shows calibrated years BP (Before Present), and dates are grouped by site. The calibration accounts for variations in atmospheric radiocarbon over time using the IntCal20 curve.
+
+#### 2. Occupation Boundaries
 
 Posterior distributions for site occupation start and end dates:
 
@@ -113,7 +121,7 @@ Posterior distributions for site occupation start and end dates:
 
 This plot shows the Bayesian posterior distributions for when each site's occupation began (blue) and ended (red). Wider distributions indicate greater uncertainty.
 
-#### 2. Temporal Overlap
+#### 3. Temporal Overlap
 
 Site occupation spans with median dates:
 
@@ -121,13 +129,21 @@ Site occupation spans with median dates:
 
 Horizontal bars show the estimated occupation span for each site. Blue dots mark the start date (older), red dots mark the end date (younger). Note the strong overlap between Broome_Tech, Chenango_Point, and Thomas_Luckey.
 
-#### 3. Overlap Probability Matrix
+#### 4. Overlap Probability Matrix
 
 Pairwise contemporaneity probabilities:
 
 ![Overlap Matrix](output/sample_analysis/04_overlap_matrix.png)
 
 This heatmap shows the probability that each pair of sites was contemporaneous (temporally overlapping). Values near 1.0 (yellow) indicate high probability of overlap, while values near 0 (dark blue) indicate minimal probability of overlap.
+
+#### 5. Posterior Predictive Check
+
+Model fit assessment:
+
+![Posterior Predictive](output/sample_analysis/05_posterior_predictive.png)
+
+This plot compares observed radiocarbon dates (black points with error bars) against the model's predictions (blue density curves). Good model fit is indicated when observed dates fall within the high-probability regions of the predicted distributions.
 
 ### Running the Example
 
