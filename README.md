@@ -173,28 +173,63 @@ Results will be saved to:
 - `output/hypothesis_tests/`: Hypothesis testing results (overlap durations, precedence, ordering)
 - `paper_template.pdf`: Complete research paper with all results
 
-### Hypothesis Testing Capabilities
+### Bayesian Hypothesis Testing
 
-The framework includes comprehensive hypothesis testing for temporal relationships:
+The framework includes comprehensive **Bayesian hypothesis testing** for temporal relationships. All tests use the full posterior distribution from MCMC sampling to provide direct probability statements about temporal relationships.
 
-**Overlap Duration Analysis** (`pairwise_overlap_durations.csv`):
-- Mean overlap duration in years for each site pair
-- 95% credible intervals for overlap estimates
-- Probability of overlap exceeding specific thresholds (50, 100, 200 years)
+#### Key Features
 
-**Temporal Precedence Tests** (`precedence_tests.csv`):
-- Probability that one site completely precedes another (no overlap)
-- Gap duration between end of earlier site and start of later site
-- Directional relationships with statistical significance
+**Fully Bayesian Inference:**
+- Direct probability statements (not p-values): "99.5% probability that Hill Creek precedes CCE Site"
+- Complete uncertainty propagation from radiocarbon measurements through calibration to final estimates
+- 95% credible intervals: "95% of posterior probability mass lies in this interval"
+- No multiple comparison corrections needed—naturally handles simultaneous inference
+- Hierarchical structure with partial pooling improves boundary estimates
 
-**Temporal Ordering Hypotheses** (`ordering_hypotheses.csv`):
-- Tests competing hypotheses about the overall temporal sequence
-- Posterior probabilities for alternative orderings
-- Relative support for each hypothesis
+**Four Types of Hypothesis Tests:**
 
-**Complete Overlap Tests** (`complete_overlap_tests.csv`):
-- Probability that one site's occupation is fully contained within another's
-- Useful for identifying nested settlement patterns
+1. **Overlap Duration Analysis** (`pairwise_overlap_durations.csv`)
+   - Mean overlap duration in years for each site pair with 95% credible intervals
+   - Example: Broome Tech - Chenango Point overlap = 524 years [396-672 years, 95% CI]
+   - Probability of overlap exceeding specific thresholds (50, 100, 200 years)
+   - All pairwise comparisons with full posterior distributions
+
+2. **Temporal Precedence Tests** (`precedence_tests.csv`)
+   - Probability that one site completely precedes another (no temporal overlap)
+   - Example: Hill Creek → CCE Site with 99.5% probability
+   - Gap duration estimates: mean = 175 years [61-219 years, 95% CI]
+   - Directional relationships with Bayesian probabilities
+
+3. **Temporal Ordering Hypotheses** (`ordering_hypotheses.csv`)
+   - Tests competing hypotheses about the overall temporal sequence
+   - Posterior probabilities and relative support for each ordering
+   - Example: Hill Creek → Thomas Luckey → Broome Tech → Chenango Point → CCE Site (59% relative support)
+   - Naturally accounts for uncertainty when sites overlap
+
+4. **Complete Overlap Tests** (`complete_overlap_tests.csv`)
+   - Probability that one site's occupation is fully contained within another's
+   - Identifies nested settlement patterns
+   - Example: Hill Creek fully within Chenango Point occupation (100% probability)
+
+#### Example Results
+
+From the sample analysis:
+
+```
+Pairwise Overlap Durations:
+  Broome Tech - Thomas Luckey:  377 years [275-521], P(overlap) = 1.00
+  Broome Tech - Chenango Point: 524 years [396-672], P(overlap) = 1.00
+  Thomas Luckey - Chenango Point: 387 years [276-533], P(overlap) = 1.00
+
+Temporal Precedence:
+  Hill Creek → CCE Site: P(precedence) = 0.995, gap = 175 years [61-219]
+
+Temporal Ordering (most supported):
+  Hill Creek → Thomas Luckey → Broome Tech → Chenango Point → CCE Site
+  Posterior probability = 0.010, Relative support = 59%
+```
+
+All hypothesis tests leverage the full Bayesian posterior to provide probabilistic statements with complete uncertainty quantification.
 
 ## Using This Framework for Your Own Data
 
