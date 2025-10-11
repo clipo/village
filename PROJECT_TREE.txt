@@ -1,0 +1,83 @@
+Radiocarbon Dating Contemporaneity Analysis Project
+====================================================
+
+project/
+│
+├── 📄 Documentation Files
+│   ├── README.md                      Main user guide (10 KB)
+│   ├── QUICKSTART.md                  5-minute getting started
+│   ├── PROJECT_SUMMARY.md             Complete overview
+│   ├── DELIVERABLES.md                Full inventory
+│   ├── references.bib                 Bibliography
+│   └── PROJECT_TREE.txt               This file
+│
+├── 📊 Analysis Documents
+│   ├── analysis.qmd                   Main Quarto document
+│   └── example_workflow.R             Example workflows
+│
+├── 🔧 Utility Scripts
+│   ├── verify_installation.R          Installation checker
+│   └── .gitignore                     Git configuration
+│
+├── 📦 R Functions (R/)
+│   ├── setup.R                        Package management (4.5 KB)
+│   ├── data_validation.R              Input validation (10 KB)
+│   ├── calibration.R                  Radiocarbon calibration (12 KB)
+│   ├── simulation.R                   Data simulation (16 KB)
+│   ├── stan_utilities.R               Stan interface (12 KB)
+│   ├── contemporaneity_metrics.R      Metric computation (11 KB)
+│   ├── plotting.R                     Visualization (12 KB)
+│   └── validation_framework.R         Model validation (14 KB)
+│
+├── 📈 Stan Models (stan/)
+│   ├── contemporaneous_model.stan     Single shared window (4 KB)
+│   ├── sequential_model.stan          Ordered deposits (4.5 KB)
+│   └── partial_overlap_model.stan     Flexible model (5 KB)
+│
+├── ✅ Unit Tests (tests/testthat/)
+│   ├── test_data_validation.R         Validation tests (3.3 KB)
+│   ├── test_calibration.R             Calibration tests (4 KB)
+│   └── test_simulation.R              Simulation tests (4.5 KB)
+│
+├── 📁 Data Directory (data/)
+│   └── [User data files go here]
+│
+├── 📁 Documentation (docs/)
+│   └── [Additional documentation]
+│
+└── 📁 Output (output/)
+    └── plots/                         Generated plots directory
+
+==============================================================================
+
+SUMMARY STATISTICS:
+-------------------
+Total Files:        23 core files
+Total Code:         ~177 KB
+Lines of Code:      ~5,180
+R Functions:        53+ documented functions
+Stan Models:        3 complete hierarchical models
+Unit Tests:         30+ tests
+Documentation:      850+ lines
+
+KEY COMPONENTS:
+---------------
+✓ Complete R analysis pipeline
+✓ Three Bayesian hierarchical models in Stan
+✓ Comprehensive simulation framework
+✓ Model comparison via LOO cross-validation
+✓ Extensive visualization suite
+✓ Systematic validation framework
+✓ Publication-ready Quarto workflow
+✓ Complete documentation and examples
+✓ Unit tests for quality assurance
+✓ Installation verification
+
+QUICK START:
+------------
+1. Run:  source("verify_installation.R")
+2. Run:  source("example_workflow.R")
+3. Read: QUICKSTART.md
+4. View: quarto render analysis.qmd
+
+==============================================================================

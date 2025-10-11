@@ -1,0 +1,89 @@
+# R specific
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# R package files
+*.tar.gz
+*.zip
+
+# Compiled Stan models
+*.exe
+*.so
+*.o
+*.dylib
+
+# Stan cache
+*.rds
+
+# Output files
+output/*
+!output/.gitkeep
+
+# Plots
+*.png
+*.pdf
+*.svg
+!docs/figures/*.png
+
+# Data (unless explicitly tracked)
+data/*.csv
+data/*.txt
+data/*.dat
+!data/example_data.csv
+
+# Rendered documents
+*.html
+*_files/
+*.docx
+analysis_files/
+
+# OS specific
+.DS_Store
+Thumbs.db
+*~
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Log files
+*.log
+
+# Cache directories
+cache/
+__pycache__/
+*.pyc
+
+# CmdStan installation (optional - depends on preference)
+# Uncomment if you want to share CmdStan with repo
+# .cmdstanr/
+
+# Package check output
+*.Rcheck/
+
+# Session data
+.RProfile
+
+# Quarto
+/.quarto/
+_site/
+
+# Testing
+tests/testthat/_snaps/
+
+# Latex
+*.aux
+*.out
+*.tex
+!docs/*.tex

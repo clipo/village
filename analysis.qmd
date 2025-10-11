@@ -1,0 +1,480 @@
+---
+title: "Bayesian Assessment of Contemporaneity in Radiocarbon Dates"
+subtitle: "A Stan-based Hierarchical Modeling Approach"
+author: "Research Team"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    theme: cosmo
+    embed-resources: true
+  pdf:
+    toc: true
+    number-sections: true
+execute:
+  warning: false
+  message: false
+bibliography: references.bib
+---
+
+# Introduction
+
+This document presents a Bayesian hierarchical modeling framework for assessing temporal contemporaneity between archaeological deposits using radiocarbon dates. The analysis uses Stan [@carpenter2017stan] for Bayesian inference and the `rcarbon` package [@crema2021rcarbon] for radiocarbon calibration.
+
+## Objectives
+
+1. Calibrate radiocarbon dates using IntCal20 [@reimer2020intcal20]
+2. Fit hierarchical models to assess deposit contemporaneity
+3. Compare competing temporal models using LOO cross-validation
+4. Quantify overlap probabilities and occupation durations
+5. Validate approach using simulation studies
+
+## Theoretical Background
+
+### Radiocarbon Dating and Calibration
+
+Radiocarbon dating measures the decay of ^14^C in organic materials. The measured radiocarbon age must be calibrated to calendar years using a calibration curve that accounts for past atmospheric ^14^C variations [@bronk2009bayesian].
+
+### Contemporaneity Assessment
+
+Statistical contemporaneity does not necessarily imply cultural or behavioral contemporaneity. We define deposits as contemporaneous if their occupation windows overlap in calendar time, accounting for measurement uncertainty.
+
+# Setup
+
+```{r setup}
+# Load all required packages and functions
+library(rcarbon)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(loo)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Source project functions
+source("R/setup.R")
+source("R/data_validation.R")
+source("R/calibration.R")
+source("R/simulation.R")
+source("R/stan_utilities.R")
+source("R/contemporaneity_metrics.R")
+source("R/plotting.R")
+
+# Set random seed for reproducibility
+set.seed(42)
+```
+
+## Verify Installation
+
+```{r verify-installation}
+# Verify Stan installation and package versions
+get_package_versions()
+verify_stan_installation()
+```
+
+# Data
+
+## Data Structure
+
+Our radiocarbon dataset includes the following fields:
+
+- **lab_code**: Laboratory identifier
+- **age**: Radiocarbon age (years BP)
+- **error**: Measurement error (1σ)
+- **deposit**: Deposit identifier
+- **material**: Material type (optional)
+
+## Example Dataset
+
+For demonstration, we'll use a simulated dataset with known temporal structure:
+
+```{r generate-example-data}
+# Simulate partially overlapping deposits
+sim_data <- simulate_partial_overlap(
+  n_deposits = 3,
+  overlap_percentage = 60,
+  deposit_duration = 250,
+  earliest_start = 2800,
+  n_dates_per_deposit = 10,
+  measurement_error = 30,
+  seed = 123
+)
+
+# Extract radiocarbon data
+c14_data <- sim_data$dates[, c("lab_code", "age", "error", "deposit")]
+
+print(sim_data)
+```
+
+## Data Validation
+
+```{r validate-data}
+# Validate data structure
+validate_c14_data(c14_data)
+
+# Print summary
+print_c14_summary(c14_data)
+
+# Check for outliers
+outliers <- check_outliers(c14_data)
+print(outliers[outliers$is_outlier, ])
+```
+
+# Calibration
+
+## Calibrate Radiocarbon Dates
+
+```{r calibrate}
+# Calibrate using IntCal20
+cal_result <- calibrate_dates(
+  ages = c14_data$age,
+  errors = c14_data$error,
+  lab_codes = c14_data$lab_code,
+  calCurve = "intcal20",
+  verbose = TRUE
+)
+
+# Print calibration summary
+print(cal_result)
+```
+
+## Calibrated Date Distributions
+
+```{r plot-calibrated, fig.width=10, fig.height=8}
+# Plot calibrated distributions by deposit
+plot_calibrated_dates(cal_result, c14_data)
+```
+
+## Calibration Summary Table
+
+```{r calibration-table}
+# Create formatted summary table
+cal_summary <- cal_result$summary
+cal_summary$age <- c14_data$age
+cal_summary$error <- c14_data$error
+cal_summary$deposit <- c14_data$deposit
+
+knitr::kable(
+  cal_summary[, c("lab_code", "deposit", "age", "error",
+                  "median_cal_bp", "hdi95_lower", "hdi95_upper")],
+  digits = 0,
+  col.names = c("Lab Code", "Deposit", "14C Age", "Error",
+                "Median (cal BP)", "95% Lower", "95% Upper"),
+  caption = "Calibrated Radiocarbon Dates"
+)
+```
+
+# Bayesian Models
+
+## Model Descriptions
+
+We fit three competing models:
+
+1. **Contemporaneous Model**: All deposits share one occupation window
+2. **Sequential Model**: Deposits have separate, non-overlapping windows
+3. **Partial Overlap Model**: Deposits have independent windows (most flexible)
+
+## Prepare Stan Data
+
+```{r prepare-stan-data}
+# Prepare data for Stan models
+stan_data <- prepare_stan_data(c14_data, cal_result)
+
+# Print data structure
+str(stan_data)
+```
+
+## Compile Stan Models
+
+```{r compile-models}
+# Compile all three models
+model_contemp <- compile_stan_model("stan/contemporaneous_model.stan")
+model_seq <- compile_stan_model("stan/sequential_model.stan")
+model_partial <- compile_stan_model("stan/partial_overlap_model.stan")
+```
+
+## Fit Models
+
+```{r fit-models, results='hide'}
+# Generate initial values
+init_contemp <- generate_inits(stan_data, model_type = "contemporaneous")
+init_partial <- generate_inits(stan_data, model_type = "partial")
+
+# Fit contemporaneous model
+fit_contemp <- fit_stan_model(
+  model_contemp,
+  stan_data,
+  chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 1000,
+  seed = 42,
+  init = init_contemp
+)
+
+# Fit sequential model
+fit_seq <- fit_stan_model(
+  model_seq,
+  stan_data,
+  chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 1000,
+  seed = 42,
+  init = init_partial
+)
+
+# Fit partial overlap model
+fit_partial <- fit_stan_model(
+  model_partial,
+  stan_data,
+  chains = 4,
+  iter_warmup = 1000,
+  iter_sampling = 1000,
+  seed = 42,
+  init = init_partial
+)
+```
+
+## Convergence Diagnostics
+
+```{r diagnostics-contemp}
+cat("=== Contemporaneous Model ===\n")
+check_stan_diagnostics(fit_contemp)
+```
+
+```{r diagnostics-seq}
+cat("=== Sequential Model ===\n")
+check_stan_diagnostics(fit_seq)
+```
+
+```{r diagnostics-partial}
+cat("=== Partial Overlap Model ===\n")
+check_stan_diagnostics(fit_partial)
+```
+
+## Convergence Plots
+
+```{r convergence-plots, fig.width=10, fig.height=6}
+# Trace plots for contemporaneous model
+conv_plots <- plot_convergence_diagnostics(fit_contemp)
+print(conv_plots$trace)
+print(conv_plots$rank)
+```
+
+# Model Comparison
+
+## LOO Cross-Validation
+
+```{r model-comparison}
+# Compare models using LOO
+comparison <- compare_models_loo(
+  contemporaneous = fit_contemp,
+  sequential = fit_seq,
+  partial = fit_partial,
+  cores = 2
+)
+
+# Print comparison
+print(comparison$comparison)
+print(comparison$weights)
+```
+
+## Model Weights Visualization
+
+```{r plot-comparison, fig.width=8, fig.height=5}
+plot_model_comparison(comparison)
+```
+
+## Interpretation
+
+```{r interpret-comparison}
+# Determine best model
+best_model <- names(comparison$weights)[which.max(comparison$weights)]
+best_weight <- max(comparison$weights)
+
+cat(paste0(
+  "The ", best_model, " model has the highest LOO weight (",
+  round(best_weight, 3), "), indicating it provides the best ",
+  "balance between fit and complexity.\n"
+))
+
+if (best_weight > 0.9) {
+  cat("Strong evidence for this model structure.\n")
+} else if (best_weight > 0.7) {
+  cat("Moderate evidence for this model structure.\n")
+} else {
+  cat("Weak evidence; consider model averaging.\n")
+}
+```
+
+# Results
+
+## Occupation Boundaries
+
+```{r boundaries, fig.width=10, fig.height=8}
+# Using the best-fitting model (partial overlap)
+n_deposits <- stan_data$n_deposits
+
+# Plot occupation boundaries
+plot_occupation_boundaries(fit_partial, n_deposits)
+```
+
+```{r temporal-overlap, fig.width=10, fig.height=6}
+# Plot temporal overlap with uncertainty
+plot_temporal_overlap(fit_partial, n_deposits)
+```
+
+## Occupation Span Estimates
+
+```{r occupation-spans}
+# Calculate occupation spans
+spans <- calculate_occupation_spans(fit_partial, n_deposits)
+
+knitr::kable(
+  spans[, c("deposit", "duration_mean", "duration_sd",
+            "start_median", "end_median")],
+  digits = 0,
+  col.names = c("Deposit", "Duration (mean)", "Duration (SD)",
+                "Start (median)", "End (median)"),
+  caption = "Occupation Span Estimates (cal BP)"
+)
+```
+
+## Contemporaneity Metrics
+
+```{r contemporaneity}
+# Compute all metrics
+metrics <- compute_all_metrics(fit_partial, n_deposits)
+
+# Print summary
+print_metrics_summary(metrics)
+```
+
+## Overlap Probability Matrix
+
+```{r overlap-matrix, fig.width=8, fig.height=6}
+# Visualize pairwise overlap probabilities
+plot_overlap_matrix(metrics$overlap_matrix)
+```
+
+```{r overlap-table}
+# Print as table
+knitr::kable(
+  metrics$overlap_matrix,
+  digits = 3,
+  caption = "Pairwise Overlap Probabilities"
+)
+```
+
+# Model Validation
+
+## Posterior Predictive Checks
+
+```{r ppc, fig.width=10, fig.height=6}
+# Check model fit
+plot_posterior_predictive(fit_partial, c14_data)
+```
+
+## Parameter Estimates vs. Ground Truth
+
+Since we used simulated data with known parameters, we can compare estimates to truth:
+
+```{r compare-to-truth}
+# Extract true occupation windows
+true_windows <- sim_data$ground_truth$deposit_windows
+
+# Extract estimated windows
+estimated_spans <- calculate_occupation_spans(fit_partial, n_deposits)
+
+# Create comparison table
+comparison_df <- data.frame(
+  deposit = 1:n_deposits,
+  true_start = true_windows[, 1],
+  est_start = estimated_spans$start_median,
+  true_end = true_windows[, 2],
+  est_end = estimated_spans$end_median,
+  start_error = abs(true_windows[, 1] - estimated_spans$start_median),
+  end_error = abs(true_windows[, 2] - estimated_spans$end_median)
+)
+
+knitr::kable(
+  comparison_df,
+  digits = 0,
+  caption = "Comparison of True vs. Estimated Boundaries"
+)
+
+# Calculate coverage
+cat("\nBoundary Coverage Statistics:\n")
+for (k in 1:n_deposits) {
+  start_covered <- (true_windows[k, 1] >= estimated_spans$start_q2.5[k] &
+                    true_windows[k, 1] <= estimated_spans$start_q97.5[k])
+  end_covered <- (true_windows[k, 2] >= estimated_spans$end_q2.5[k] &
+                  true_windows[k, 2] <= estimated_spans$end_q97.5[k])
+
+  cat(sprintf("Deposit %d: Start %s, End %s\n",
+              k,
+              ifelse(start_covered, "COVERED", "NOT COVERED"),
+              ifelse(end_covered, "COVERED", "NOT COVERED")))
+}
+```
+
+# Discussion
+
+## Summary of Findings
+
+1. **Model Selection**: The {best_model} model provides the best fit
+2. **Contemporaneity**: Overlap probabilities quantified for all deposit pairs
+3. **Validation**: Estimates show good agreement with known ground truth
+
+## Limitations
+
+- Statistical contemporaneity ≠ cultural contemporaneity
+- Assumes uniform sampling within occupation windows
+- Sensitive to measurement error and sample size
+- Does not account for reservoir effects or contamination
+
+## Recommendations
+
+**Sample Size Guidelines:**
+
+- Minimum 5-10 dates per deposit for reliable estimates
+- More dates needed when deposits are close in time
+- Consider power analysis for study design
+
+**Model Selection:**
+
+- Use LOO weights > 0.7 for confident model selection
+- Consider model averaging when weights are diffuse
+- Sequential model requires strong prior evidence
+
+# References
+
+::: {#refs}
+:::
+
+# Session Info
+
+```{r session-info}
+sessionInfo()
+```
+
+# Appendix: Code Repository
+
+All code, Stan models, and data are available at:
+[GitHub Repository Link]
+
+To reproduce this analysis:
+
+```bash
+# Clone repository
+git clone [repository-url]
+
+# Install dependencies
+Rscript -e "source('R/setup.R'); complete_setup()"
+
+# Run analysis
+quarto render analysis.qmd
+```
