@@ -42,11 +42,31 @@ project/
 
 ## Installation
 
+### Quick Start with renv (Recommended)
+
+The project uses `renv` for reproducible package management. This ensures you get the exact package versions used in development:
+
+```bash
+# Clone the repository
+git clone https://github.com/clipo/village.git
+cd village
+
+# Restore R packages using renv
+Rscript -e "install.packages('renv'); renv::restore()"
+
+# Install CmdStan
+Rscript -e "cmdstanr::install_cmdstan()"
+```
+
+This will automatically install all required R packages with their exact versions from `renv.lock`.
+
 ### Prerequisites
 
-- R (≥ 4.0.0)
+- R (≥ 4.2.0)
 - RStudio (optional, recommended)
 - C++ compiler (for Stan)
+- Quarto (≥ 1.3) for document generation
+- LaTeX distribution (for PDF output)
 
 ### Quick Start
 

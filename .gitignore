@@ -91,3 +91,12 @@ tests/testthat/_snaps/
 *.out
 *.tex
 !docs/*.tex
+
+# renv
+renv/library/
+renv/local/
+renv/cellar/
+renv/lock/
+renv/python/
+renv/sandbox/
+renv/staging/

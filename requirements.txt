@@ -39,13 +39,40 @@ scales >= 1.2.0
 
 # Installation Instructions:
 #
+# RECOMMENDED: Use renv for reproducible package management
+#
+# 1. Install R (>= 4.2.0) from https://cran.r-project.org/
+#
+# 2. Clone this repository and use renv to restore exact package versions:
+#    git clone https://github.com/clipo/village.git
+#    cd village
+#    Rscript -e "install.packages('renv'); renv::restore()"
+#
+#    This will automatically install all required packages with the exact
+#    versions specified in renv.lock, ensuring full reproducibility.
+#
+# 3. Install cmdstanr and CmdStan:
+#    Rscript -e "install.packages('cmdstanr', repos = c('https://mc-stan.org/r-packages/', getOption('repos')))"
+#    Rscript -e "cmdstanr::install_cmdstan()"
+#
+# 4. Install Quarto from https://quarto.org/docs/get-started/
+#
+# 5. Install LaTeX:
+#    - macOS: brew install --cask mactex
+#    - Linux: sudo apt-get install texlive-full
+#    - Windows: https://miktex.org/download
+#
+# ALTERNATIVE: Manual installation without renv
+#
+# If you prefer not to use renv, install packages manually:
+#
 # 1. Install R (>= 4.2.0) from https://cran.r-project.org/
 #
 # 2. Install R packages:
 #    install.packages(c(
 #      "rcarbon", "posterior", "bayesplot", "loo",
 #      "dplyr", "ggplot2", "tidyr", "readr",
-#      "knitr", "rmarkdown", "RColorBrewer", "gridExtra", "scales"
+#      "knitr", "rmarkdown", "RColorBrewer", "gridExtra", "scales", "png"
 #    ))
 #
 # 3. Install cmdstanr (requires separate steps):
@@ -55,10 +82,10 @@ scales >= 1.2.0
 #
 # 4. Install Quarto from https://quarto.org/docs/get-started/
 #
-# 5. Install LaTeX:
-#    - macOS: brew install --cask mactex
-#    - Linux: sudo apt-get install texlive-full
-#    - Windows: https://miktex.org/download
+# 5. Install LaTeX (see above)
 
 # Verify installation:
 # Run: Rscript -e "source('R/setup.R')"
+
+# Update renv lockfile after adding packages:
+# Rscript -e "renv::snapshot()"
