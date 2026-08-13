@@ -262,7 +262,22 @@ Existing repository code is left in place. The three existing Stan programs are 
 
 ## 9. Expected outcome
 
-Much of this assemblage falls between roughly 700 and 300 cal BP, where IntCal20 has plateaus that limit temporal resolution regardless of model quality. The realistic expectation is a broad posterior on the village count, wide durations at thinly dated sites, and a limited number of site pairs for which non-contemporaneity can be demonstrated. That is a legitimate result and will be reported as such. Demonstrating that contemporaneity cannot be resolved at a given scale is not the same as demonstrating that many villages were occupied simultaneously, and the write-up will not blur the two.
+Calibration curve structure sets a ceiling on resolution that no model can raise. Measuring IntCal20 directly over the study range, the curve does not form one long plateau. It has a set of discrete reversals, intervals where radiocarbon age falls as calendar age falls, within which calibration is multimodal and dating resolution collapses:
+
+| Interval (cal BP) | Interval (AD) | Width |
+|---|---|---|
+| 411–344 | 1539–1606 | 67 yr |
+| 886–837 | 1064–1113 | 49 yr |
+| 613–577 | 1337–1373 | 36 yr |
+| 1233–1199 | 717–751 | 34 yr |
+| 1463–1429 | 487–521 | 34 yr |
+| 1041–1014 | 909–936 | 27 yr |
+
+Between these the curve retains good slope, so occupations falling in the intervening stretches should resolve to a few decades given enough short-lived determinations. This is a more favourable situation than a single broad plateau would present, and it means resolution will vary substantially from site to site depending on where an occupation happens to fall. The reporting must therefore be per-site rather than a single global statement about resolution.
+
+The realistic expectation remains a broad posterior on the village count, wide durations at thinly dated sites, and a limited number of site pairs for which non-contemporaneity can be demonstrated outright. Figure 1 will be accompanied by the curve-reversal intervals marked, so that a narrowing or widening of the count credible interval can be read against calibration structure rather than mistaken for a change in settlement.
+
+Demonstrating that contemporaneity cannot be resolved at a given scale is not the same as demonstrating that many villages were occupied simultaneously, and the write-up will not blur the two.
 
 ## 10. Defects in the existing code, and why it is not reused
 
@@ -276,9 +291,13 @@ Recorded so the decision is auditable.
 
 ## 11. Environment
 
-No analysis packages are installed in the project library, and `renv.lock` records only `renv` itself. Setup installs `readxl`, `dplyr`, `tidyr`, `purrr`, `stringr`, `ggplot2`, `scales`, `patchwork`, `ggridges`, `systemfonts`, `ragg`, `rcarbon`, `posterior`, `loo`, `bayesplot`, and `cmdstanr`, then the CmdStan toolchain. `renv::snapshot()` is run afterwards so the lockfile records the actual environment.
+The project library started empty; `renv.lock` recorded only `renv` itself. Setup is complete as of 2026-08-13, with CmdStan 2.38.0 installed. Three packaging problems were resolved and are recorded here so the environment can be rebuilt.
 
-`rcarbon` supplies IntCal20 and serves as the independent check on the calibration machinery in section 6.5.
+- `data.table` fails to load when built from source against Homebrew `libomp` on this machine. Installed from the CRAN macOS binary instead (1.18.2.1). `cmdstanr` depends on it.
+- `sf` fails to build unless Homebrew's GDAL, GEOS and PROJ are ahead of Anaconda's on `PATH`, because `gdal-config` resolves to `/opt/anaconda3/bin` by default. `rcarbon` depends on `sf`. Setup must export `PATH=/opt/homebrew/opt/{gdal,geos,proj}/bin:$PATH`.
+- `IntCal` is used for the calibration curve rather than `rcarbon`, because it supplies IntCal20 at 1-year spacing across the whole study range with no geospatial dependencies. `rcarbon` is retained solely as the independent calibration check of section 6.5, so a future rebuild that cannot compile `sf` loses only that check, not the analysis.
+
+`renv::snapshot()` records the resulting environment in `renv.lock`.
 
 ## 12. References for methods
 

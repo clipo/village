@@ -9,13 +9,28 @@ options(repos = c(
   CRAN = "https://cloud.r-project.org"
 ))
 
+# sf (an rcarbon dependency) resolves gdal-config from PATH. Anaconda ships a
+# gdal-config that does not match the Homebrew GDAL libraries, so put Homebrew
+# ahead of it. Without this, sf fails to build and rcarbon fails with it.
+Sys.setenv(PATH = paste(
+  "/opt/homebrew/opt/gdal/bin",
+  "/opt/homebrew/opt/geos/bin",
+  "/opt/homebrew/opt/proj/bin",
+  Sys.getenv("PATH"), sep = ":"))
+
 cran_pkgs <- c(
   "yaml", "readxl", "dplyr", "tidyr", "purrr", "stringr",
   "ggplot2", "scales", "patchwork", "ggridges",
   "systemfonts", "ragg",
-  "rcarbon", "posterior", "loo", "bayesplot",
+  "IntCal", "rcarbon", "posterior", "loo", "bayesplot",
   "cmdstanr"
 )
+
+# data.table built from source against Homebrew libomp fails to load on this
+# machine. The CRAN macOS binary works. cmdstanr depends on it.
+if (!requireNamespace("data.table", quietly = TRUE)) {
+  try(install.packages("data.table", type = "binary"))
+}
 
 missing <- cran_pkgs[!vapply(cran_pkgs, requireNamespace, logical(1), quietly = TRUE)]
 
