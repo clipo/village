@@ -70,12 +70,14 @@ build_variants <- function(dates, curve) {
 
 build_stan_data <- function(dates, variants, phase_counts,
                             mu_d_prior = log(60),
-                            model = c("multi", "indep", "single", "sequential")) {
+                            model = c("multi", "indep", "single", "sequential"),
+                            dirichlet_alpha = 1) {
   model <- match.arg(model)
 
   sites <- sort(unique(dates$site))
   site_id <- match(dates$site, sites)
-  J <- phase_counts$J[match(sites, phase_counts$site)]
+  J <- as.integer(phase_counts$J[match(sites, phase_counts$site)])
+  stopifnot(!any(is.na(J)), all(J >= 1L), all(J <= 4L))
 
   if (model == "indep") J <- rep(1L, length(sites))
 
@@ -132,10 +134,16 @@ build_stan_data <- function(dates, variants, phase_counts,
     # as.integer() matters even when these are empty: a zero-length vector of
     # the wrong type serialises to JSON in a form CmdStan rejects for an int
     # array, and every configuration except "multi" leaves both of them empty.
+    sites_J1 = as.integer(which(J == 1L)), n_site_J1 = sum(J == 1L),
     sites_J2 = as.integer(which(J == 2L)), n_site_J2 = sum(J == 2L),
+    sites_J3 = as.integer(which(J == 3L)), n_site_J3 = sum(J == 3L),
     sites_J4 = as.integer(which(J == 4L)), n_site_J4 = sum(J == 4L),
 
     mu_d_prior_mean = mu_d_prior,
+    # alpha / J, per spec section 3.2.
+    dirichlet_conc_J2 = dirichlet_alpha / 2,
+    dirichlet_conc_J3 = dirichlet_alpha / 3,
+    dirichlet_conc_J4 = dirichlet_alpha / 4,
     site_names = sites
   )
 }

@@ -46,28 +46,54 @@ data {
   real cal_min;
   real cal_max;
 
+  int<lower=0> n_site_J1;
+  array[n_site_J1] int<lower=1, upper=S> sites_J1;
   int<lower=0> n_site_J2;
   array[n_site_J2] int<lower=1, upper=S> sites_J2;
+  int<lower=0> n_site_J3;
+  array[n_site_J3] int<lower=1, upper=S> sites_J3;
   int<lower=0> n_site_J4;
   array[n_site_J4] int<lower=1, upper=S> sites_J4;
 
   real mu_d_prior_mean;
+  // Dirichlet concentration for the phase weights. The spec sets this to
+  // alpha / J with alpha = 1, which is what makes the mixture overfitted so
+  // that unsupported components empty out. Exposed as data so the sensitivity
+  // of the sampler's geometry to it can be measured rather than assumed.
+  real<lower=0> dirichlet_conc_J2;
+  real<lower=0> dirichlet_conc_J3;
+  real<lower=0> dirichlet_conc_J4;
   int<lower=0, upper=1> prior_only;                // 1 runs the prior predictive
 }
 
 transformed data {
   // Map each site to its slot in the J=2 or J=4 simplex arrays. Sites with a
   // single phase need no simplex.
+  array[S] int slot1 = rep_array(0, S);
   array[S] int slot2 = rep_array(0, S);
+  array[S] int slot3 = rep_array(0, S);
   array[S] int slot4 = rep_array(0, S);
+  for (m in 1:n_site_J1) slot1[sites_J1[m]] = m;
   for (m in 1:n_site_J2) slot2[sites_J2[m]] = m;
+  for (m in 1:n_site_J3) slot3[sites_J3[m]] = m;
   for (m in 1:n_site_J4) slot4[sites_J4[m]] = m;
+  real cal_range = cal_max - cal_min;
 }
 
 parameters {
-  // Oldest phase midpoint at each site, then positive gaps to the younger ones.
-  vector<lower=cal_min, upper=cal_max>[S] mid_first;
-  vector[P - S] log_gap;
+  // Phase midpoints, ordered within each site and confined to the calendar
+  // range. A site's J midpoints are the first J cumulative sums of a
+  // (J+1)-simplex scaled across the range, so they are automatically ordered
+  // and automatically inside it. A Dirichlet(1) on the simplex makes them
+  // uniform over the grid subject to that ordering, which is what the spec
+  // asks for. The earlier construction bounded only the first midpoint and
+  // reached the rest through unbounded gaps, which left the parameters of
+  // data-free mixture components on flat unbounded directions and produced
+  // divergences in 70% of transitions.
+  vector<lower=cal_min, upper=cal_max>[n_site_J1] mid1;
+  array[n_site_J2] simplex[3] w2;
+  array[n_site_J3] simplex[4] w3;
+  array[n_site_J4] simplex[5] w4;
 
   // Durations, non-centred on a hierarchical lognormal.
   vector[P] log_dur_raw;
@@ -76,6 +102,7 @@ parameters {
 
   // Phase weights.
   array[n_site_J2] simplex[2] pi2;
+  array[n_site_J3] simplex[3] pi3;
   array[n_site_J4] simplex[4] pi4;
 
   // Inbuilt-age distributions for wood and indeterminate material.
@@ -94,17 +121,19 @@ transformed parameters {
   vector[P] dur = fmax(exp(mu_d + sigma_d * log_dur_raw), 1e-3);
   vector[P] a_start;
   vector[P] b_end;
-  {
-    int g = 1;
-    for (s in 1:S) {
-      int p0 = phase_start[s];
-      mid[p0] = mid_first[s];
-      // Gaps run from older to younger, so each subsequent midpoint is
-      // smaller. The strict ordering resolves label switching within a site.
-      for (k in 1:(n_phase[s] - 1)) {
-        mid[p0 + k] = mid[p0 + k - 1] - exp(log_gap[g]);
-        g += 1;
-      }
+  for (s in 1:S) {
+    int p0 = phase_start[s];
+    if (n_phase[s] == 1) {
+      mid[p0] = mid1[slot1[s]];
+    } else if (n_phase[s] == 2) {
+      real c = 0;
+      for (k in 1:2) { c += w2[slot2[s]][k]; mid[p0 + k - 1] = cal_min + cal_range * c; }
+    } else if (n_phase[s] == 3) {
+      real c = 0;
+      for (k in 1:3) { c += w3[slot3[s]][k]; mid[p0 + k - 1] = cal_min + cal_range * c; }
+    } else {
+      real c = 0;
+      for (k in 1:4) { c += w4[slot4[s]][k]; mid[p0 + k - 1] = cal_min + cal_range * c; }
     }
   }
   a_start = mid + 0.5 * dur;
@@ -112,16 +141,20 @@ transformed parameters {
 }
 
 model {
-  // mid_first is uniform over the calendar range through its declared bounds.
-  log_gap ~ normal(log(150), 1);      // lognormal separation between episodes
+  // Dirichlet(1) on the spacing simplex gives midpoints uniform over the
+  // calendar range subject to their within-site ordering.
+  for (m in 1:n_site_J2) w2[m] ~ dirichlet(rep_vector(1.0, 3));
+  for (m in 1:n_site_J3) w3[m] ~ dirichlet(rep_vector(1.0, 4));
+  for (m in 1:n_site_J4) w4[m] ~ dirichlet(rep_vector(1.0, 5));
   log_dur_raw ~ std_normal();
   mu_d ~ normal(mu_d_prior_mean, 1);
   sigma_d ~ normal(0, 1);             // half-normal through the lower bound
   rho ~ beta(2, 18);
   // alpha / J, with alpha = 1: an overfitted mixture, so phases unsupported by
   // data are driven toward zero weight rather than splitting the data.
-  for (m in 1:n_site_J2) pi2[m] ~ dirichlet(rep_vector(0.5, 2));
-  for (m in 1:n_site_J4) pi4[m] ~ dirichlet(rep_vector(0.25, 4));
+  for (m in 1:n_site_J2) pi2[m] ~ dirichlet(rep_vector(dirichlet_conc_J2, 2));
+  for (m in 1:n_site_J3) pi3[m] ~ dirichlet(rep_vector(dirichlet_conc_J3, 3));
+  for (m in 1:n_site_J4) pi4[m] ~ dirichlet(rep_vector(dirichlet_conc_J4, 4));
   for (c in 1:2) q[c] ~ dirichlet(rep_vector(1.0, n_kappa));
 
   // The model block cannot return early, so the likelihood is guarded.
@@ -136,6 +169,7 @@ model {
         real lpi;
         if (J == 1) lpi = 0;
         else if (J == 2) lpi = log(pi2[slot2[s]][j]);
+        else if (J == 3) lpi = log(pi3[slot3[s]][j]);
         else lpi = log(pi4[slot4[s]][j]);
         lp_phase[j] = lpi
           + variant_logprob(a_start[p], b_end[p], i, class_id[i],
@@ -173,6 +207,7 @@ generated quantities {
       real lpi;
       if (J == 1) lpi = 0;
       else if (J == 2) lpi = log(pi2[slot2[s]][j]);
+      else if (J == 3) lpi = log(pi3[slot3[s]][j]);
       else lpi = log(pi4[slot4[s]][j]);
       lp_phase[j] = lpi
         + variant_logprob(a_start[p], b_end[p], i, class_id[i],
