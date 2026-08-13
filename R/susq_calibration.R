@@ -36,12 +36,15 @@ calib_likelihood <- function(c14_age, c14_error, curve, inflate = 1) {
 #' event dates. `kappa = 0` returns the input unchanged.
 convolve_inbuilt <- function(L, kappa, dt) {
   if (kappa <= 0) return(L)
-  # Truncate the kernel where it no longer contributes.
+  G <- length(L)
+  # Truncate the kernel where it no longer contributes, and never beyond the
+  # grid: at kappa = 240 the 1-1e-8 quantile is about 4400 years, more than
+  # twice the grid's span, and a shift of that size has nothing left to read.
   dmax <- ceiling(stats::qexp(1 - 1e-8, rate = 1 / kappa) / dt) * dt
+  dmax <- min(dmax, (G - 1L) * dt)
   d <- seq(0, dmax, by = dt)
   w <- stats::dexp(d, rate = 1 / kappa)
   w <- w / sum(w)
-  G <- length(L)
   out <- numeric(G)
   for (k in seq_along(d)) {
     shift <- k - 1L

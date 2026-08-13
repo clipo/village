@@ -65,6 +65,24 @@ test_that("exponential convolution shifts mass older and preserves total mass", 
   expect_lt(centroid(L) - centroid(Lk), 90)
 })
 
+test_that("convolution works at every kappa the model uses", {
+  # The largest scale, 240 years, has an exponential tail longer than the grid.
+  # An unclamped kernel asks for a shift past the end of the vector.
+  cc <- intcal20_on_grid()
+  L <- calib_likelihood(700, 30, cc)
+  centroid <- function(v) sum(v * CAL_GRID$t) / sum(v)
+  prev <- centroid(L)
+  for (kappa in c(0, 15, 30, 60, 120, 240)) {
+    Lk <- expect_no_error(convolve_inbuilt(L, kappa, CAL_GRID$dt))
+    expect_length(Lk, CAL_GRID$G)
+    expect_true(all(is.finite(Lk)))
+    expect_true(all(Lk >= 0))
+    # Larger inbuilt age moves the event date monotonically younger.
+    if (kappa > 0) expect_lt(centroid(Lk), prev)
+    prev <- centroid(Lk)
+  }
+})
+
 test_that("pair_likelihood sharpens a wiggle-matched pair", {
   cc <- intcal20_on_grid()
   L1 <- calib_likelihood(870, 25, cc)
