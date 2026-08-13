@@ -62,6 +62,8 @@ prepare_susq_data <- function(xlsx = "data/Local Dates.xlsx",
   quality <- collect_quality_flags(d)
 
   d <- pool_replicates(d)
+  quality <- rbind(quality, attr(d, "pool_flags"))
+  attr(d, "pool_flags") <- NULL
   d <- fold_wiggle_matches(d)
 
   d$class_id <- match(d$material_class, MATERIAL_CLASSES)
@@ -78,6 +80,7 @@ prepare_susq_data <- function(xlsx = "data/Local Dates.xlsx",
 #' Pool replicate determinations. A lab code ending in "r" denotes a rerun of
 #' the sample identified by the code without the suffix.
 pool_replicates <- function(d) {
+  pooled_flags <- list()
   d$preprocess <- "none"
   reps <- grep("[0-9]r$", d$lab_no, value = TRUE)
   for (r in reps) {
@@ -85,6 +88,19 @@ pool_replicates <- function(d) {
     idx <- which(d$lab_no %in% c(base, r))
     if (length(idx) < 2) next
     p <- ward_wilson_pool(d$c14_age[idx], d$c14_error[idx])
+    # Pooling alters a determination, so the test result that justified it
+    # belongs in the quality report rather than only in this function.
+    pooled_flags[[length(pooled_flags) + 1L]] <- data.frame(
+      kind = if (p$consistent) "replicate_pooled" else "replicate_inconsistent",
+      detail = sprintf(
+        "%s pooled from %s: T = %.2f on %d df (5%% critical %.2f), %s. Result %.1f +/- %.1f",
+        base, paste(sprintf("%g+/-%g", d$c14_age[idx], d$c14_error[idx]),
+                    collapse = " and "),
+        p$t, p$df, stats::qchisq(0.95, p$df),
+        if (p$consistent) "consistent" else
+          "not consistent, so the pooled error is inflated by sqrt(T/df)",
+        p$age, p$error),
+      stringsAsFactors = FALSE)
     keep <- idx[d$lab_no[idx] == base]
     # A duplicated base lab code would recycle the scalar pooled values across
     # unrelated rows, silently altering determinations this pipeline is
@@ -97,6 +113,8 @@ pool_replicates <- function(d) {
     d$preprocess[keep] <- "pooled_replicate"
     d <- d[-drop, , drop = FALSE]
   }
+  attr(d, "pool_flags") <- if (length(pooled_flags))
+    do.call(rbind, pooled_flags) else NULL
   d
 }
 
@@ -148,6 +166,9 @@ collect_quality_flags <- function(d) {
         sprintf("%s at %s (%g+/-%g)", d$lab_no[i], d$site[i],
                 d$c14_age[i], d$c14_error[i]))
   }
+  if (!length(flags))
+    return(data.frame(kind = character(0), detail = character(0),
+                      stringsAsFactors = FALSE))
   do.call(rbind, flags)
 }
 

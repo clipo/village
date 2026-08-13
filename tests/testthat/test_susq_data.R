@@ -62,3 +62,15 @@ test_that("quality flags are reported and not silently corrected", {
   expect_true(any(grepl("none provided", d$quality$detail)))
   expect_true(any(grepl("Beta-7007", d$quality$detail)))
 })
+
+test_that("pooling a replicate is itself reported, with the test that justified it", {
+  # Pooling alters a determination. The spec requires data problems to be
+  # reported, so the inconsistency that forced the error inflation must appear
+  # in the quality report rather than only inside the pooling function.
+  d <- prepare_susq_data()
+  row <- d$quality[d$quality$kind == "replicate_inconsistent", ]
+  expect_equal(nrow(row), 1L)
+  expect_match(row$detail, "UGAMS-53046")
+  expect_match(row$detail, "T = 8.08")
+  expect_match(row$detail, "not consistent")
+})
