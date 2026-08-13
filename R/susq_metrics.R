@@ -19,7 +19,7 @@ occupancy_from_arrays <- function(start, end, active, stan_data, report_dt = 10)
     p_idx <- stan_data$phase_start[s] + seq_len(stan_data$n_phase[s]) - 1L
     for (p in p_idx) {
       cover <- outer(start[, p], t_grid, ">=") & outer(end[, p], t_grid, "<=")
-      O[, s, ] <- O[, s, ] | (cover & (active[, p] == 1))
+      O[, s, ] <- O[, s, ] | (cover & matrix(active[, p] == 1, D, G))
     }
   }
   list(t = t_grid, O = O, sites = stan_data$site_names, dt = report_dt)

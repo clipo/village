@@ -82,12 +82,16 @@ occupancy_persite <- function(site_fits, report_dt = 10, n_draws = NULL) {
   O <- array(FALSE, dim = c(D, length(sites), length(t_grid)))
   for (si in seq_along(sites)) {
     f <- site_fits[[si]]$fit
-    st <- f$draws("phase_start_calBP", format = "matrix")[seq_len(D), , drop = FALSE]
-    en <- f$draws("phase_end_calBP", format = "matrix")[seq_len(D), , drop = FALSE]
-    ac <- f$draws("active", format = "matrix")[seq_len(D), , drop = FALSE]
+    # as.matrix strips the draws_matrix class; without it, column extraction
+    # keeps attributes that make outer() return a non-conformable result.
+    st <- as.matrix(f$draws("phase_start_calBP", format = "matrix"))[seq_len(D), , drop = FALSE]
+    en <- as.matrix(f$draws("phase_end_calBP", format = "matrix"))[seq_len(D), , drop = FALSE]
+    ac <- as.matrix(f$draws("active", format = "matrix"))[seq_len(D), , drop = FALSE]
     for (p in seq_len(ncol(st))) {
-      cover <- outer(st[, p], t_grid, ">=") & outer(en[, p], t_grid, "<=")
-      O[, si, ] <- O[, si, ] | (cover & (ac[, p] == 1))
+      cover <- outer(as.numeric(st[, p]), t_grid, ">=") &
+               outer(as.numeric(en[, p]), t_grid, "<=")
+      O[, si, ] <- O[, si, ] |
+        (cover & matrix(as.numeric(ac[, p]) == 1, D, length(t_grid)))
     }
   }
   list(t = t_grid, O = O, sites = sites, dt = report_dt)
