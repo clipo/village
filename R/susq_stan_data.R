@@ -86,7 +86,7 @@ build_stan_data <- function(dates, variants, phase_counts,
     # to the serial hypothesis. See spec section 5.
     J <- rep(1L, length(sites))
     cc <- intcal20_on_grid()
-    approx_cal <- stats::approx(cc$c14, cc$calBP, xout = dates$c14_age, rule = 2)$y
+    approx_cal <- stats::approx(cc$c14, cc$calBP, xout = dates$c14_age, rule = 2, ties = mean)$y
     med <- tapply(approx_cal, dates$site, stats::median)
     sites <- names(sort(med))
     site_id <- match(dates$site, sites)
