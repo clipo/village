@@ -1,0 +1,562 @@
+"site_a","site_b","median_years","lo95","hi95","p_ge_25","p_any"
+"Apalachin Creek","Ayers1",0,0,0,0.001,0.00125
+"Apalachin Creek","Bates",0,0,10,0.01575,0.02575
+"Apalachin Creek","Broome_Tech",0,0,20,0.02375,0.0335
+"Apalachin Creek","Castle Creek",0,0,60,0.07275,0.103
+"Apalachin Creek","CCE_Site",50,0,230,0.67325,0.74925
+"Apalachin Creek","Chenango_Point",0,0,180,0.248,0.3095
+"Apalachin Creek","Chenango_Shores_East",0,0,0,0.00325,0.0045
+"Apalachin Creek","Denton Reed 2",0,0,0,0,0
+"Apalachin Creek","Deposit_Airport1",0,0,0,0.00075,0.001
+"Apalachin Creek","Egli",0,0,40,0.04425,0.065
+"Apalachin Creek","Engelbert",0,0,80,0.146,0.2135
+"Apalachin Creek","Fortin",0,0,0,0.01025,0.01475
+"Apalachin Creek","Gardepe",0,0,0,0.0075,0.01075
+"Apalachin Creek","Herrick Hollow I",0,0,0,0.00375,0.0055
+"Apalachin Creek","Herrick Hollow II",0,0,0,5e-04,0.00125
+"Apalachin Creek","Herrick Hollow V",0,0,0,0.00475,0.0065
+"Apalachin Creek","Jamba",0,0,80,0.0905,0.1205
+"Apalachin Creek","Lamb",0,0,70,0.119,0.16625
+"Apalachin Creek","Lamoree",0,0,0,0.012,0.01575
+"Apalachin Creek","Lords_Wells",0,0,0,0.0015,0.0025
+"Apalachin Creek","Otsiningo_Market",0,0,30,0.0285,0.043
+"Apalachin Creek","Owego River Crossing",0,0,40,0.0395,0.0525
+"Apalachin Creek","Owego Southside Sewage Treatment",0,0,80,0.1195,0.1725
+"Apalachin Creek","PC2",0,0,60,0.0575,0.074
+"Apalachin Creek","Port Dickinson",0,0,0,0.00025,0.00075
+"Apalachin Creek","Raish-2",0,0,70,0.0885,0.1295
+"Apalachin Creek","Roberson",0,0,0,0.001,0.002
+"Apalachin Creek","Roundtop",0,0,150,0.19075,0.24325
+"Apalachin Creek","Russ",0,0,80,0.22475,0.3295
+"Apalachin Creek","Sidney Airport",0,0,90,0.283,0.41275
+"Apalachin Creek","Street",0,0,0,0.001,0.0035
+"Apalachin Creek","Thomas_Luckey",0,0,120,0.09525,0.12225
+"Apalachin Creek","White",0,0,0,0.00875,0.013
+"Ayers1","Bates",0,0,20,0.01975,0.03325
+"Ayers1","Broome_Tech",20,0,180,0.49,0.56575
+"Ayers1","Castle Creek",0,0,0,0.00875,0.01575
+"Ayers1","CCE_Site",0,0,170,0.27675,0.3105
+"Ayers1","Chenango_Point",0,0,120,0.22075,0.2875
+"Ayers1","Chenango_Shores_East",0,0,70,0.146,0.2225
+"Ayers1","Denton Reed 2",0,0,40,0.032,0.04975
+"Ayers1","Deposit_Airport1",0,0,100,0.30475,0.43375
+"Ayers1","Egli",0,0,70,0.087,0.11525
+"Ayers1","Engelbert",0,0,0,0.0015,0.00225
+"Ayers1","Fortin",0,0,100,0.29725,0.39375
+"Ayers1","Gardepe",0,0,80,0.14725,0.20575
+"Ayers1","Herrick Hollow I",0,0,110,0.349,0.47825
+"Ayers1","Herrick Hollow II",0,0,90,0.2735,0.38675
+"Ayers1","Herrick Hollow V",0,0,100,0.34675,0.4545
+"Ayers1","Jamba",0,0,0,0.003,0.005
+"Ayers1","Lamb",0,0,0,0.00075,0.00325
+"Ayers1","Lamoree",0,0,90,0.20425,0.27775
+"Ayers1","Lords_Wells",0,0,90,0.1925,0.27575
+"Ayers1","Otsiningo_Market",0,0,0,0.00625,0.012
+"Ayers1","Owego River Crossing",0,0,0,0.01275,0.02175
+"Ayers1","Owego Southside Sewage Treatment",0,0,0,0.001,0.0015
+"Ayers1","PC2",0,0,0,0.0045,0.00625
+"Ayers1","Port Dickinson",0,0,100,0.34575,0.47325
+"Ayers1","Raish-2",0,0,0,0.0105,0.0165
+"Ayers1","Roberson",0,0,50,0.0455,0.0655
+"Ayers1","Roundtop",0,0,30,0.02625,0.0415
+"Ayers1","Russ",0,0,0,0.00125,0.0015
+"Ayers1","Sidney Airport",0,0,0,0,0
+"Ayers1","Street",0,0,100,0.2935,0.4015
+"Ayers1","Thomas_Luckey",0,0,0,0.0085,0.01475
+"Ayers1","White",0,0,90,0.2415,0.326
+"Bates","Broome_Tech",30,0,140,0.528,0.65775
+"Bates","Castle Creek",0,0,80,0.23,0.354
+"Bates","CCE_Site",40,0,170,0.63,0.7205
+"Bates","Chenango_Point",60,20,190,0.9005,0.99675
+"Bates","Chenango_Shores_East",0,0,80,0.14025,0.205
+"Bates","Denton Reed 2",0,0,0,0,0
+"Bates","Deposit_Airport1",0,0,40,0.04,0.06875
+"Bates","Egli",0,0,70,0.1365,0.2145
+"Bates","Engelbert",0,0,30.2500000000009,0.03925,0.07075
+"Bates","Fortin",0,0,50,0.0625,0.09375
+"Bates","Gardepe",0,0,20,0.02425,0.0395
+"Bates","Herrick Hollow I",0,0,40,0.03225,0.0475
+"Bates","Herrick Hollow II",0,0,40.2500000000009,0.05375,0.088
+"Bates","Herrick Hollow V",0,0,30,0.0325,0.0475
+"Bates","Jamba",0,0,70,0.11775,0.2015
+"Bates","Lamb",0,0,50,0.05575,0.0925
+"Bates","Lamoree",0,0,50,0.07275,0.103
+"Bates","Lords_Wells",0,0,80,0.128,0.21375
+"Bates","Otsiningo_Market",20,0,80,0.49825,0.69775
+"Bates","Owego River Crossing",10,0,90,0.35725,0.5545
+"Bates","Owego Southside Sewage Treatment",0,0,40,0.054,0.09225
+"Bates","PC2",0,0,70,0.2035,0.341
+"Bates","Port Dickinson",0,0,20,0.02375,0.04425
+"Bates","Raish-2",0,0,70,0.152,0.253
+"Bates","Roberson",0,0,0,0.00925,0.01325
+"Bates","Roundtop",30,0,140,0.5655,0.6925
+"Bates","Russ",0,0,0,0.007,0.00975
+"Bates","Sidney Airport",0,0,0,0.002,0.004
+"Bates","Street",0,0,60,0.0855,0.14025
+"Bates","Thomas_Luckey",0,0,120,0.341,0.4395
+"Bates","White",0,0,50,0.0645,0.09775
+"Broome_Tech","Castle Creek",0,0,120,0.247,0.3275
+"Broome_Tech","CCE_Site",80,0,460,0.65325,0.68725
+"Broome_Tech","Chenango_Point",130,0,410,0.87625,0.9135
+"Broome_Tech","Chenango_Shores_East",40,0,170,0.734,0.875
+"Broome_Tech","Denton Reed 2",0,0,0,0.01725,0.0245
+"Broome_Tech","Deposit_Airport1",40,0,150,0.6195,0.73625
+"Broome_Tech","Egli",0,0,110,0.254,0.31275
+"Broome_Tech","Engelbert",0,0,80,0.1065,0.14275
+"Broome_Tech","Fortin",20,0,150,0.449,0.5355
+"Broome_Tech","Gardepe",0,0,110,0.16325,0.2055
+"Broome_Tech","Herrick Hollow I",0,0,120,0.3245,0.40825
+"Broome_Tech","Herrick Hollow II",40,0,130,0.655,0.776
+"Broome_Tech","Herrick Hollow V",0,0,120,0.33325,0.4125
+"Broome_Tech","Jamba",0,0,130.250000000001,0.1945,0.237
+"Broome_Tech","Lamb",0,0,100,0.129,0.16025
+"Broome_Tech","Lamoree",0,0,130,0.39375,0.47125
+"Broome_Tech","Lords_Wells",50,0,170,0.775,0.877
+"Broome_Tech","Otsiningo_Market",0,0,110,0.38575,0.4925
+"Broome_Tech","Owego River Crossing",0,0,130,0.346,0.42925
+"Broome_Tech","Owego Southside Sewage Treatment",0,0,100,0.124,0.158
+"Broome_Tech","PC2",0,0,130,0.24375,0.3035
+"Broome_Tech","Port Dickinson",30,0,140,0.57275,0.694
+"Broome_Tech","Raish-2",0,0,110,0.20825,0.261
+"Broome_Tech","Roberson",0,0,50,0.0445,0.05975
+"Broome_Tech","Roundtop",20,0,280,0.48125,0.5475
+"Broome_Tech","Russ",0,0,10,0.01975,0.028
+"Broome_Tech","Sidney Airport",0,0,20,0.02325,0.0355
+"Broome_Tech","Street",40,0,170,0.64375,0.75075
+"Broome_Tech","Thomas_Luckey",0,0,230,0.32525,0.37725
+"Broome_Tech","White",0,0,130,0.3565,0.43475
+"Castle Creek","CCE_Site",50,0,180,0.771,0.86975
+"Castle Creek","Chenango_Point",60,0,180,0.8555,0.94325
+"Castle Creek","Chenango_Shores_East",0,0,50,0.0535,0.07825
+"Castle Creek","Denton Reed 2",0,0,0,0,5e-04
+"Castle Creek","Deposit_Airport1",0,0,10,0.0175,0.02975
+"Castle Creek","Egli",0,0,70,0.1345,0.20625
+"Castle Creek","Engelbert",0,0,80,0.205,0.32075
+"Castle Creek","Fortin",0,0,40,0.03525,0.0555
+"Castle Creek","Gardepe",0,0,0,0.01625,0.0245
+"Castle Creek","Herrick Hollow I",0,0,20,0.0235,0.03275
+"Castle Creek","Herrick Hollow II",0,0,20,0.0225,0.03175
+"Castle Creek","Herrick Hollow V",0,0,10,0.01925,0.028
+"Castle Creek","Jamba",10,0,100,0.362,0.50175
+"Castle Creek","Lamb",0,0,80,0.24725,0.3725
+"Castle Creek","Lamoree",0,0,40,0.0375,0.05575
+"Castle Creek","Lords_Wells",0,0,40.2500000000009,0.043,0.072
+"Castle Creek","Otsiningo_Market",0,0,80,0.28925,0.446
+"Castle Creek","Owego River Crossing",0,0,90,0.3245,0.47375
+"Castle Creek","Owego Southside Sewage Treatment",0,0,90,0.2735,0.393
+"Castle Creek","PC2",10,0,90,0.3955,0.56725
+"Castle Creek","Port Dickinson",0,0,0,0.0115,0.01775
+"Castle Creek","Raish-2",0,0,80,0.26775,0.38425
+"Castle Creek","Roberson",0,0,0,0.00675,0.0085
+"Castle Creek","Roundtop",50,0,160,0.72525,0.838
+"Castle Creek","Russ",0,0,40,0.0415,0.06925
+"Castle Creek","Sidney Airport",0,0,60,0.06825,0.1095
+"Castle Creek","Street",0,0,20,0.02475,0.047
+"Castle Creek","Thomas_Luckey",40,0,130,0.615,0.7535
+"Castle Creek","White",0,0,30,0.03625,0.05825
+"CCE_Site","Chenango_Point",340,40,520,0.9855,0.98975
+"CCE_Site","Chenango_Shores_East",20,0,160,0.46575,0.553
+"CCE_Site","Denton Reed 2",0,0,80,0.08975,0.10425
+"CCE_Site","Deposit_Airport1",0,0,130,0.33825,0.40025
+"CCE_Site","Egli",20,0,150,0.49225,0.54875
+"CCE_Site","Engelbert",50,0,180,0.8405,0.93275
+"CCE_Site","Fortin",0,0,150,0.328,0.37775
+"CCE_Site","Gardepe",0,0,100,0.17925,0.2095
+"CCE_Site","Herrick Hollow I",0,0,120,0.24925,0.2805
+"CCE_Site","Herrick Hollow II",0,0,130,0.369,0.444
+"CCE_Site","Herrick Hollow V",0,0,130,0.239,0.28
+"CCE_Site","Jamba",70,0,230,0.904,0.96525
+"CCE_Site","Lamb",60,0,190,0.87975,0.9535
+"CCE_Site","Lamoree",0,0,130,0.29475,0.337
+"CCE_Site","Lords_Wells",20,0,160,0.476,0.53925
+"CCE_Site","Otsiningo_Market",40,0,140,0.68975,0.795
+"CCE_Site","Owego River Crossing",50,0,170,0.73125,0.82725
+"CCE_Site","Owego Southside Sewage Treatment",60,0,220,0.89375,0.96325
+"CCE_Site","PC2",60,0,180,0.862,0.92575
+"CCE_Site","Port Dickinson",0,0,120,0.30875,0.36925
+"CCE_Site","Raish-2",50,0,190,0.77225,0.84925
+"CCE_Site","Roberson",0,0,80,0.07975,0.09175
+"CCE_Site","Roundtop",190,20,430,0.97325,0.98175
+"CCE_Site","Russ",30,0,160,0.56125,0.64975
+"CCE_Site","Sidney Airport",50,0,180,0.7595,0.84375
+"CCE_Site","Street",0,0,140.250000000001,0.373,0.4395
+"CCE_Site","Thomas_Luckey",120,30,300,0.9795,0.986
+"CCE_Site","White",0,0,130,0.2995,0.3435
+"Chenango_Point","Chenango_Shores_East",40,0,190,0.74875,0.90275
+"Chenango_Point","Denton Reed 2",0,0,0,0.00225,0.0035
+"Chenango_Point","Deposit_Airport1",10,0,120,0.4145,0.5355
+"Chenango_Point","Egli",30,0,160,0.51325,0.56975
+"Chenango_Point","Engelbert",50,0,170,0.74975,0.8535
+"Chenango_Point","Fortin",0,0,130,0.31725,0.39425
+"Chenango_Point","Gardepe",0,0,90,0.119,0.14475
+"Chenango_Point","Herrick Hollow I",0,0,100,0.16875,0.20875
+"Chenango_Point","Herrick Hollow II",25,0,110,0.5,0.6305
+"Chenango_Point","Herrick Hollow V",0,0,110,0.16225,0.20325
+"Chenango_Point","Jamba",80,10,240,0.93075,0.9825
+"Chenango_Point","Lamb",60,0,200,0.838,0.92025
+"Chenango_Point","Lamoree",0,0,130,0.3225,0.395
+"Chenango_Point","Lords_Wells",50,0,160,0.74875,0.85325
+"Chenango_Point","Otsiningo_Market",60,20,160,0.90975,0.99575
+"Chenango_Point","Owego River Crossing",60,10,190,0.91075,0.9845
+"Chenango_Point","Owego Southside Sewage Treatment",60,0,210,0.8655,0.939
+"Chenango_Point","PC2",70,20,190,0.9515,0.99525
+"Chenango_Point","Port Dickinson",0,0,100,0.31425,0.42475
+"Chenango_Point","Raish-2",50,0,180,0.7805,0.85225
+"Chenango_Point","Roberson",0,0,40,0.03425,0.042
+"Chenango_Point","Roundtop",240,40,400,0.99025,0.99675
+"Chenango_Point","Russ",0,0,110,0.25225,0.32225
+"Chenango_Point","Sidney Airport",20,0,140,0.443,0.564
+"Chenango_Point","Street",30,0,140,0.50225,0.61575
+"Chenango_Point","Thomas_Luckey",130,70,310,0.99225,0.9955
+"Chenango_Point","White",0,0,120,0.28125,0.34125
+"Chenango_Shores_East","Denton Reed 2",0,0,0,0.00075,0.0015
+"Chenango_Shores_East","Deposit_Airport1",0,0,80,0.29675,0.45875
+"Chenango_Shores_East","Egli",0,0,50,0.0785,0.12
+"Chenango_Shores_East","Engelbert",0,0,0,0.01175,0.0155
+"Chenango_Shores_East","Fortin",0,0,70,0.15975,0.25025
+"Chenango_Shores_East","Gardepe",0,0,40,0.045,0.07
+"Chenango_Shores_East","Herrick Hollow I",0,0,50,0.07175,0.10875
+"Chenango_Shores_East","Herrick Hollow II",20,0,80,0.38575,0.60175
+"Chenango_Shores_East","Herrick Hollow V",0,0,50,0.07075,0.1135
+"Chenango_Shores_East","Jamba",0,0,20,0.02175,0.03075
+"Chenango_Shores_East","Lamb",0,0,0,0.016,0.02425
+"Chenango_Shores_East","Lamoree",0,0,70,0.15575,0.25725
+"Chenango_Shores_East","Lords_Wells",30,0,100,0.64425,0.86825
+"Chenango_Shores_East","Otsiningo_Market",0,0,50,0.061,0.09525
+"Chenango_Shores_East","Owego River Crossing",0,0,60,0.06825,0.104
+"Chenango_Shores_East","Owego Southside Sewage Treatment",0,0,0,0.011,0.01575
+"Chenango_Shores_East","PC2",0,0,30.2500000000009,0.029,0.04225
+"Chenango_Shores_East","Port Dickinson",0,0,70,0.18725,0.32
+"Chenango_Shores_East","Raish-2",0,0,40,0.03775,0.056
+"Chenango_Shores_East","Roberson",0,0,0,0.01175,0.02025
+"Chenango_Shores_East","Roundtop",0,0,110,0.16475,0.2405
+"Chenango_Shores_East","Russ",0,0,0,0.00325,0.0045
+"Chenango_Shores_East","Sidney Airport",0,0,0,0.00275,0.0055
+"Chenango_Shores_East","Street",10,0,90,0.34675,0.52
+"Chenango_Shores_East","Thomas_Luckey",0,0,80,0.068,0.10375
+"Chenango_Shores_East","White",0,0,60,0.12975,0.1985
+"Denton Reed 2","Deposit_Airport1",0,0,0,0.005,0.00675
+"Denton Reed 2","Egli",0,0,50,0.068,0.1005
+"Denton Reed 2","Engelbert",0,0,0,0,0
+"Denton Reed 2","Fortin",0,0,50,0.05025,0.0775
+"Denton Reed 2","Gardepe",0,0,70,0.15275,0.22825
+"Denton Reed 2","Herrick Hollow I",0,0,40,0.04975,0.08425
+"Denton Reed 2","Herrick Hollow II",0,0,0,0.00425,0.00675
+"Denton Reed 2","Herrick Hollow V",0,0,40,0.05025,0.08
+"Denton Reed 2","Jamba",0,0,0,0,0
+"Denton Reed 2","Lamb",0,0,0,0,0
+"Denton Reed 2","Lamoree",0,0,10,0.016,0.027
+"Denton Reed 2","Lords_Wells",0,0,0,0.0015,0.002
+"Denton Reed 2","Otsiningo_Market",0,0,0,0,0
+"Denton Reed 2","Owego River Crossing",0,0,0,0,0
+"Denton Reed 2","Owego Southside Sewage Treatment",0,0,0,0,0
+"Denton Reed 2","PC2",0,0,0,0,0
+"Denton Reed 2","Port Dickinson",0,0,0,0.006,0.00925
+"Denton Reed 2","Raish-2",0,0,0,0.0025,0.003
+"Denton Reed 2","Roberson",0,0,70,0.16875,0.25575
+"Denton Reed 2","Roundtop",0,0,0,0,0
+"Denton Reed 2","Russ",0,0,0,5e-04,5e-04
+"Denton Reed 2","Sidney Airport",0,0,0,0,0
+"Denton Reed 2","Street",0,0,0,0.00275,0.005
+"Denton Reed 2","Thomas_Luckey",0,0,0,0,0
+"Denton Reed 2","White",0,0,50,0.07725,0.11925
+"Deposit_Airport1","Egli",0,0,50,0.05575,0.091
+"Deposit_Airport1","Engelbert",0,0,0,0.00125,0.002
+"Deposit_Airport1","Fortin",0,0,80,0.23025,0.34325
+"Deposit_Airport1","Gardepe",0,0,50,0.071,0.108
+"Deposit_Airport1","Herrick Hollow I",0,0,70,0.154,0.24575
+"Deposit_Airport1","Herrick Hollow II",10,0,80,0.33275,0.50875
+"Deposit_Airport1","Herrick Hollow V",0,0,70,0.1555,0.24225
+"Deposit_Airport1","Jamba",0,0,0,0.00275,0.004
+"Deposit_Airport1","Lamb",0,0,0,0.0035,0.00525
+"Deposit_Airport1","Lamoree",0,0,70,0.206,0.3135
+"Deposit_Airport1","Lords_Wells",10,0,90,0.3555,0.5175
+"Deposit_Airport1","Otsiningo_Market",0,0,0,0.009,0.01825
+"Deposit_Airport1","Owego River Crossing",0,0,10,0.0175,0.02975
+"Deposit_Airport1","Owego Southside Sewage Treatment",0,0,0,0.00125,0.0015
+"Deposit_Airport1","PC2",0,0,0,0.00475,0.0075
+"Deposit_Airport1","Port Dickinson",10,0,90,0.3515,0.53725
+"Deposit_Airport1","Raish-2",0,0,0,0.01325,0.0235
+"Deposit_Airport1","Roberson",0,0,10,0.01725,0.03
+"Deposit_Airport1","Roundtop",0,0,50,0.05175,0.09025
+"Deposit_Airport1","Russ",0,0,0,0.0015,0.002
+"Deposit_Airport1","Sidney Airport",0,0,0,5e-04,5e-04
+"Deposit_Airport1","Street",10,0,90,0.3485,0.515
+"Deposit_Airport1","Thomas_Luckey",0,0,20,0.019,0.035
+"Deposit_Airport1","White",0,0,70,0.158,0.24975
+"Egli","Engelbert",0,0,60,0.09325,0.14925
+"Egli","Fortin",0,0,50,0.06825,0.107
+"Egli","Gardepe",0,0,50,0.06275,0.094
+"Egli","Herrick Hollow I",0,0,50,0.06575,0.09625
+"Egli","Herrick Hollow II",0,0,50,0.06075,0.09425
+"Egli","Herrick Hollow V",0,0,50,0.0605,0.0925
+"Egli","Jamba",0,0,80,0.16175,0.22975
+"Egli","Lamb",0,0,60,0.11525,0.1705
+"Egli","Lamoree",0,0,50,0.06375,0.09625
+"Egli","Lords_Wells",0,0,60,0.08275,0.1265
+"Egli","Otsiningo_Market",0,0,60,0.1445,0.225
+"Egli","Owego River Crossing",0,0,70,0.16275,0.24275
+"Egli","Owego Southside Sewage Treatment",0,0,70,0.13,0.1875
+"Egli","PC2",0,0,70,0.17425,0.25325
+"Egli","Port Dickinson",0,0,50,0.06375,0.09325
+"Egli","Raish-2",0,0,60,0.1225,0.18675
+"Egli","Roberson",0,0,40,0.04625,0.07175
+"Egli","Roundtop",0,0,130,0.373,0.434
+"Egli","Russ",0,0,30,0.0315,0.0465
+"Egli","Sidney Airport",0,0,40,0.047,0.07075
+"Egli","Street",0,0,60,0.08525,0.1225
+"Egli","Thomas_Luckey",0,0,110,0.2965,0.359
+"Egli","White",0,0,50,0.068,0.1085
+"Engelbert","Fortin",0,0,20,0.02225,0.031
+"Engelbert","Gardepe",0,0,0,0.01125,0.01775
+"Engelbert","Herrick Hollow I",0,0,0,0.01075,0.01575
+"Engelbert","Herrick Hollow II",0,0,0,0.00175,0.00325
+"Engelbert","Herrick Hollow V",0,0,0,0.0085,0.013
+"Engelbert","Jamba",10,0,100,0.391,0.54125
+"Engelbert","Lamb",10,0,90,0.34975,0.514
+"Engelbert","Lamoree",0,0,0,0.017,0.02475
+"Engelbert","Lords_Wells",0,0,0,0.00325,0.006
+"Engelbert","Otsiningo_Market",0,0,60,0.08525,0.14825
+"Engelbert","Owego River Crossing",0,0,60,0.13325,0.2125
+"Engelbert","Owego Southside Sewage Treatment",10,0,100,0.3855,0.54825
+"Engelbert","PC2",0,0,80,0.2475,0.3775
+"Engelbert","Port Dickinson",0,0,0,0.001,0.0015
+"Engelbert","Raish-2",0,0,80,0.2215,0.328
+"Engelbert","Roberson",0,0,0,0.00275,0.004
+"Engelbert","Roundtop",40,0,150,0.68175,0.7845
+"Engelbert","Russ",0,0,60,0.11675,0.18475
+"Engelbert","Sidney Airport",0,0,80,0.19375,0.29325
+"Engelbert","Street",0,0,0,0.002,0.004
+"Engelbert","Thomas_Luckey",30,0,120,0.55275,0.67925
+"Engelbert","White",0,0,0,0.0165,0.02375
+"Fortin","Gardepe",0,0,60,0.0875,0.136
+"Fortin","Herrick Hollow I",0,0,80,0.17925,0.25875
+"Fortin","Herrick Hollow II",0,0,70,0.21,0.32475
+"Fortin","Herrick Hollow V",0,0,70,0.17525,0.263
+"Fortin","Jamba",0,0,40,0.031,0.04375
+"Fortin","Lamb",0,0,30,0.0255,0.0355
+"Fortin","Lamoree",0,0,70,0.1465,0.2165
+"Fortin","Lords_Wells",0,0,80,0.194,0.285
+"Fortin","Otsiningo_Market",0,0,40,0.0355,0.05475
+"Fortin","Owego River Crossing",0,0,40,0.04025,0.064
+"Fortin","Owego Southside Sewage Treatment",0,0,20.2500000000009,0.025,0.03525
+"Fortin","PC2",0,0,30,0.03,0.04275
+"Fortin","Port Dickinson",0,0,90,0.24725,0.36025
+"Fortin","Raish-2",0,0,30,0.0285,0.046
+"Fortin","Roberson",0,0,40,0.04325,0.06275
+"Fortin","Roundtop",0,0,90,0.103,0.1365
+"Fortin","Russ",0,0,0,0.012,0.01625
+"Fortin","Sidney Airport",0,0,0,0.013,0.02
+"Fortin","Street",0,0,80,0.2335,0.3375
+"Fortin","Thomas_Luckey",0,0,60,0.05675,0.0785
+"Fortin","White",0,0,70,0.1535,0.22475
+"Gardepe","Herrick Hollow I",0,0,60,0.1125,0.172
+"Gardepe","Herrick Hollow II",0,0,50,0.061,0.09475
+"Gardepe","Herrick Hollow V",0,0,60,0.1075,0.1665
+"Gardepe","Jamba",0,0,0,0.013,0.0205
+"Gardepe","Lamb",0,0,0,0.01175,0.01775
+"Gardepe","Lamoree",0,0,50,0.0685,0.10775
+"Gardepe","Lords_Wells",0,0,50,0.0605,0.08775
+"Gardepe","Otsiningo_Market",0,0,10,0.016,0.02825
+"Gardepe","Owego River Crossing",0,0,20,0.0215,0.03175
+"Gardepe","Owego Southside Sewage Treatment",0,0,0,0.011,0.01725
+"Gardepe","PC2",0,0,10,0.017,0.0275
+"Gardepe","Port Dickinson",0,0,60,0.08075,0.1225
+"Gardepe","Raish-2",0,0,0,0.013,0.021
+"Gardepe","Roberson",0,0,60,0.09575,0.1535
+"Gardepe","Roundtop",0,0,50,0.04575,0.058
+"Gardepe","Russ",0,0,0,0.007,0.00925
+"Gardepe","Sidney Airport",0,0,0,0.0065,0.01025
+"Gardepe","Street",0,0,50,0.06675,0.10125
+"Gardepe","Thomas_Luckey",0,0,30,0.02925,0.0415
+"Gardepe","White",0,0,60,0.1,0.1565
+"Herrick Hollow I","Herrick Hollow II",0,0,70,0.12075,0.19475
+"Herrick Hollow I","Herrick Hollow V",0,0,80,0.232,0.34475
+"Herrick Hollow I","Jamba",0,0,0,0.01525,0.02275
+"Herrick Hollow I","Lamb",0,0,0,0.01325,0.01825
+"Herrick Hollow I","Lamoree",0,0,60,0.11275,0.1745
+"Herrick Hollow I","Lords_Wells",0,0,60,0.0955,0.144
+"Herrick Hollow I","Otsiningo_Market",0,0,20,0.02275,0.03425
+"Herrick Hollow I","Owego River Crossing",0,0,30,0.026,0.04175
+"Herrick Hollow I","Owego Southside Sewage Treatment",0,0,0,0.01475,0.01975
+"Herrick Hollow I","PC2",0,0,20,0.0205,0.0305
+"Herrick Hollow I","Port Dickinson",0,0,70,0.18525,0.2885
+"Herrick Hollow I","Raish-2",0,0,10,0.0165,0.0265
+"Herrick Hollow I","Roberson",0,0,40,0.04375,0.069
+"Herrick Hollow I","Roundtop",0,0,60,0.05725,0.07125
+"Herrick Hollow I","Russ",0,0,0,0.00475,0.00775
+"Herrick Hollow I","Sidney Airport",0,0,0,0.00375,0.006
+"Herrick Hollow I","Street",0,0,70,0.14325,0.2255
+"Herrick Hollow I","Thomas_Luckey",0,0,40,0.0365,0.044
+"Herrick Hollow I","White",0,0,70,0.16375,0.242
+"Herrick Hollow II","Herrick Hollow V",0,0,60,0.12275,0.1965
+"Herrick Hollow II","Jamba",0,0,0,0.004,0.00625
+"Herrick Hollow II","Lamb",0,0,0,0.004,0.006
+"Herrick Hollow II","Lamoree",0,0,70,0.18775,0.28625
+"Herrick Hollow II","Lords_Wells",20,0,90,0.44575,0.63
+"Herrick Hollow II","Otsiningo_Market",0,0,0,0.0135,0.02275
+"Herrick Hollow II","Owego River Crossing",0,0,30,0.027,0.0435
+"Herrick Hollow II","Owego Southside Sewage Treatment",0,0,0,0.00125,0.00225
+"Herrick Hollow II","PC2",0,0,0,0.00525,0.00825
+"Herrick Hollow II","Port Dickinson",0,0,80,0.30075,0.47
+"Herrick Hollow II","Raish-2",0,0,0,0.0115,0.023
+"Herrick Hollow II","Roberson",0,0,10,0.0155,0.0265
+"Herrick Hollow II","Roundtop",0,0,60,0.078,0.119
+"Herrick Hollow II","Russ",0,0,0,0.00125,0.0025
+"Herrick Hollow II","Sidney Airport",0,0,0,0.00025,0.00025
+"Herrick Hollow II","Street",0,0,90,0.333,0.4965
+"Herrick Hollow II","Thomas_Luckey",0,0,20,0.02375,0.0445
+"Herrick Hollow II","White",0,0,70,0.14375,0.22475
+"Herrick Hollow V","Jamba",0,0,0,0.016,0.0195
+"Herrick Hollow V","Lamb",0,0,0,0.009,0.013
+"Herrick Hollow V","Lamoree",0,0,70,0.12,0.1785
+"Herrick Hollow V","Lords_Wells",0,0,60,0.09875,0.1465
+"Herrick Hollow V","Otsiningo_Market",0,0,20,0.02325,0.035
+"Herrick Hollow V","Owego River Crossing",0,0,20,0.0225,0.03775
+"Herrick Hollow V","Owego Southside Sewage Treatment",0,0,0,0.011,0.01625
+"Herrick Hollow V","PC2",0,0,10,0.01875,0.02925
+"Herrick Hollow V","Port Dickinson",0,0,70,0.18575,0.291
+"Herrick Hollow V","Raish-2",0,0,10,0.019,0.0275
+"Herrick Hollow V","Roberson",0,0,40,0.05075,0.07725
+"Herrick Hollow V","Roundtop",0,0,60,0.0505,0.06425
+"Herrick Hollow V","Russ",0,0,0,0.0055,0.00825
+"Herrick Hollow V","Sidney Airport",0,0,0,0.004,0.0065
+"Herrick Hollow V","Street",0,0,70,0.153,0.233
+"Herrick Hollow V","Thomas_Luckey",0,0,30,0.031,0.04175
+"Herrick Hollow V","White",0,0,70,0.15075,0.23725
+"Jamba","Lamb",20,0,110,0.49025,0.6445
+"Jamba","Lamoree",0,0,30,0.02525,0.03825
+"Jamba","Lords_Wells",0,0,0,0.00775,0.01625
+"Jamba","Otsiningo_Market",0,0,80,0.23,0.3555
+"Jamba","Owego River Crossing",0,0,90,0.3095,0.456
+"Jamba","Owego Southside Sewage Treatment",30,0,120,0.5375,0.68875
+"Jamba","PC2",30,0,110,0.52725,0.68525
+"Jamba","Port Dickinson",0,0,0,0.00125,0.00375
+"Jamba","Raish-2",10,0,100,0.36925,0.50275
+"Jamba","Roberson",0,0,0,0.00475,0.0065
+"Jamba","Roundtop",70,0,210,0.8855,0.95325
+"Jamba","Russ",0,0,50,0.055,0.092
+"Jamba","Sidney Airport",0,0,70,0.12325,0.18575
+"Jamba","Street",0,0,0,0.006,0.01025
+"Jamba","Thomas_Luckey",70,0,170,0.84725,0.93725
+"Jamba","White",0,0,30,0.03,0.04575
+"Lamb","Lamoree",0,0,0,0.01775,0.0245
+"Lamb","Lords_Wells",0,0,0,0.00875,0.0115
+"Lamb","Otsiningo_Market",0,0,60,0.109,0.16375
+"Lamb","Owego River Crossing",0,0,70,0.1635,0.24925
+"Lamb","Owego Southside Sewage Treatment",20,0,110,0.455,0.6245
+"Lamb","PC2",0,0,100,0.30025,0.43925
+"Lamb","Port Dickinson",0,0,0,0.0025,0.004
+"Lamb","Raish-2",0,0,80,0.25625,0.3745
+"Lamb","Roberson",0,0,0,0.0025,0.00325
+"Lamb","Roundtop",50,0,170,0.77225,0.86825
+"Lamb","Russ",0,0,60,0.0915,0.1455
+"Lamb","Sidney Airport",0,0,70,0.17,0.26225
+"Lamb","Street",0,0,0,0.00625,0.00825
+"Lamb","Thomas_Luckey",40,0,140,0.6525,0.7885
+"Lamb","White",0,0,20,0.02225,0.03175
+"Lamoree","Lords_Wells",0,0,80,0.19725,0.289
+"Lamoree","Otsiningo_Market",0,0,40,0.045,0.06975
+"Lamoree","Owego River Crossing",0,0,40,0.04375,0.071
+"Lamoree","Owego Southside Sewage Treatment",0,0,10,0.02175,0.028
+"Lamoree","PC2",0,0,30,0.02675,0.04475
+"Lamoree","Port Dickinson",0,0,70,0.20225,0.3075
+"Lamoree","Raish-2",0,0,30,0.02875,0.04575
+"Lamoree","Roberson",0,0,50,0.07025,0.10375
+"Lamoree","Roundtop",0,0,80,0.0995,0.13375
+"Lamoree","Russ",0,0,0,0.00575,0.01175
+"Lamoree","Sidney Airport",0,0,0,0.00925,0.01325
+"Lamoree","Street",0,0,80,0.189,0.286
+"Lamoree","Thomas_Luckey",0,0,60,0.0575,0.079
+"Lamoree","White",0,0,60,0.11025,0.1655
+"Lords_Wells","Otsiningo_Market",0,0,40,0.03775,0.08275
+"Lords_Wells","Owego River Crossing",0,0,50,0.05675,0.08825
+"Lords_Wells","Owego Southside Sewage Treatment",0,0,0,0.0025,0.00675
+"Lords_Wells","PC2",0,0,10,0.014,0.02625
+"Lords_Wells","Port Dickinson",0,0,80,0.2605,0.401
+"Lords_Wells","Raish-2",0,0,30,0.026,0.0425
+"Lords_Wells","Roberson",0,0,0,0.0135,0.02275
+"Lords_Wells","Roundtop",0,0,90,0.1815,0.249
+"Lords_Wells","Russ",0,0,0,0.003,0.004
+"Lords_Wells","Sidney Airport",0,0,0,0.00025,0.00075
+"Lords_Wells","Street",10,0,100,0.3905,0.55675
+"Lords_Wells","Thomas_Luckey",0,0,60,0.064,0.11175
+"Lords_Wells","White",0,0,70,0.14875,0.224
+"Otsiningo_Market","Owego River Crossing",20,0,90,0.4345,0.63525
+"Otsiningo_Market","Owego Southside Sewage Treatment",0,0,60,0.1155,0.19175
+"Otsiningo_Market","PC2",10,0,80,0.35425,0.55075
+"Otsiningo_Market","Port Dickinson",0,0,0,0.0055,0.01175
+"Otsiningo_Market","Raish-2",0,0,80,0.22775,0.3585
+"Otsiningo_Market","Roberson",0,0,0,0.00825,0.01025
+"Otsiningo_Market","Roundtop",40,0,130,0.68375,0.82
+"Otsiningo_Market","Russ",0,0,0,0.0065,0.01325
+"Otsiningo_Market","Sidney Airport",0,0,0,0.00725,0.01225
+"Otsiningo_Market","Street",0,0,30,0.02925,0.05575
+"Otsiningo_Market","Thomas_Luckey",30,0,120,0.5105,0.6685
+"Otsiningo_Market","White",0,0,40,0.04525,0.068
+"Owego River Crossing","Owego Southside Sewage Treatment",0,0,80,0.19725,0.29325
+"Owego River Crossing","PC2",20,0,90,0.444,0.63475
+"Owego River Crossing","Port Dickinson",0,0,10,0.01525,0.0255
+"Owego River Crossing","Raish-2",0,0,80,0.278,0.40825
+"Owego River Crossing","Roberson",0,0,0,0.0065,0.01
+"Owego River Crossing","Roundtop",50,0,150,0.73425,0.85025
+"Owego River Crossing","Russ",0,0,0,0.015,0.02325
+"Owego River Crossing","Sidney Airport",0,0,10,0.0175,0.029
+"Owego River Crossing","Street",0,0,40,0.0395,0.0625
+"Owego River Crossing","Thomas_Luckey",30,0,140,0.599,0.74425
+"Owego River Crossing","White",0,0,40,0.0465,0.07275
+"Owego Southside Sewage Treatment","PC2",0,0,100,0.364,0.49125
+"Owego Southside Sewage Treatment","Port Dickinson",0,0,0,0.00025,5e-04
+"Owego Southside Sewage Treatment","Raish-2",0,0,90,0.29225,0.4165
+"Owego Southside Sewage Treatment","Roberson",0,0,0,0.00325,0.0045
+"Owego Southside Sewage Treatment","Roundtop",60,0,190,0.8125,0.8965
+"Owego Southside Sewage Treatment","Russ",0,0,60,0.105,0.158
+"Owego Southside Sewage Treatment","Sidney Airport",0,0,80,0.1815,0.276
+"Owego Southside Sewage Treatment","Street",0,0,0,0.00275,0.00425
+"Owego Southside Sewage Treatment","Thomas_Luckey",50,0,150,0.71325,0.831
+"Owego Southside Sewage Treatment","White",0,0,20,0.021,0.0325
+"PC2","Port Dickinson",0,0,0,0.00275,0.00425
+"PC2","Raish-2",10,0,90,0.37125,0.5265
+"PC2","Roberson",0,0,0,0.00575,0.00825
+"PC2","Roundtop",60,0,170,0.89175,0.95125
+"PC2","Russ",0,0,20,0.02125,0.035
+"PC2","Sidney Airport",0,0,30,0.03175,0.05375
+"PC2","Street",0,0,0,0.0095,0.01925
+"PC2","Thomas_Luckey",60,0,150,0.8605,0.928
+"PC2","White",0,0,40,0.03475,0.0515
+"Port Dickinson","Raish-2",0,0,0,0.011,0.0175
+"Port Dickinson","Roberson",0,0,20,0.02425,0.03175
+"Port Dickinson","Roundtop",0,0,40,0.03675,0.0585
+"Port Dickinson","Russ",0,0,0,0.00075,0.0015
+"Port Dickinson","Sidney Airport",0,0,0,0,0
+"Port Dickinson","Street",0,0,80,0.31,0.47275
+"Port Dickinson","Thomas_Luckey",0,0,0,0.01075,0.02075
+"Port Dickinson","White",0,0,70,0.17075,0.26275
+"Raish-2","Roberson",0,0,0,0.006,0.00775
+"Raish-2","Roundtop",40,0,160,0.68,0.77225
+"Raish-2","Russ",0,0,50,0.06725,0.1025
+"Raish-2","Sidney Airport",0,0,60,0.09975,0.1515
+"Raish-2","Street",0,0,20,0.022,0.0355
+"Raish-2","Thomas_Luckey",30,0,130,0.59425,0.705
+"Raish-2","White",0,0,30,0.02825,0.0455
+"Roberson","Roundtop",0,0,0,0.01175,0.0145
+"Roberson","Russ",0,0,0,0.0015,0.002
+"Roberson","Sidney Airport",0,0,0,0.001,0.00175
+"Roberson","Street",0,0,20,0.022,0.03
+"Roberson","Thomas_Luckey",0,0,0,0.0115,0.01325
+"Roberson","White",0,0,50,0.05325,0.077
+"Roundtop","Russ",0,0,90,0.173,0.23625
+"Roundtop","Sidney Airport",0,0,130,0.314,0.412
+"Roundtop","Street",0,0,70,0.106,0.154
+"Roundtop","Thomas_Luckey",130,30,280,0.9795,0.98775
+"Roundtop","White",0,0,80,0.1005,0.13125
+"Russ","Sidney Airport",0,0,80,0.20625,0.31575
+"Russ","Street",0,0,0,0.00075,0.00175
+"Russ","Thomas_Luckey",0,0,60,0.0655,0.10075
+"Russ","White",0,0,0,0.008,0.013
+"Sidney Airport","Street",0,0,0,5e-04,5e-04
+"Sidney Airport","Thomas_Luckey",0,0,80,0.107,0.1735
+"Sidney Airport","White",0,0,0,0.00675,0.01325
+"Street","Thomas_Luckey",0,0,40,0.0415,0.069
+"Street","White",0,0,80,0.17025,0.2515
+"Thomas_Luckey","White",0,0,60,0.0655,0.0835

@@ -1,0 +1,579 @@
+"site","slice_start","slice_end","p_occupied"
+"Apalachin Creek",900,950,0
+"Ayers1",900,950,0.20925
+"Bates",900,950,0
+"Broome_Tech",900,950,0.0905
+"Castle Creek",900,950,5e-04
+"CCE_Site",900,950,0.1565
+"Chenango_Point",900,950,0.00575
+"Chenango_Shores_East",900,950,0
+"Denton Reed 2",900,950,0.1335
+"Deposit_Airport1",900,950,0.007
+"Egli",900,950,0.07625
+"Engelbert",900,950,0
+"Fortin",900,950,0.1005
+"Gardepe",900,950,0.1895
+"Herrick Hollow I",900,950,0.26025
+"Herrick Hollow II",900,950,0.0075
+"Herrick Hollow V",900,950,0.2495
+"Jamba",900,950,0
+"Lamb",900,950,0
+"Lamoree",900,950,0.03325
+"Lords_Wells",900,950,0.00025
+"Otsiningo_Market",900,950,0
+"Owego River Crossing",900,950,0.002
+"Owego Southside Sewage Treatment",900,950,0
+"PC2",900,950,0
+"Port Dickinson",900,950,0.01425
+"Raish-2",900,950,0.0035
+"Roberson",900,950,0.091
+"Roundtop",900,950,0
+"Russ",900,950,0.001
+"Sidney Airport",900,950,0
+"Street",900,950,0.01
+"Thomas_Luckey",900,950,0
+"White",900,950,0.18925
+"Apalachin Creek",950,1000,0
+"Ayers1",950,1000,0.56625
+"Bates",950,1000,0
+"Broome_Tech",950,1000,0.25975
+"Castle Creek",950,1000,0.00175
+"CCE_Site",950,1000,0.18275
+"Chenango_Point",950,1000,0.015
+"Chenango_Shores_East",950,1000,0.0015
+"Denton Reed 2",950,1000,0.04325
+"Deposit_Airport1",950,1000,0.0305
+"Egli",950,1000,0.077
+"Engelbert",950,1000,0
+"Fortin",950,1000,0.16
+"Gardepe",950,1000,0.18775
+"Herrick Hollow I",950,1000,0.4155
+"Herrick Hollow II",950,1000,0.027
+"Herrick Hollow V",950,1000,0.411
+"Jamba",950,1000,0
+"Lamb",950,1000,0
+"Lamoree",950,1000,0.076
+"Lords_Wells",950,1000,0.0015
+"Otsiningo_Market",950,1000,0
+"Owego River Crossing",950,1000,0.00425
+"Owego Southside Sewage Treatment",950,1000,0
+"PC2",950,1000,0.00025
+"Port Dickinson",950,1000,0.07425
+"Raish-2",950,1000,0.004
+"Roberson",950,1000,0.06725
+"Roundtop",950,1000,0
+"Russ",950,1000,0.00225
+"Sidney Airport",950,1000,0
+"Street",950,1000,0.05025
+"Thomas_Luckey",950,1000,0
+"White",950,1000,0.22425
+"Apalachin Creek",1000,1050,0
+"Ayers1",1000,1050,0.66825
+"Bates",1000,1050,0.00025
+"Broome_Tech",1000,1050,0.38425
+"Castle Creek",1000,1050,0.0035
+"CCE_Site",1000,1050,0.21275
+"Chenango_Point",1000,1050,0.046
+"Chenango_Shores_East",1000,1050,0.00475
+"Denton Reed 2",1000,1050,0.01475
+"Deposit_Airport1",1000,1050,0.1775
+"Egli",1000,1050,0.07125
+"Engelbert",1000,1050,0
+"Fortin",1000,1050,0.295
+"Gardepe",1000,1050,0.15875
+"Herrick Hollow I",1000,1050,0.468
+"Herrick Hollow II",1000,1050,0.14825
+"Herrick Hollow V",1000,1050,0.471
+"Jamba",1000,1050,0
+"Lamb",1000,1050,0
+"Lamoree",1000,1050,0.16525
+"Lords_Wells",1000,1050,0.02775
+"Otsiningo_Market",1000,1050,0
+"Owego River Crossing",1000,1050,0.00625
+"Owego Southside Sewage Treatment",1000,1050,0
+"PC2",1000,1050,5e-04
+"Port Dickinson",1000,1050,0.29225
+"Raish-2",1000,1050,0.007
+"Roberson",1000,1050,0.0435
+"Roundtop",1000,1050,5e-04
+"Russ",1000,1050,0.0025
+"Sidney Airport",1000,1050,0
+"Street",1000,1050,0.20275
+"Thomas_Luckey",1000,1050,0
+"White",1000,1050,0.238
+"Apalachin Creek",1050,1100,0
+"Ayers1",1050,1100,0.63275
+"Bates",1050,1100,0.0015
+"Broome_Tech",1050,1100,0.52125
+"Castle Creek",1050,1100,0.006
+"CCE_Site",1050,1100,0.265
+"Chenango_Point",1050,1100,0.13375
+"Chenango_Shores_East",1050,1100,0.0165
+"Denton Reed 2",1050,1100,0.007
+"Deposit_Airport1",1050,1100,0.4925
+"Egli",1050,1100,0.07125
+"Engelbert",1050,1100,0
+"Fortin",1050,1100,0.394
+"Gardepe",1050,1100,0.11225
+"Herrick Hollow I",1050,1100,0.31825
+"Herrick Hollow II",1050,1100,0.3395
+"Herrick Hollow V",1050,1100,0.313
+"Jamba",1050,1100,0
+"Lamb",1050,1100,5e-04
+"Lamoree",1050,1100,0.26975
+"Lords_Wells",1050,1100,0.10425
+"Otsiningo_Market",1050,1100,0
+"Owego River Crossing",1050,1100,0.007
+"Owego Southside Sewage Treatment",1050,1100,0
+"PC2",1050,1100,5e-04
+"Port Dickinson",1050,1100,0.523
+"Raish-2",1050,1100,0.00975
+"Roberson",1050,1100,0.031
+"Roundtop",1050,1100,0.00175
+"Russ",1050,1100,0.00125
+"Sidney Airport",1050,1100,0
+"Street",1050,1100,0.4065
+"Thomas_Luckey",1050,1100,0.00025
+"White",1050,1100,0.23275
+"Apalachin Creek",1100,1150,0
+"Ayers1",1100,1150,0.3375
+"Bates",1100,1150,0.00675
+"Broome_Tech",1100,1150,0.7425
+"Castle Creek",1100,1150,0.01025
+"CCE_Site",1100,1150,0.359
+"Chenango_Point",1100,1150,0.361
+"Chenango_Shores_East",1100,1150,0.115
+"Denton Reed 2",1100,1150,0.0035
+"Deposit_Airport1",1100,1150,0.555
+"Egli",1100,1150,0.072
+"Engelbert",1100,1150,5e-04
+"Fortin",1100,1150,0.3445
+"Gardepe",1100,1150,0.091
+"Herrick Hollow I",1100,1150,0.18975
+"Herrick Hollow II",1100,1150,0.3945
+"Herrick Hollow V",1100,1150,0.187
+"Jamba",1100,1150,5e-04
+"Lamb",1100,1150,0.0015
+"Lamoree",1100,1150,0.31625
+"Lords_Wells",1100,1150,0.27475
+"Otsiningo_Market",1100,1150,5e-04
+"Owego River Crossing",1100,1150,0.01025
+"Owego Southside Sewage Treatment",1100,1150,0
+"PC2",1100,1150,0.00075
+"Port Dickinson",1100,1150,0.6265
+"Raish-2",1100,1150,0.01325
+"Roberson",1100,1150,0.02425
+"Roundtop",1100,1150,0.01525
+"Russ",1100,1150,0.00125
+"Sidney Airport",1100,1150,0
+"Street",1100,1150,0.458
+"Thomas_Luckey",1100,1150,0.00175
+"White",1100,1150,0.22675
+"Apalachin Creek",1150,1200,0.00025
+"Ayers1",1150,1200,0.2665
+"Bates",1150,1200,0.0505
+"Broome_Tech",1150,1200,0.851
+"Castle Creek",1150,1200,0.02175
+"CCE_Site",1150,1200,0.4715
+"Chenango_Point",1150,1200,0.76475
+"Chenango_Shores_East",1150,1200,0.856
+"Denton Reed 2",1150,1200,0.00175
+"Deposit_Airport1",1150,1200,0.54375
+"Egli",1150,1200,0.0775
+"Engelbert",1150,1200,0.0025
+"Fortin",1150,1200,0.26775
+"Gardepe",1150,1200,0.073
+"Herrick Hollow I",1150,1200,0.117
+"Herrick Hollow II",1150,1200,0.66275
+"Herrick Hollow V",1150,1200,0.121
+"Jamba",1150,1200,0.00225
+"Lamb",1150,1200,0.0045
+"Lamoree",1150,1200,0.2795
+"Lords_Wells",1150,1200,0.8445
+"Otsiningo_Market",1150,1200,0.0045
+"Owego River Crossing",1150,1200,0.02425
+"Owego Southside Sewage Treatment",1150,1200,0.00025
+"PC2",1150,1200,0.00375
+"Port Dickinson",1150,1200,0.4325
+"Raish-2",1150,1200,0.018
+"Roberson",1150,1200,0.01975
+"Roundtop",1150,1200,0.08625
+"Russ",1150,1200,0.002
+"Sidney Airport",1150,1200,5e-04
+"Street",1150,1200,0.50925
+"Thomas_Luckey",1150,1200,0.01275
+"White",1150,1200,0.19825
+"Apalachin Creek",1200,1250,0.00225
+"Ayers1",1200,1250,0.1425
+"Bates",1200,1250,0.204
+"Broome_Tech",1200,1250,0.85
+"Castle Creek",1200,1250,0.0605
+"CCE_Site",1200,1250,0.58525
+"Chenango_Point",1200,1250,0.96125
+"Chenango_Shores_East",1200,1250,0.85125
+"Denton Reed 2",1200,1250,5e-04
+"Deposit_Airport1",1200,1250,0.314
+"Egli",1200,1250,0.11125
+"Engelbert",1200,1250,0.004
+"Fortin",1200,1250,0.1875
+"Gardepe",1200,1250,0.055
+"Herrick Hollow I",1200,1250,0.081
+"Herrick Hollow II",1200,1250,0.441
+"Herrick Hollow V",1200,1250,0.07775
+"Jamba",1200,1250,0.01075
+"Lamb",1200,1250,0.00975
+"Lamoree",1200,1250,0.1875
+"Lords_Wells",1200,1250,0.77625
+"Otsiningo_Market",1200,1250,0.03975
+"Owego River Crossing",1200,1250,0.07925
+"Owego Southside Sewage Treatment",1200,1250,0.00325
+"PC2",1200,1250,0.01525
+"Port Dickinson",1200,1250,0.167
+"Raish-2",1200,1250,0.034
+"Roberson",1200,1250,0.01525
+"Roundtop",1200,1250,0.2955
+"Russ",1200,1250,0.00375
+"Sidney Airport",1200,1250,5e-04
+"Street",1200,1250,0.43875
+"Thomas_Luckey",1200,1250,0.1245
+"White",1200,1250,0.15575
+"Apalachin Creek",1250,1300,0.0115
+"Ayers1",1250,1300,0.03075
+"Bates",1250,1300,0.80475
+"Broome_Tech",1250,1300,0.72275
+"Castle Creek",1250,1300,0.18825
+"CCE_Site",1250,1300,0.654
+"Chenango_Point",1250,1300,0.995
+"Chenango_Shores_East",1250,1300,0.206
+"Denton Reed 2",1250,1300,0
+"Deposit_Airport1",1250,1300,0.05775
+"Egli",1250,1300,0.15825
+"Engelbert",1250,1300,0.0175
+"Fortin",1250,1300,0.105
+"Gardepe",1250,1300,0.041
+"Herrick Hollow I",1250,1300,0.05225
+"Herrick Hollow II",1250,1300,0.083
+"Herrick Hollow V",1250,1300,0.04425
+"Jamba",1250,1300,0.05825
+"Lamb",1250,1300,0.02925
+"Lamoree",1250,1300,0.11475
+"Lords_Wells",1250,1300,0.29225
+"Otsiningo_Market",1250,1300,0.49125
+"Owego River Crossing",1250,1300,0.3025
+"Owego Southside Sewage Treatment",1250,1300,0.022
+"PC2",1250,1300,0.088
+"Port Dickinson",1250,1300,0.033
+"Raish-2",1250,1300,0.10675
+"Roberson",1250,1300,0.01175
+"Roundtop",1250,1300,0.52925
+"Russ",1250,1300,0.0065
+"Sidney Airport",1250,1300,0.001
+"Street",1250,1300,0.19525
+"Thomas_Luckey",1250,1300,0.298
+"White",1250,1300,0.1115
+"Apalachin Creek",1300,1350,0.02875
+"Ayers1",1300,1350,0.0075
+"Bates",1300,1350,0.93775
+"Broome_Tech",1300,1350,0.5515
+"Castle Creek",1300,1350,0.39675
+"CCE_Site",1300,1350,0.70275
+"Chenango_Point",1300,1350,0.998
+"Chenango_Shores_East",1300,1350,0.0705
+"Denton Reed 2",1300,1350,0
+"Deposit_Airport1",1300,1350,0.01075
+"Egli",1300,1350,0.21075
+"Engelbert",1300,1350,0.0785
+"Fortin",1300,1350,0.0475
+"Gardepe",1300,1350,0.02825
+"Herrick Hollow I",1300,1350,0.0325
+"Herrick Hollow II",1300,1350,0.00875
+"Herrick Hollow V",1300,1350,0.0335
+"Jamba",1300,1350,0.223
+"Lamb",1300,1350,0.091
+"Lamoree",1300,1350,0.06475
+"Lords_Wells",1300,1350,0.0395
+"Otsiningo_Market",1300,1350,0.74675
+"Owego River Crossing",1300,1350,0.64475
+"Owego Southside Sewage Treatment",1300,1350,0.078
+"PC2",1300,1350,0.377
+"Port Dickinson",1300,1350,0.00675
+"Raish-2",1300,1350,0.28475
+"Roberson",1300,1350,0.0095
+"Roundtop",1300,1350,0.71725
+"Russ",1300,1350,0.01
+"Sidney Airport",1300,1350,0.00525
+"Street",1300,1350,0.033
+"Thomas_Luckey",1300,1350,0.39675
+"White",1300,1350,0.06575
+"Apalachin Creek",1350,1400,0.06225
+"Ayers1",1350,1400,0.00325
+"Bates",1350,1400,0.235
+"Broome_Tech",1350,1400,0.2645
+"Castle Creek",1350,1400,0.5155
+"CCE_Site",1350,1400,0.90375
+"Chenango_Point",1350,1400,0.99575
+"Chenango_Shores_East",1350,1400,0.029
+"Denton Reed 2",1350,1400,0
+"Deposit_Airport1",1350,1400,0.00275
+"Egli",1350,1400,0.2275
+"Engelbert",1350,1400,0.1925
+"Fortin",1350,1400,0.02875
+"Gardepe",1350,1400,0.0185
+"Herrick Hollow I",1350,1400,0.0235
+"Herrick Hollow II",1350,1400,0.00125
+"Herrick Hollow V",1350,1400,0.024
+"Jamba",1350,1400,0.51575
+"Lamb",1350,1400,0.22175
+"Lamoree",1350,1400,0.042
+"Lords_Wells",1350,1400,0.006
+"Otsiningo_Market",1350,1400,0.58975
+"Owego River Crossing",1350,1400,0.68575
+"Owego Southside Sewage Treatment",1350,1400,0.2765
+"PC2",1350,1400,0.863
+"Port Dickinson",1350,1400,0.00075
+"Raish-2",1350,1400,0.44925
+"Roberson",1350,1400,0.00625
+"Roundtop",1350,1400,0.96925
+"Russ",1350,1400,0.01125
+"Sidney Airport",1350,1400,0.01275
+"Street",1350,1400,0.00575
+"Thomas_Luckey",1350,1400,0.9905
+"White",1350,1400,0.03975
+"Apalachin Creek",1400,1450,0.07025
+"Ayers1",1400,1450,0.001
+"Bates",1400,1450,0.0415
+"Broome_Tech",1400,1450,0.1685
+"Castle Creek",1400,1450,0.46475
+"CCE_Site",1400,1450,0.9715
+"Chenango_Point",1400,1450,0.9825
+"Chenango_Shores_East",1400,1450,0.0155
+"Denton Reed 2",1400,1450,0
+"Deposit_Airport1",1400,1450,0.00075
+"Egli",1400,1450,0.1945
+"Engelbert",1400,1450,0.44375
+"Fortin",1400,1450,0.02725
+"Gardepe",1400,1450,0.01475
+"Herrick Hollow I",1400,1450,0.019
+"Herrick Hollow II",1400,1450,5e-04
+"Herrick Hollow V",1400,1450,0.0155
+"Jamba",1400,1450,0.757
+"Lamb",1400,1450,0.5415
+"Lamoree",1400,1450,0.02325
+"Lords_Wells",1400,1450,5e-04
+"Otsiningo_Market",1400,1450,0.18475
+"Owego River Crossing",1400,1450,0.35425
+"Owego Southside Sewage Treatment",1400,1450,0.6235
+"PC2",1400,1450,0.812
+"Port Dickinson",1400,1450,0
+"Raish-2",1400,1450,0.467
+"Roberson",1400,1450,0.00475
+"Roundtop",1400,1450,0.96475
+"Russ",1400,1450,0.03225
+"Sidney Airport",1400,1450,0.0475
+"Street",1400,1450,0.0015
+"Thomas_Luckey",1400,1450,1
+"White",1400,1450,0.0265
+"Apalachin Creek",1450,1500,0.10725
+"Ayers1",1450,1500,0.00075
+"Bates",1450,1500,0.00175
+"Broome_Tech",1450,1500,0.12925
+"Castle Creek",1450,1500,0.28225
+"CCE_Site",1450,1500,0.98825
+"Chenango_Point",1450,1500,0.9625
+"Chenango_Shores_East",1450,1500,0.01125
+"Denton Reed 2",1450,1500,0
+"Deposit_Airport1",1450,1500,5e-04
+"Egli",1450,1500,0.13025
+"Engelbert",1450,1500,0.5705
+"Fortin",1450,1500,0.03125
+"Gardepe",1450,1500,0.011
+"Herrick Hollow I",1450,1500,0.01175
+"Herrick Hollow II",1450,1500,0.00025
+"Herrick Hollow V",1450,1500,0.009
+"Jamba",1450,1500,0.751
+"Lamb",1450,1500,0.7275
+"Lamoree",1450,1500,0.0165
+"Lords_Wells",1450,1500,0
+"Otsiningo_Market",1450,1500,0.0195
+"Owego River Crossing",1450,1500,0.103
+"Owego Southside Sewage Treatment",1450,1500,0.74875
+"PC2",1450,1500,0.23
+"Port Dickinson",1450,1500,0
+"Raish-2",1450,1500,0.32175
+"Roberson",1450,1500,0.00325
+"Roundtop",1450,1500,0.94925
+"Russ",1450,1500,0.09925
+"Sidney Airport",1450,1500,0.1865
+"Street",1450,1500,0.00075
+"Thomas_Luckey",1450,1500,0.994
+"White",1450,1500,0.0195
+"Apalachin Creek",1500,1550,0.19675
+"Ayers1",1500,1550,0
+"Bates",1500,1550,0
+"Broome_Tech",1500,1550,0.05175
+"Castle Creek",1500,1550,0.1335
+"CCE_Site",1500,1550,0.94725
+"Chenango_Point",1500,1550,0.94275
+"Chenango_Shores_East",1500,1550,0.006
+"Denton Reed 2",1500,1550,0
+"Deposit_Airport1",1500,1550,0
+"Egli",1500,1550,0.07975
+"Engelbert",1500,1550,0.393
+"Fortin",1500,1550,0.0305
+"Gardepe",1500,1550,0.00975
+"Herrick Hollow I",1500,1550,0.00775
+"Herrick Hollow II",1500,1550,0
+"Herrick Hollow V",1500,1550,0.0075
+"Jamba",1500,1550,0.28975
+"Lamb",1500,1550,0.40625
+"Lamoree",1500,1550,0.01175
+"Lords_Wells",1500,1550,0
+"Otsiningo_Market",1500,1550,0.00275
+"Owego River Crossing",1500,1550,0.0255
+"Owego Southside Sewage Treatment",1500,1550,0.447
+"PC2",1500,1550,0.03075
+"Port Dickinson",1500,1550,0
+"Raish-2",1500,1550,0.172
+"Roberson",1500,1550,0.00225
+"Roundtop",1500,1550,0.78775
+"Russ",1500,1550,0.226
+"Sidney Airport",1500,1550,0.45075
+"Street",1500,1550,0
+"Thomas_Luckey",1500,1550,0.23425
+"White",1500,1550,0.01625
+"Apalachin Creek",1550,1600,0.288
+"Ayers1",1550,1600,0
+"Bates",1550,1600,0
+"Broome_Tech",1550,1600,0.01425
+"Castle Creek",1550,1600,0.06475
+"CCE_Site",1550,1600,0.84625
+"Chenango_Point",1550,1600,0.68675
+"Chenango_Shores_East",1550,1600,0.00225
+"Denton Reed 2",1550,1600,0
+"Deposit_Airport1",1550,1600,0
+"Egli",1550,1600,0.05425
+"Engelbert",1550,1600,0.24875
+"Fortin",1550,1600,0.02
+"Gardepe",1550,1600,0.00875
+"Herrick Hollow I",1550,1600,0.00525
+"Herrick Hollow II",1550,1600,0
+"Herrick Hollow V",1550,1600,0.00375
+"Jamba",1550,1600,0.06125
+"Lamb",1550,1600,0.18025
+"Lamoree",1550,1600,0.0085
+"Lords_Wells",1550,1600,0
+"Otsiningo_Market",1550,1600,0.00025
+"Owego River Crossing",1550,1600,0.00475
+"Owego Southside Sewage Treatment",1550,1600,0.1995
+"PC2",1550,1600,0.007
+"Port Dickinson",1550,1600,0
+"Raish-2",1550,1600,0.1065
+"Roberson",1550,1600,0.0015
+"Roundtop",1550,1600,0.347
+"Russ",1550,1600,0.3065
+"Sidney Airport",1550,1600,0.56425
+"Street",1550,1600,0
+"Thomas_Luckey",1550,1600,0.01025
+"White",1550,1600,0.01125
+"Apalachin Creek",1600,1650,0.57675
+"Ayers1",1600,1650,0
+"Bates",1600,1650,0
+"Broome_Tech",1600,1650,0.00525
+"Castle Creek",1600,1650,0.04425
+"CCE_Site",1600,1650,0.78975
+"Chenango_Point",1600,1650,0.155
+"Chenango_Shores_East",1600,1650,0.001
+"Denton Reed 2",1600,1650,0
+"Deposit_Airport1",1600,1650,0
+"Egli",1600,1650,0.04
+"Engelbert",1600,1650,0.1625
+"Fortin",1600,1650,0.0115
+"Gardepe",1600,1650,0.0075
+"Herrick Hollow I",1600,1650,0.004
+"Herrick Hollow II",1600,1650,0
+"Herrick Hollow V",1600,1650,0.00375
+"Jamba",1600,1650,0.01125
+"Lamb",1600,1650,0.09575
+"Lamoree",1600,1650,0.011
+"Lords_Wells",1600,1650,0
+"Otsiningo_Market",1600,1650,0.00025
+"Owego River Crossing",1600,1650,0.00075
+"Owego Southside Sewage Treatment",1600,1650,0.08
+"PC2",1600,1650,0.003
+"Port Dickinson",1600,1650,0
+"Raish-2",1600,1650,0.07575
+"Roberson",1600,1650,5e-04
+"Roundtop",1600,1650,0.11625
+"Russ",1600,1650,0.3135
+"Sidney Airport",1600,1650,0.46875
+"Street",1600,1650,0
+"Thomas_Luckey",1600,1650,0
+"White",1600,1650,0.0065
+"Apalachin Creek",1650,1700,0.6295
+"Ayers1",1650,1700,0
+"Bates",1650,1700,0
+"Broome_Tech",1650,1700,0.00125
+"Castle Creek",1650,1700,0.02625
+"CCE_Site",1650,1700,0.74575
+"Chenango_Point",1650,1700,0.034
+"Chenango_Shores_East",1650,1700,0
+"Denton Reed 2",1650,1700,0
+"Deposit_Airport1",1650,1700,0
+"Egli",1650,1700,0.02475
+"Engelbert",1650,1700,0.0795
+"Fortin",1650,1700,0.00625
+"Gardepe",1650,1700,0.0045
+"Herrick Hollow I",1650,1700,0.00325
+"Herrick Hollow II",1650,1700,0
+"Herrick Hollow V",1650,1700,0.00275
+"Jamba",1650,1700,0.00225
+"Lamb",1650,1700,0.0225
+"Lamoree",1650,1700,0.00975
+"Lords_Wells",1650,1700,0
+"Otsiningo_Market",1650,1700,0
+"Owego River Crossing",1650,1700,0
+"Owego Southside Sewage Treatment",1650,1700,0.03225
+"PC2",1650,1700,0.00175
+"Port Dickinson",1650,1700,0
+"Raish-2",1650,1700,0.05475
+"Roberson",1650,1700,0.00025
+"Roundtop",1650,1700,0.03125
+"Russ",1650,1700,0.3005
+"Sidney Airport",1650,1700,0.3035
+"Street",1650,1700,0
+"Thomas_Luckey",1650,1700,0
+"White",1650,1700,0.00575
+"Apalachin Creek",1700,1750,0.19275
+"Ayers1",1700,1750,0
+"Bates",1700,1750,0
+"Broome_Tech",1700,1750,5e-04
+"Castle Creek",1700,1750,0.01225
+"CCE_Site",1700,1750,0.56075
+"Chenango_Point",1700,1750,0.00625
+"Chenango_Shores_East",1700,1750,0
+"Denton Reed 2",1700,1750,0
+"Deposit_Airport1",1700,1750,0
+"Egli",1700,1750,0.01475
+"Engelbert",1700,1750,0.024
+"Fortin",1700,1750,0.00325
+"Gardepe",1700,1750,0.00675
+"Herrick Hollow I",1700,1750,0.00175
+"Herrick Hollow II",1700,1750,0
+"Herrick Hollow V",1700,1750,0.00275
+"Jamba",1700,1750,5e-04
+"Lamb",1700,1750,0.0055
+"Lamoree",1700,1750,0.006
+"Lords_Wells",1700,1750,0
+"Otsiningo_Market",1700,1750,0
+"Owego River Crossing",1700,1750,0
+"Owego Southside Sewage Treatment",1700,1750,0.01075
+"PC2",1700,1750,0.0015
+"Port Dickinson",1700,1750,0
+"Raish-2",1700,1750,0.0385
+"Roberson",1700,1750,0.00025
+"Roundtop",1700,1750,0.0065
+"Russ",1700,1750,0.2345
+"Sidney Airport",1700,1750,0.121
+"Street",1700,1750,0
+"Thomas_Luckey",1700,1750,0
+"White",1700,1750,0.007
