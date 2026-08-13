@@ -49,6 +49,7 @@ init_phases <- function(stan_data, dates, chains) {
   sigma_d0 <- 0.5
   mu_d0 <- stan_data$mu_d_prior_mean
   # dur = exp(mu_d + sigma_d * log_dur_raw), so invert for the target width.
+  if (isTRUE(stan_data$hier_duration == 0L)) sigma_d0 <- stan_data$fixed_sigma_d
   raw_for <- function(target) (log(target) - mu_d0) / sigma_d0
   site_of_phase <- rep(seq_len(stan_data$S), times = stan_data$n_phase)
   cmin <- stan_data$cal_min; cmax <- stan_data$cal_max
@@ -59,7 +60,11 @@ init_phases <- function(stan_data, dates, chains) {
     out <- list(
       log_dur_raw = raw_for(w$width[site_of_phase]) +
                     stats::rnorm(stan_data$P, 0, 0.2),
-      mu_d = mu_d0, sigma_d = sigma_d0, rho = rep(0.1, 3))
+      rho = rep(0.1, 3))
+    if (isTRUE(stan_data$hier_duration == 1L)) {
+      out$mu_d_param <- as.array(mu_d0)
+      out$sigma_d_param <- as.array(sigma_d0)
+    }
     if (stan_data$n_site_J1 > 0)
       out$mid1 <- ctr[stan_data$sites_J1]
     if (stan_data$n_site_J2 > 0)
@@ -130,7 +135,7 @@ fit_susq <- function(stan_data, dates,
 
 #' Sampler diagnostics against the thresholds in spec section 6.3.
 check_diagnostics <- function(fit, strict = TRUE) {
-  pars <- intersect(c("mid", "dur", "mu_d", "sigma_d", "rho"),
+  pars <- intersect(c("mid", "dur", "rho"),
                     fit$metadata()$stan_variables)
   s <- posterior::summarise_draws(fit$draws(pars), "rhat", "ess_bulk", "ess_tail")
   dg <- fit$diagnostic_summary(quiet = TRUE)

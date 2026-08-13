@@ -60,6 +60,18 @@ data {
   // alpha / J with alpha = 1, which is what makes the mixture overfitted so
   // that unsupported components empty out. Exposed as data so the sensitivity
   // of the sampler's geometry to it can be measured rather than assumed.
+  // Concentration of the Dirichlet on phase weights. Below 1 the density is
+  // unbounded at the simplex boundary, so the sampler is pulled toward weights
+  // of exactly zero, where log(pi) underflows to negative infinity. That
+  // sparsity pressure was needed only while spare components had to be emptied
+  // out; with phase counts set from the data, every component is occupied and
+  // a concentration of 1 or more is both sufficient and well behaved.
+  // 1 pools phase durations across sites through mu_d and sigma_d; 0 gives
+  // each phase an independent lognormal(mu_d_prior_mean, fixed_sigma_d) prior.
+  // Pooling helps thinly dated phases but couples 73 durations of very
+  // different identifiability to two hyperparameters, which is a funnel.
+  int<lower=0, upper=1> hier_duration;
+  real<lower=0> fixed_sigma_d;
   real<lower=0> dirichlet_conc_J2;
   real<lower=0> dirichlet_conc_J3;
   real<lower=0> dirichlet_conc_J4;
@@ -97,8 +109,8 @@ parameters {
 
   // Durations, non-centred on a hierarchical lognormal.
   vector[P] log_dur_raw;
-  real mu_d;
-  real<lower=0> sigma_d;
+  array[hier_duration] real mu_d_param;
+  array[hier_duration] real<lower=0> sigma_d_param;
 
   // Phase weights.
   array[n_site_J2] simplex[2] pi2;
@@ -114,6 +126,8 @@ parameters {
 
 transformed parameters {
   vector[P] mid;
+  real mu_d = hier_duration ? mu_d_param[1] : mu_d_prior_mean;
+  real sigma_d = hier_duration ? sigma_d_param[1] : fixed_sigma_d;
   // Floor the duration. exp() underflows to exactly zero once its argument
   // drops below about -745, which the prior can reach while warming up, and a
   // zero-width phase makes the phase average 0/0. A thousandth of a year is
@@ -147,8 +161,10 @@ model {
   for (m in 1:n_site_J3) w3[m] ~ dirichlet(rep_vector(1.0, 4));
   for (m in 1:n_site_J4) w4[m] ~ dirichlet(rep_vector(1.0, 5));
   log_dur_raw ~ std_normal();
-  mu_d ~ normal(mu_d_prior_mean, 1);
-  sigma_d ~ normal(0, 1);             // half-normal through the lower bound
+  if (hier_duration) {
+    mu_d_param[1] ~ normal(mu_d_prior_mean, 1);
+    sigma_d_param[1] ~ normal(0, 1);  // half-normal through the lower bound
+  }
   rho ~ beta(2, 18);
   // alpha / J, with alpha = 1: an overfitted mixture, so phases unsupported by
   // data are driven toward zero weight rather than splitting the data.
@@ -168,9 +184,9 @@ model {
         int p = p0 + j - 1;
         real lpi;
         if (J == 1) lpi = 0;
-        else if (J == 2) lpi = log(pi2[slot2[s]][j]);
-        else if (J == 3) lpi = log(pi3[slot3[s]][j]);
-        else lpi = log(pi4[slot4[s]][j]);
+        else if (J == 2) lpi = log(pi2[slot2[s]][j] + 1e-300);
+        else if (J == 3) lpi = log(pi3[slot3[s]][j] + 1e-300);
+        else lpi = log(pi4[slot4[s]][j] + 1e-300);
         lp_phase[j] = lpi
           + variant_logprob(a_start[p], b_end[p], i, class_id[i],
                             var_start, n_var, kappa_idx, is_outlier, rho, q,
@@ -206,9 +222,9 @@ generated quantities {
       int p = p0 + j - 1;
       real lpi;
       if (J == 1) lpi = 0;
-      else if (J == 2) lpi = log(pi2[slot2[s]][j]);
-      else if (J == 3) lpi = log(pi3[slot3[s]][j]);
-      else lpi = log(pi4[slot4[s]][j]);
+      else if (J == 2) lpi = log(pi2[slot2[s]][j] + 1e-300);
+      else if (J == 3) lpi = log(pi3[slot3[s]][j] + 1e-300);
+      else lpi = log(pi4[slot4[s]][j] + 1e-300);
       lp_phase[j] = lpi
         + variant_logprob(a_start[p], b_end[p], i, class_id[i],
                           var_start, n_var, kappa_idx, is_outlier, rho, q,

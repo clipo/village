@@ -71,7 +71,8 @@ build_variants <- function(dates, curve) {
 build_stan_data <- function(dates, variants, phase_counts,
                             mu_d_prior = log(60),
                             model = c("multi", "indep", "single", "sequential"),
-                            dirichlet_alpha = 1) {
+                            dirichlet_alpha = 1, dirichlet_conc = NULL,
+                            hier_duration = 1L, fixed_sigma_d = 0.6) {
   model <- match.arg(model)
 
   sites <- sort(unique(dates$site))
@@ -140,10 +141,12 @@ build_stan_data <- function(dates, variants, phase_counts,
     sites_J4 = as.integer(which(J == 4L)), n_site_J4 = sum(J == 4L),
 
     mu_d_prior_mean = mu_d_prior,
+    hier_duration = as.integer(hier_duration),
+    fixed_sigma_d = fixed_sigma_d,
     # alpha / J, per spec section 3.2.
-    dirichlet_conc_J2 = dirichlet_alpha / 2,
-    dirichlet_conc_J3 = dirichlet_alpha / 3,
-    dirichlet_conc_J4 = dirichlet_alpha / 4,
+    dirichlet_conc_J2 = if (is.null(dirichlet_conc)) dirichlet_alpha / 2 else dirichlet_conc,
+    dirichlet_conc_J3 = if (is.null(dirichlet_conc)) dirichlet_alpha / 3 else dirichlet_conc,
+    dirichlet_conc_J4 = if (is.null(dirichlet_conc)) dirichlet_alpha / 4 else dirichlet_conc,
     site_names = sites
   )
 }

@@ -93,19 +93,32 @@ real variant_logprob(real a, real b, int i, int c,
   vector[n_var[i]] lp_var;
   for (m in 1:n_var[i]) {
     int v = var_start[i] + m - 1;
+    // Every mixture log-weight needs the same protection as the likelihood
+    // floor. A simplex component driven into a corner underflows to exactly
+    // zero, log(0) is -inf, and its gradient is 1/0 = inf; log_sum_exp then
+    // multiplies that infinity by a weight of essentially zero and yields NaN,
+    // which diverges the transition. The inbuilt-age simplex q is the likely
+    // offender here, since the data plainly prefer zero inbuilt age for most
+    // material and push the other five components toward the corner.
     real lw;
     if (is_outlier[v] == 1) {
-      lw = log(rho[c]);
+      lw = log(rho[c] + 1e-300);
     } else if (c == 1) {
       lw = log1m(rho[c]);
     } else {
-      lw = log1m(rho[c]) + log(q[c - 1][kappa_idx[v]]);
+      lw = log1m(rho[c]) + log(q[c - 1][kappa_idx[v]] + 1e-300);
     }
     real A = phase_average(a, b, v, L_flat, Phi_flat, curve_pos, curve_len,
                            curve_t0, phi_total, dt);
-    // A is exactly zero when the phase misses the variant's support. The
-    // floor keeps the gradient finite instead of propagating -inf.
-    lp_var[m] = lw + log(A + 1e-300);
+    // A is zero when the phase misses this variant's support entirely, which
+    // is the common case once a site carries several phases. The floor must
+    // not be tiny: the gradient of log(A + eps) is (dA/da) / (A + eps), so an
+    // eps of 1e-300 lets the gradient overflow to infinity, and log_sum_exp
+    // then multiplies that infinity by a mixture weight of essentially zero,
+    // giving NaN and diverging the transition. Likelihoods here are normalised
+    // so a phase average is of order 1e-2 to 1e-3, so 1e-12 is nine orders
+    // below anything meaningful while keeping the gradient bounded.
+    lp_var[m] = lw + log(A + 1e-12);
   }
   return log_sum_exp(lp_var);
 }
