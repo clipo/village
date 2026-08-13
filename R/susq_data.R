@@ -5,7 +5,7 @@
 #' into composite determinations. See spec sections 2.2 to 2.5.
 
 suppressPackageStartupMessages({
-  library(readxl); library(dplyr); library(stringr)
+  library(dplyr)
 })
 
 MATERIAL_CLASSES <- c("short_lived", "wood", "indeterminate")
@@ -86,6 +86,11 @@ pool_replicates <- function(d) {
     if (length(idx) < 2) next
     p <- ward_wilson_pool(d$c14_age[idx], d$c14_error[idx])
     keep <- idx[d$lab_no[idx] == base]
+    # A duplicated base lab code would recycle the scalar pooled values across
+    # unrelated rows, silently altering determinations this pipeline is
+    # required to leave untouched. This dataset already contains one genuine
+    # duplicate lab code (AA-41933), so fail loudly rather than assume.
+    stopifnot(length(keep) == 1L)
     drop <- setdiff(idx, keep)
     d$c14_age[keep] <- p$age
     d$c14_error[keep] <- p$error
