@@ -4,13 +4,134 @@ A comprehensive R and Stan pipeline for analyzing radiocarbon dates from multipl
 
 ## Overview
 
-This project provides a complete, documented framework for:
+This project provides a documented framework for:
 
-1. **Radiocarbon calibration** using IntCal20 via `rcarbon`
-2. **Bayesian hierarchical modeling** in Stan to assess deposit contemporaneity
-3. **Model comparison** using LOO cross-validation
-4. **Simulation-based validation** with known ground truth
-5. **Comprehensive visualization** of results and diagnostics
+1. **Radiocarbon calibration** using IntCal20
+2. **Bayesian occupation modelling** in Stan, marginalising both the latent
+   calendar dates and phase membership analytically
+3. **Contemporaneity metrics**: the posterior number of simultaneously
+   occupied deposits through time, and pairwise overlap in years
+4. **Model comparison** using LOO cross-validation
+5. **Visualisation** of results and sampler diagnostics
+
+The current application is the Susquehanna valley analysis described in the
+next section. Read that section before the framework documentation below it:
+the older worked example retains results that have since been withdrawn.
+
+## Susquehanna Valley Analysis (2026)
+
+The framework's current application: 167 radiocarbon determinations from 34
+deposits in the upper Susquehanna valley around Binghamton, New York, asking
+how many settlements were occupied at the same time and how far their
+occupations overlapped.
+
+Design: [`docs/superpowers/specs/2026-08-13-susquehanna-contemporaneity-design.md`](docs/superpowers/specs/2026-08-13-susquehanna-contemporaneity-design.md)
+Plan: [`docs/superpowers/plans/2026-08-13-susquehanna-contemporaneity.md`](docs/superpowers/plans/2026-08-13-susquehanna-contemporaneity.md)
+
+### Data
+
+`data/Local Dates.xlsx`, 167 determinations. Three are altered before
+modelling and each alteration is recorded in the data-quality report:
+
+- **Failed replicate.** UGAMS-53046 and its rerun at Bates_66 are one sample
+  measured twice. A Ward and Wilson (1978) test gives T = 8.08 on 1 df
+  (p = 0.0045), so they are not statistically consistent. They are pooled with
+  the error inflated by the square root of T, giving 582 ± 44.
+- **Two wiggle-matched pairs.** Four samples at Bates carry ring-year counts,
+  so the calendar offset within each pair is known (17 and 25 years). Each
+  pair becomes one composite determination whose likelihood is the product of
+  its members' likelihoods with that offset applied.
+
+164 determinations enter the model. Material is classified into `short_lived`
+(78), `wood` (68) and `indeterminate` (21); the indeterminate class carries its
+own estimated inbuilt-age distribution rather than being assigned to wood.
+Site and material lookups are audited CSVs in `data/`, not runtime regexes.
+
+### Method
+
+Latent calendar dates and phase membership are both marginalised analytically.
+For each determination the IntCal20 likelihood is precomputed on a 1-year grid
+together with its exact cumulative integral, so the probability of a
+determination given a uniform occupation phase `[b, a]` reduces to
+`(Phi(a) - Phi(b)) / (a - b)`, evaluated by a continuously differentiable
+interpolant inside Stan. That gives the correct per-determination uniform-phase
+normalisation and removes 164 latent parameters.
+
+Verification: calibrated densities agree with `rcarbon` to under 1e-3 in total
+variation; the Stan interpolant matches R to 1e-9 and independent 0.01-year
+numerical integration to 1e-6; and `log_lik` matches an independent R
+recomputation of the same mixture to 1e-14, which is what guarantees any LOO
+comparison describes the model actually fitted.
+
+### Results
+
+![Contemporaneous deposits through time](output/susquehanna/figures/fig1_count_through_time.png)
+
+Occupation rises from about AD 1000, peaks around **AD 1430**, and falls away
+through the sixteenth century. The peak median is 8 simultaneously occupied
+deposits across all 34, or **5** once the four multi-component deposits are
+excluded. The timing is robust; the height is not.
+
+![Which deposits are contemporaneous](output/susquehanna/figures/fig3_contemporaneity_matrix.png)
+
+Of 561 deposit pairs, **242 are demonstrably not contemporaneous** (below 0.05
+probability of sharing even 25 years) and 7 exceed 0.95. Every one of those 7
+involves a multi-component deposit, so the positive contemporaneity result is
+an artefact of forcing palimpsests into a single window, while the 242
+negative results depend on separation rather than width and stand.
+
+![Time slices](output/susquehanna/figures/fig8_time_slices.png)
+
+All eight figures are in `output/susquehanna/figures/`, with the underlying
+tables as CSVs alongside them.
+
+### Open problem: the multi-phase sampler
+
+**The multi-phase model does not sample, so multi-episode inference is not
+available.** Deposits are currently fitted as one occupation interval each.
+Bisection localised two independent causes:
+
+- **Cross-site coupling.** Every phase position depends on the shared outlier
+  rates and inbuilt-age simplexes, and those depend on every deposit. One
+  deposit alone gave 0% divergent transitions; four gave 26.7%; ten gave 87.8%.
+  Resolved by fitting deposits independently.
+- **The within-site phase mixture at two or more phases**, which remains
+  unresolved. With data-driven phase counts, Chenango_Point diverged on 3996
+  of 4000 transitions.
+
+The consequence is visible in the durations. CCE_Site returns 524 years,
+Chenango_Point 411, Roundtop 253 and Broome_Tech 205. **Those are palimpsest
+depths, not village lifespans.** Deposits with one or two determinations return
+roughly 60 years, which is simply the prior.
+
+Sampler quality for the delivered single-interval fits: 2207 divergent
+transitions of 136000 (1.6%); Lamoree, with one determination, genuinely failed
+at R-hat 1.50 and should be excluded or refitted.
+
+### Not yet done
+
+Simulation-based recovery, the four-way model comparison by LOO, posterior
+predictive checks, and the duration-prior sensitivity runs are all specified
+but not run, because the sampling problem took precedence. The occupation
+duration prior carries a `[CITE-CHECK]` flag: no source in this repository
+establishes a value for village occupation length.
+
+A time-slice **map** is implemented (`plot_time_slice_map()`) but cannot be
+drawn: the spreadsheet carries no coordinates. Supply a CSV with `site` plus
+`easting`/`northing` or `lon`/`lat` and it will render.
+
+### Running it
+
+```bash
+Rscript setup_env.R                      # packages, then CmdStan
+Rscript -e 'testthat::test_dir("tests/testthat")'
+```
+
+`rcarbon` needs Homebrew's GDAL ahead of Anaconda's on `PATH`; `setup_env.R`
+handles that. Analysis entry points are `R/susq_persite.R` (fitting),
+`R/susq_metrics.R` (derived quantities) and `R/susq_plots.R` (figures).
+
+---
 
 ## Project Structure
 
@@ -112,16 +233,25 @@ The analysis used radiocarbon dates from:
 
 ### Key Results
 
-**Contemporaneity Findings**:
-- Broome_Tech, Chenango_Point, and Thomas_Luckey show **100% overlap probability** → definitely contemporaneous
-- CCE_Site and Hill_Creek show **0.5% overlap** with the main group → likely NOT contemporaneous
-
-**Occupation Spans** (95% credible intervals):
-- Broome_Tech: ~909-437 cal BP (duration ~685 years)
-- CCE_Site: ~452-492 cal BP (duration ~38 years)
-- Chenango_Point: ~792-371 cal BP (duration ~594 years)
-- Hill_Creek: ~659-680 cal BP (duration ~15 years)
-- Thomas_Luckey: ~705-444 cal BP (duration ~393 years)
+> **Withdrawn.** The results previously reported here were artefacts of defects
+> in the original Stan programs, not findings about the archaeology. They are
+> recorded below so the correction is traceable.
+>
+> The "100% overlap probability" came from an overlap metric implemented as a
+> 0/1 indicator of *any* overlap. Averaged over draws that reports
+> P(overlap > 0), which saturates at 1 for any pair of intervals with uncertain
+> boundaries, so it could not have returned anything else. It is replaced by
+> the posterior distribution of overlap in years and by P(overlap >= 25 years).
+>
+> The long occupation spans (Broome_Tech ~685 years, Chenango_Point ~594) came
+> from applying the uniform-phase normalisation once per phase instead of once
+> per determination, and from a missing Jacobian on an `inv_logit` transform
+> that also imposed a centre-peaked rather than uniform distribution of dates
+> within a phase. Both bias duration upward. Those figures were also measuring
+> multi-component deposits as though each were a single occupation.
+>
+> See section 10 of the design document for the full list of defects, and the
+> Susquehanna Valley Analysis section above for current results.
 
 ### Example Visualizations
 
