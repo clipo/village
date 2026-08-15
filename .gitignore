@@ -110,3 +110,7 @@ stan/test_phi_at
 stan/contemporaneous_model
 stan/sequential_model
 stan/partial_overlap_model
+
+# Quarto render artifacts
+/.quarto/
+manuscript_files/

@@ -1,0 +1,434 @@
+# How Many Villages at Once? Bayesian Assessment of Occupation Contemporaneity in the Upper Susquehanna Valley
+Carl P. Lipo
+2026-08-15
+
+# Introduction
+
+## The problem of counting contemporaneous occupations
+
+Whether two archaeological deposits were occupied at the same time is a
+different question from when each was occupied, and it is the harder of
+the two. Interaction, exchange, competition, and demographic
+reconstruction all depend on contemporaneity rather than on chronology
+alone, yet the inferential machinery archaeologists most often use
+returns calibrated ranges for individual samples and leaves the
+comparison to visual inspection. Overlapping probability distributions
+are not evidence of overlapping occupations. Two deposits whose
+calibrated ranges intersect may have been occupied centuries apart, and
+the appearance of overlap can be produced entirely by measurement
+uncertainty and by the shape of the calibration curve.
+
+Bayesian chronological modelling addresses this by estimating the
+boundaries of an occupation rather than the dates of its samples, and by
+propagating calibration uncertainty into those boundary estimates (Buck
+et al. 1996; Bronk Ramsey 2009a). Where a deposit is represented by
+several determinations the boundaries of a uniform occupation phase are
+identifiable, and the posterior distribution of their difference is an
+estimate of duration (Nicholls and Jones 2001). While that machinery is
+well established for single sites, it is applied far less often across a
+whole assemblage, which is where the questions about settlement actually
+live. Two further quantities follow directly once boundaries are
+estimated jointly across deposits. For any pair, the number of calendar
+years during which both were occupied is a posterior distribution rather
+than a yes-or-no verdict. For any calendar year, the number of deposits
+occupied at that moment is likewise a distribution, and its trajectory
+through time is a direct statement about settlement.
+
+Neither quantity is routinely reported. We suspect the reason is partly
+technical, however, rather than a matter of interest. A common
+implementation reports the probability that two occupation intervals
+overlap at all, which saturates at unity for any pair of intervals with
+uncertain boundaries, so it carries almost no information. An apparently
+strong result of that kind reflects the metric rather than the
+archaeology.
+
+## Study area
+
+Our analysis covers deposits in the upper Susquehanna drainage in and
+around Binghamton, New York, including the lower Chenango valley and
+reaches of the Susquehanna near Owego, Apalachin, and Sidney.
+Radiocarbon determinations from this area accumulated across five
+decades of cultural resource work and academic excavation, and they were
+reported piecemeal in site reports rather than assembled for regional
+analysis. \[CITE-CHECK: regional culture-historical framework and the
+Late Woodland village sequence require sourcing before submission.\]
+
+The assemblage is heterogeneous in a way that shapes what can be asked
+of it. Determinations run from 200 to 1760 radiocarbon years before
+present, so the deposits are not all of one period, and several
+individual deposits span intervals far too long to represent a single
+occupation. Samples range from maize kernels and beans, which date the
+year they grew, to unidentified wood charcoal, which may predate its
+deposition by an unknown interval (Schiffer 1986), and measurement
+precision ranges across an order of magnitude, from 20 to 210 years, so
+that a determination from one deposit may constrain a boundary an order
+of magnitude more tightly than a determination from the next. Any
+analysis that ignores this heterogeneity will mistake sampling structure
+for settlement history.
+
+## Research questions
+
+We ask three questions of this assemblage. How many deposits in this
+part of the valley were occupied simultaneously, and how did that number
+change through the sequence? For deposits that were occupied together,
+how many years did their occupations share? And for which pairs can
+contemporaneity or its absence actually be demonstrated, as against
+merely being consistent with the evidence?
+
+The third question deserves emphasis. Demonstrating that contemporaneity
+cannot be resolved at a given temporal scale is a legitimate result, and
+it is not the same as demonstrating that occupations were simultaneous.
+We report both outcomes and distinguish them throughout.
+
+# Materials and Methods
+
+## Radiocarbon dataset
+
+Our analysis uses 167 radiocarbon determinations compiled from published
+site reports and unpublished cultural resource management documents
+covering the study area. The compilation records, for each
+determination, the site and excavation context, the laboratory code, the
+conventional radiocarbon age and its error, the dated material, and the
+source reference.
+
+Site names in the compilation concatenate site and excavation context,
+so `Bates_66` denotes feature 66 at the Bates site. We parsed these into
+site and context through a lookup table that was generated by rule and
+then audited by hand, and that table rather than the rule is the
+authority used by the analysis. Four labels were merged into other
+sites. Determinations labelled `Broome_Tech_PAF` join `Broome_Tech`,
+because laboratory codes AA-31005, AA-31006, and AA-31007 are
+consecutive across both labels and derive from a single submission.
+Merging of `Chenango_Point_South` into `Chenango_Point`, and of the
+Sidney Hangar and Sidney AWOS loci into `Sidney Airport`, follows the
+judgement of the investigator familiar with those excavations. The
+resulting dataset comprises 34 deposits, of which nine carry six or more
+determinations and twelve carry only one or two.
+
+Material was classified into three groups. Short-lived samples number 78
+and comprise maize, bean, squash, seed, and identified nutshell, all of
+which date within a year or so of the event that deposited them. Wood
+samples number 68 and comprise wood, charcoal identified as wood, and
+material described as probably wood. A third group of 21 determinations
+is genuinely indeterminate, covering descriptions such as charred
+material and carbonized material along with samples explicitly mixing
+wood and short-lived components. Rather than assign the indeterminate
+group to wood by fiat, we estimate a separate inbuilt age distribution
+for it and let the data decide how much inbuilt age those samples carry.
+
+## Sample-level preprocessing
+
+Three determinations were altered before modelling, and each alteration
+is recorded in a data quality report distributed with the analysis.
+
+Laboratory UGAMS-53046 and its rerun UGAMS-53046r at Bates feature 66
+are one sample measured twice, so they necessarily share a calendar
+date. A Ward and Wilson test of consistency gives T equal to 8.08 on one
+degree of freedom against a critical value of 3.84, so the two
+measurements are not statistically consistent and cannot be pooled as
+reported (Ward and Wilson 1978). We combined them into a single
+determination of 582 plus or minus 44 radiocarbon years, applying the
+error inflation that procedure prescribes when the consistency test
+fails. Entering both measurements would double-count one sample, and it
+would let the model infer a spread within the feature that cannot exist.
+
+Four samples at Bates carry ring-year counts in their material
+descriptions, identifying two wiggle-matched pairs from dated tree-ring
+sequences (Bronk Ramsey et al. 2001). Because the calendar offset within
+each pair is known from ring counting, approximately 17 years at feature
+46 and 25 years at feature 89, the two members of a pair are not
+independent. We treat each pair as one composite determination whose
+likelihood is the product of its members’ likelihoods with the known
+offset applied. After preprocessing, 164 determinations enter the model.
+
+## Calibration and the phase-averaged likelihood
+
+Determinations were calibrated against IntCal20
+(<span class="nocase">Reimer et al.</span> 2020), accessed through the
+`IntCal` package (Blaauw 2024). For each determination we evaluate the
+likelihood of the observed radiocarbon age as a function of calendar
+date on a one-year grid spanning 0 to 2000 cal BP, combining measurement
+error with the error of the calibration curve at each point.
+
+Standard implementations of phase models introduce a latent calendar
+date for every determination and sample it alongside the phase
+boundaries. We avoid this by integrating the latent date analytically.
+Alongside each likelihood we precompute the exact integral of its
+piecewise linear interpolant, so that the probability of a determination
+given a uniform occupation phase running from `a` (older) to `b`
+(younger) reduces to the difference of that integral at the two
+boundaries divided by their separation. Three consequences follow. The
+factor of one over the phase width is applied once per determination,
+which is the correct normalisation for a uniform phase and the quantity
+that makes duration identifiable. All 164 latent date parameters
+disappear. And because the integral of a piecewise linear function is
+piecewise quadratic, the resulting expression is continuously
+differentiable in the boundaries, which is what Hamiltonian Monte Carlo
+requires.
+
+## Occupation model
+
+We model each deposit as one or more occupation phases. Determinations
+are distributed uniformly within whichever phase they belong to,
+following standard practice for phase models (Bronk Ramsey 2009a), and
+phase membership is unknown and marginalised as a mixture. Phase
+midpoints within a deposit are ordered and confined to the calendar
+range by construction, which resolves label switching and keeps the
+parameters of weakly supported components bounded.
+
+The number of candidate phases at each deposit is set from the data by
+clustering its calibrated means, rather than fixed in advance. We
+adopted this after establishing that candidate phases which no
+determination occupies make the posterior geometry intractable, a
+difficulty related to the known behaviour of overfitted mixtures
+(Rousseau and Mengersen 2011). Phase counts thus follow the evidence
+rather than sample size. Fortin, with four determinations spanning 958
+calendar years, receives four candidate phases, while Otsiningo Market,
+with three determinations spanning 33 years, receives one. This is a
+data-dependent model selection step and we report it as such, along with
+its sensitivity to the clustering threshold.
+
+Occupation durations receive a weakly informative lognormal prior.
+**\[CITE-CHECK: village occupation duration.\]** No source consulted for
+this analysis establishes a value for the occupation length of villages
+in this region, and we assert none. Because the durations of thinly
+dated deposits are governed by this prior rather than by their own
+determinations, we refit the analysis under three prior means and report
+every result under all three.
+
+## Inbuilt age and outliers
+
+A wood sample records the year its wood grew, which may precede
+deposition by an interval that depends on the age of the tree and on
+curation and reuse (Schiffer 1986). We model that interval as
+exponentially distributed and convolve each wood likelihood with it.
+Because convolution with a fixed kernel is a linear operation, the
+convolved likelihoods are precomputed at six values of the mean inbuilt
+age, from zero to 240 years, and the weights over those six values are
+estimated, so a weight concentrated at zero remains an available
+conclusion rather than an excluded one. Separate distributions are
+estimated for the wood and indeterminate groups, and short-lived samples
+are fixed at zero.
+
+Every determination additionally carries an outlier component in which
+the measurement error is inflated fivefold, with the outlier rate
+estimated separately for each material group (Christen 1994; Bronk
+Ramsey 2009b).
+
+## Estimation
+
+Models were fitted in Stan (Carpenter et al. 2017) using CmdStan through
+`cmdstanr`, with four chains and Hamiltonian Monte Carlo.
+
+Deposits are fitted independently rather than jointly. We arrived at
+this after diagnosing a sampling failure in the joint model, and the
+evidence is direct. Fitted alone, with one phase and no cross-deposit
+pooling, five different deposits each produced no divergent transitions
+and R-hat of 1.00, including deposits dated only on wood and deposits
+mixing materials. Four deposits fitted together produced divergent
+transitions in 27 per cent of iterations, and ten deposits produced 88
+per cent. Because the failure scales with the number of deposits in a
+configuration where the only quantity linking them is the shared outlier
+and inbuilt age parameters, we attribute it to that coupling. Fitting
+deposits separately removes it.
+
+The cost is that inbuilt age and outlier parameters are no longer pooled
+across deposits. A deposit carrying both short-lived and wood
+determinations still estimates its own offset from that internal
+contrast, but a deposit carrying only one material class returns the
+prior, and we identify which deposits fall into which case when
+reporting. Pooling was in any case carrying little weight here, since
+only two deposits in the assemblage hold enough of both material classes
+to constrain the wood offset at all.
+
+## Derived quantities
+
+From the posterior we compute, for each deposit and each calendar year,
+whether an occupation phase covered that year. Summing across deposits
+gives the posterior distribution of the number of simultaneously
+occupied deposits at each year, which is our primary quantity. For each
+pair of deposits we compute the number of years both were occupied,
+reported as a posterior distribution together with the probability that
+the shared interval reached at least 25 years. We deliberately do not
+report the probability of any overlap at all, because that quantity
+saturates for any pair of intervals with uncertain boundaries and is
+uninformative.
+
+## Verification
+
+Because the calibration and integration machinery is written for this
+analysis rather than taken from an existing package, we verified it
+three ways. Calibrated densities agree with those produced by `rcarbon`
+(Crema and Bevan 2021), an independent implementation, to better than
+one part in a thousand in total variation. The interpolated integral
+evaluated inside Stan agrees with direct numerical integration on a
+hundredth-year grid to one part in a million. And the pointwise log
+likelihood returned by the fitted model agrees with an independent
+recomputation in R to fourteen decimal places, which establishes that
+any model comparison describes the model actually fitted.
+
+## Calibration structure in the study interval
+
+Resolution is bounded by the shape of the calibration curve, and that
+bound varies across the sequence. Measuring IntCal20 directly over the
+study interval, we find six intervals in which radiocarbon age falls as
+calendar age falls, so that calibration is multimodal and resolution
+collapses. In calendar terms these fall at AD 1539 to 1606, AD 1064 to
+1113, AD 1337 to 1373, AD 717 to 751, AD 487 to 521, and AD 909 to 936,
+the widest spanning 67 years. Between them the curve retains sufficient
+slope for occupations to resolve to a few decades given enough
+short-lived determinations. Resolution therefore varies from deposit to
+deposit according to where an occupation happens to fall, and we mark
+these intervals on every figure with a calendar axis so that a change in
+the width of a credible interval can be read against calibration
+structure rather than mistaken for a change in settlement.
+
+## Software and reproducibility
+
+Analysis code, the audited lookup tables, and the figure-generating
+scripts are available at `https://github.com/clipo/village`. Package
+versions are recorded in `renv.lock`.
+
+# Results
+
+**\[PENDING.\]** Results are deferred until the validation specified for
+this analysis has been completed and the sampling issue described below
+has been resolved. Preliminary output is available in
+`output/susquehanna/` and should be treated as provisional.
+
+# Discussion
+
+**\[PENDING.\]** To be written once results are final.
+
+# Known limitations
+
+We record the following so that the state of the analysis is not
+misrepresented.
+
+Multi-episode inference is not currently available. Although the model
+described above admits several occupation phases per deposit, the
+sampler does not explore the resulting posterior reliably when a deposit
+carries two or more phases, and we have not resolved this. Deposits are
+instead fitted as a single occupation interval each. For deposits that
+genuinely contain more than one occupation, the fitted interval measures
+the depth of the palimpsest rather than the length of any occupation,
+and four deposits in this assemblage fall into that category. Their
+intervals should not be read as occupation spans, and any count of
+contemporaneous occupations that includes them is inflated.
+
+Durations at deposits represented by one or two determinations are
+governed by the prior rather than by their own evidence, which is a
+property of the evidence rather than of the model. We report results
+both including and excluding these deposits.
+
+Several components of the analysis plan remain to be run, specifically
+simulation-based assessment of parameter recovery, formal model
+comparison by cross-validation, posterior predictive checking, and the
+prior sensitivity runs described above. Until these are complete we
+regard the results as provisional.
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-blaauw_intcal" class="csl-entry">
+
+Blaauw, Maarten. 2024. *IntCal: Radiocarbon Calibration Curves*.
+
+</div>
+
+<div id="ref-bronkramsey2009" class="csl-entry">
+
+Bronk Ramsey, Christopher. 2009a. “Bayesian Analysis of Radiocarbon
+Dates.” *Radiocarbon* 51 (1): 337–60.
+
+</div>
+
+<div id="ref-bronkramsey2009outliers" class="csl-entry">
+
+Bronk Ramsey, Christopher. 2009b. “Dealing with Outliers and Offsets in
+Radiocarbon Dating.” *Radiocarbon* 51 (3): 1023–45.
+
+</div>
+
+<div id="ref-bronkramsey2001" class="csl-entry">
+
+Bronk Ramsey, Christopher, Johannes van der Plicht, and Bernhard
+Weninger. 2001. “’Wiggle Matching’ Radiocarbon Dates.” *Radiocarbon* 43
+(2A): 381–89.
+
+</div>
+
+<div id="ref-buck1996" class="csl-entry">
+
+Buck, Caitlin E, William G Cavanagh, and Clifford D Litton. 1996.
+*Bayesian Approach to Interpreting Archaeological Data*. John Wiley &
+Sons.
+
+</div>
+
+<div id="ref-carpenter2017" class="csl-entry">
+
+Carpenter, Bob, Andrew Gelman, Matthew D Hoffman, et al. 2017. “Stan: A
+Probabilistic Programming Language.” *Journal of Statistical Software*
+76 (1): 1–32.
+
+</div>
+
+<div id="ref-christen1994" class="csl-entry">
+
+Christen, J. Andrés. 1994. “Summarizing a Set of Radiocarbon
+Determinations: A Robust Approach.” *Journal of the Royal Statistical
+Society: Series C (Applied Statistics)* 43 (3): 489–503.
+
+</div>
+
+<div id="ref-crema2021" class="csl-entry">
+
+Crema, Enrico R, and Andrew Bevan. 2021. “Inference from Large Sets of
+Radiocarbon Dates: Software and Methods.” *Radiocarbon* 63 (1): 23–39.
+
+</div>
+
+<div id="ref-nicholls2001" class="csl-entry">
+
+Nicholls, Geoff, and Martin Jones. 2001. “Radiocarbon Dating with
+Temporal Order Constraints.” *Journal of the Royal Statistical Society:
+Series C (Applied Statistics)* 50 (4): 503–21.
+
+</div>
+
+<div id="ref-reimer2020" class="csl-entry">
+
+<span class="nocase">Reimer, Paula J, William EN Austin, Edouard Bard,
+et al.</span> 2020. “The IntCal20 Northern Hemisphere Radiocarbon Age
+Calibration Curve (0–55 Cal kBP).” *Radiocarbon* 62 (4): 725–57.
+
+</div>
+
+<div id="ref-rousseau2011" class="csl-entry">
+
+Rousseau, Judith, and Kerrie Mengersen. 2011. “Asymptotic Behaviour of
+the Posterior Distribution in Overfitted Mixture Models.” *Journal of
+the Royal Statistical Society: Series B (Statistical Methodology)* 73
+(5): 689–710.
+
+</div>
+
+<div id="ref-schiffer1986" class="csl-entry">
+
+Schiffer, Michael B. 1986. “Radiocarbon Dating and the ‘Old Wood’
+Problem: The Case of the Hohokam Chronology.” *Journal of Archaeological
+Science* 13 (1): 13–30.
+
+</div>
+
+<div id="ref-wardwilson1978" class="csl-entry">
+
+Ward, G. K., and S. R. Wilson. 1978. “Procedures for Comparing and
+Combining Radiocarbon Age Determinations: A Critique.” *Archaeometry* 20
+(1): 19–31.
+
+</div>
+
+</div>
